@@ -3,7 +3,7 @@ package com.example.coffeeapp.data.storage
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.coffeeapp.domain.storage.Storage
-import com.example.coffeeapp.domain.storage.User
+import com.example.coffeeapp.domain.storage.UserInfo
 
 private const val USER_PREFERENCES = "userPreferences"
 private const val TOKEN = "token"
@@ -13,18 +13,18 @@ class StorageImpl(context: Context):Storage {
         USER_PREFERENCES,
         Context.MODE_PRIVATE
     )
-    override fun loadUserInfo(): User {
-        return User(
+    override fun loadUserInfo(): UserInfo {
+        return UserInfo(
             preferences.getString(TOKEN, null),
             preferences.getLong(TOKENLIFETIME, 0)
         )
     }
 
-    override fun saveUserInfo(user: User) {
+    override fun saveUserInfo(userInfo: UserInfo) {
         // lifetime = 1 hour
-        val expirationTime = System.currentTimeMillis() + user.tokenLifeTime
+        val expirationTime = System.currentTimeMillis() + userInfo.tokenLifeTime
         preferences.edit()
-            .putString(TOKEN, user.token)
+            .putString(TOKEN, userInfo.token)
             .putLong(TOKENLIFETIME, expirationTime)
             .apply()
     }
