@@ -13,4 +13,20 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- border color -->
+        <item name="boxStrokeColor">@color/coffee_500</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="hintTextColor">@color/coffee_500</item>
+        <item name="android:textColorHint">@color/coffee_500</item>
+        <item name="boxCornerRadiusBottomStart">100dp</item>
+        <item name="boxCornerRadiusBottomEnd">100dp</item>
+        <item name="boxCornerRadiusTopStart">100dp</item>
+        <item name="boxCornerRadiusTopEnd">100dp</item>
+    </style>
+    <style name="CustomButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">@color/cream</item>
+        <item name="backgroundTint">@color/coffee_700</item>
+        <item name="cornerRadius">100dp</item>
+    </style>
 </resources>
