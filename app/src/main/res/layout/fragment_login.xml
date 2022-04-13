@@ -53,11 +53,8 @@
         android:id="@+id/btn_sign_in"
         style="@style/CustomButton"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:backgroundTint="@color/coffee_700"
         android:layout_marginBottom="16dp"
         android:text="@string/sign_in"
-        android:textColor="@color/cream"
         app:layout_constraintTop_toBottomOf="@+id/layout_password"
         app:layout_constraintBottom_toTopOf="@+id/btn_registration"
         />

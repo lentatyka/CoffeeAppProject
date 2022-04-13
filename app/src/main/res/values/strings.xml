@@ -4,5 +4,7 @@
     <string name="hint_password">Пароль</string>
     <string name="sign_in">Войти</string>
     <string name="account">У меня нет аккаунта</string>
+    <string name="hint_password_confirm">Повторите пароль</string>
+    <string name="sign_up">Регистрация</string>
 
 </resources>
