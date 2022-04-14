@@ -1,6 +1,7 @@
 package com.example.coffeeapp.presentation.login
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,8 +12,9 @@ import com.example.coffeeapp.domain.network.login.SignUpUseCase
 import com.example.coffeeapp.domain.storage.UserInfo
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
-class LoginViewModel(
+class LoginViewModel @Inject constructor(
     app: Application,
     private val signInUseCase: SignInUseCase,
     private val signUpUseCase: SignUpUseCase,
@@ -34,6 +36,10 @@ class LoginViewModel(
         signInUseCase(email, password).onEach { info ->
             _status.postValue(info)
         }.launchIn(viewModelScope)
+    }
+
+    fun test(st: String){
+        Log.d("TAG", st)
     }
 
     fun signUp(email: String, password: String) = signUpUseCase(email, password)

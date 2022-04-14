@@ -4,8 +4,9 @@ import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.data.network.login.toUserInfo
 import com.example.coffeeapp.domain.storage.Storage
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class SignInUseCase(
+class SignInUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
     private val storage: Storage
 ) {

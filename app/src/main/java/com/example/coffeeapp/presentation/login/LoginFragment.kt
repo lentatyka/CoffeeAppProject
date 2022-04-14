@@ -1,5 +1,6 @@
 package com.example.coffeeapp.presentation.login
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,6 +18,11 @@ class LoginFragment : Fragment() {
 
     private val viewModel: LoginViewModel by lazy {
         (activity as LoginActivity).loginViewModel
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as LoginActivity).loginComponent.inject(this)
     }
 
     override fun onCreateView(
