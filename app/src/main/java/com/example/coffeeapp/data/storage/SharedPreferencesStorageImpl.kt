@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.coffeeapp.domain.storage.Storage
 import com.example.coffeeapp.domain.storage.UserInfo
+import javax.inject.Inject
 
 private const val USER_PREFERENCES = "userPreferences"
 private const val TOKEN = "token"
 private const val TOKENLIFETIME = "tokenLifetime"
-class StorageImpl(context: Context):Storage {
+
+class SharedPreferencesStorageImpl @Inject constructor(context: Context):Storage {
     private val preferences: SharedPreferences = context.applicationContext.getSharedPreferences(
         USER_PREFERENCES,
         Context.MODE_PRIVATE

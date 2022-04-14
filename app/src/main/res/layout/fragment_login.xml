@@ -1,63 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.login.LoginFragment"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_email"
-        style="@style/CustomTextInputLayout"
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.coffeeapp.presentation.login.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        android:layout_marginBottom="16dp"
-        android:layout_height="64dp"
-        android:hint="@string/hint_email"
-        app:endIconMode="clear_text"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/layout_password"
-        app:startIconDrawable="@drawable/ic_email">
+        android:layout_height="match_parent"
+        tools:context=".presentation.login.LoginFragment"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_email"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_email"
+            style="@style/CustomTextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textEmailAddress"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintVertical_chainStyle="packed"
+            android:layout_marginBottom="16dp"
+            android:layout_height="64dp"
+            android:hint="@string/hint_email"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true"
+            app:error="@{viewmodel.emailError}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/layout_password"
+            app:startIconDrawable="@drawable/ic_email">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_password"
-        style="@style/CustomTextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/hint_password"
-        app:endIconMode="password_toggle"
-        app:layout_constraintBottom_toTopOf="@+id/btn_sign_in"
-        app:layout_constraintTop_toBottomOf="@id/layout_email"
-        app:startIconDrawable="@drawable/ic_password">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textEmailAddress"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_password"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_password"
+            style="@style/CustomTextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textPassword"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="64dp"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/hint_password"
+            app:errorEnabled="true"
+            app:error="@{viewmodel.passwordError}"
+            app:endIconMode="password_toggle"
+            app:layout_constraintBottom_toTopOf="@+id/btn_sign_in"
+            app:layout_constraintTop_toBottomOf="@id/layout_email"
+            app:startIconDrawable="@drawable/ic_password">
 
-    <Button
-        android:id="@+id/btn_sign_in"
-        style="@style/CustomButton"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="16dp"
-        android:text="@string/sign_in"
-        app:layout_constraintTop_toBottomOf="@+id/layout_password"
-        app:layout_constraintBottom_toTopOf="@+id/btn_registration"
-        />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_sign_in"
+            style="@style/CustomButton"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="16dp"
+            android:text="@string/sign_in"
+            android:onClick="@{() -> viewmodel.signIn()}"
+            app:layout_constraintTop_toBottomOf="@+id/layout_password"
+            app:layout_constraintBottom_toTopOf="@+id/btn_registration" />
+
         <TextView
             android:id="@+id/btn_registration"
             android:layout_width="match_parent"
@@ -67,6 +80,6 @@
             android:textSize="20sp"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@+id/btn_sign_in"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -2,17 +2,39 @@ package com.example.coffeeapp.presentation.login
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.domain.network.login.SignInUseCase
 import com.example.coffeeapp.domain.network.login.SignUpUseCase
-import com.example.coffeeapp.domain.storage.SaveUserInfoUseCase
+import com.example.coffeeapp.domain.storage.UserInfo
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class LoginViewModel(
     app: Application,
     private val signInUseCase: SignInUseCase,
     private val signUpUseCase: SignUpUseCase,
-):AndroidViewModel(app) {
+) : AndroidViewModel(app) {
 
-    fun signIn(email: String, password: String) = signInUseCase(email, password)
+    private val _emailError = MutableLiveData<String?>()
+    val emailError: LiveData<String?> get() = _emailError
+
+    private val _passwordError = MutableLiveData<String?>()
+    val passwordError: LiveData<String?> get() = _passwordError
+
+    private val _cPasswordError = MutableLiveData<String?>()
+    val cPasswordError: LiveData<String?> get() = _cPasswordError
+
+    private val _status = MutableLiveData<Resource<UserInfo>>()
+    val status: LiveData<Resource<UserInfo>> get() = _status
+
+    fun signIn(email: String, password: String) {
+        signInUseCase(email, password).onEach { info ->
+            _status.postValue(info)
+        }.launchIn(viewModelScope)
+    }
 
     fun signUp(email: String, password: String) = signUpUseCase(email, password)
 }
