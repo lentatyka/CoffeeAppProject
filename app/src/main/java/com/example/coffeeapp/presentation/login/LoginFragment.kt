@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.coffeeapp.R
+import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -45,7 +46,9 @@ class LoginFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         viewModel.status.observe(viewLifecycleOwner){info ->
-            Log.d("TAG", "$info")
+            if(info is Resource.Error){
+                Log.d("TAG", "${info.message}")
+            }
         }
     }
 

@@ -38,9 +38,5 @@ class LoginViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun test(st: String){
-        Log.d("TAG", st)
-    }
-
     fun signUp(email: String, password: String) = signUpUseCase(email, password)
 }
