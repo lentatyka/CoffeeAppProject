@@ -1,12 +1,14 @@
 package com.example.coffeeapp.presentation.login
 
+import android.view.View
 import androidx.lifecycle.*
+import com.example.coffeeapp.common.Event
 import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.data.login.network.UserInfoDto
 import com.example.coffeeapp.di.login.ActivityScope
 import com.example.coffeeapp.domain.login.network.LoginUseCase
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @ActivityScope
@@ -14,23 +16,40 @@ class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
 ) : ViewModel() {
 
-    private val _emailError = MutableLiveData<String?>()
-    val emailError: LiveData<String?> get() = _emailError
+    private val _emailError = MutableLiveData<Boolean>()
+    val emailError: LiveData<Boolean> get() = _emailError
 
-    private val _passwordError = MutableLiveData<String?>()
-    val passwordError: LiveData<String?> get() = _passwordError
+    private val _passwordError = MutableLiveData<Boolean>()
+    val passwordError: LiveData<Boolean> get() = _passwordError
 
-    private val _cPasswordError = MutableLiveData<String?>()
-    val cPasswordError: LiveData<String?> get() = _cPasswordError
+    private val _cPasswordError = MutableLiveData<Boolean>()
+    val cPasswordError: LiveData<Boolean> get() = _cPasswordError
 
-    private val _status = MutableLiveData<Resource<UserInfoDto>>()
-    val status: LiveData<Resource<UserInfoDto>> get() = _status
+    private val _status = MutableLiveData<Event<Resource<UserInfoDto>>>()
+    val status: LiveData<Event<Resource<UserInfoDto>>> get() = _status
 
     fun signIn(email: String, password: String) {
-        loginUseCase.signIn(email, password).onEach { info ->
-            _status.postValue(info)
-        }.launchIn(viewModelScope)
+        _passwordError.value = true
+//        viewModelScope.launch {
+//            loginUseCase.signIn(email, password).collect {
+//                _status.postValue(Event(it))
+//            }
+//        }
     }
 
-    fun signUp(email: String, password: String) = loginUseCase.signUp(email, password)
+    fun signUp(email: String, password: String){
+        viewModelScope.launch {
+            loginUseCase.signUp(email, password).collect {
+
+            }
+        }
+    }
+
+    fun getEmailFocusChangeListener() = View.OnFocusChangeListener {_, hasFocus: Boolean ->
+        _emailError.value = !hasFocus
+    }
+
+    fun getPasswordFocusChangeListener() = View.OnFocusChangeListener {_, hasFocus: Boolean ->
+        _passwordError.value = !hasFocus
+    }
 }

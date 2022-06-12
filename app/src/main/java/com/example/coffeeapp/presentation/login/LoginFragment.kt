@@ -7,9 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.coffeeapp.R
+import com.example.coffeeapp.common.EventObserver
 import com.example.coffeeapp.common.Resource
+import com.example.coffeeapp.common.Resource.*
 import com.example.coffeeapp.databinding.FragmentLoginBinding
 import javax.inject.Inject
 
@@ -45,11 +48,20 @@ class LoginFragment : Fragment() {
         binding.viewmodel = loginViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        loginViewModel.status.observe(viewLifecycleOwner){info ->
-            if(info is Resource.Error){
-                Log.d("TAG", info.message)
+        loginViewModel.status.observe(viewLifecycleOwner, EventObserver{info->
+            when(info){
+                is Loading ->{
+                    //show loading
+                }
+                is Error -> {
+                    //show error
+                }
+                is Success ->{
+
+                    Toast.makeText(requireContext(), "test", Toast.LENGTH_LONG).show()
+                }
             }
-        }
+        })
     }
 
     override fun onDestroyView() {

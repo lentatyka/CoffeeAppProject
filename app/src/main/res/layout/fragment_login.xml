@@ -26,7 +26,7 @@
             android:hint="@string/hint_email"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
-            app:error="@{viewmodel.emailError}"
+            app:error="@{viewmodel.emailError ? @string/bad_email : null}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/layout_password"
             app:startIconDrawable="@drawable/ic_email">
@@ -36,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textEmailAddress"
+                app:onFocusChangeListener="@{viewmodel.emailFocusChangeListener}"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,7 +48,7 @@
             android:layout_marginBottom="16dp"
             android:hint="@string/hint_password"
             app:errorEnabled="true"
-            app:error="@{viewmodel.passwordError}"
+            app:error="@{viewmodel.passwordError ? @string/bad_password : null}"
             app:endIconMode="password_toggle"
             app:layout_constraintBottom_toTopOf="@+id/btn_sign_in"
             app:layout_constraintTop_toBottomOf="@id/layout_email"
