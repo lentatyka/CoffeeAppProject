@@ -1,6 +1,5 @@
 package com.example.coffeeapp.di.login
 
-import com.example.coffeeapp.di.ActivityScope
 import com.example.coffeeapp.presentation.login.LoginActivity
 import com.example.coffeeapp.presentation.login.LoginFragment
 import com.example.coffeeapp.presentation.login.RegistrationFragment

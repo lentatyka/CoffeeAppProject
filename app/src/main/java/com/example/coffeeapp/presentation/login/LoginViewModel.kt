@@ -2,9 +2,9 @@ package com.example.coffeeapp.presentation.login
 
 import androidx.lifecycle.*
 import com.example.coffeeapp.common.Resource
-import com.example.coffeeapp.di.ActivityScope
-import com.example.coffeeapp.domain.network.login.LoginUseCase
-import com.example.coffeeapp.domain.storage.UserInfo
+import com.example.coffeeapp.data.login.network.UserInfoDto
+import com.example.coffeeapp.di.login.ActivityScope
+import com.example.coffeeapp.domain.login.network.LoginUseCase
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -23,8 +23,8 @@ class LoginViewModel @Inject constructor(
     private val _cPasswordError = MutableLiveData<String?>()
     val cPasswordError: LiveData<String?> get() = _cPasswordError
 
-    private val _status = MutableLiveData<Resource<UserInfo>>()
-    val status: LiveData<Resource<UserInfo>> get() = _status
+    private val _status = MutableLiveData<Resource<UserInfoDto>>()
+    val status: LiveData<Resource<UserInfoDto>> get() = _status
 
     fun signIn(email: String, password: String) {
         loginUseCase.signIn(email, password).onEach { info ->

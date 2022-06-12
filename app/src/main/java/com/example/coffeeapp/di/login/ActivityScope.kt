@@ -1,4 +1,4 @@
-package com.example.coffeeapp.di
+package com.example.coffeeapp.di.login
 
 import javax.inject.Scope
 

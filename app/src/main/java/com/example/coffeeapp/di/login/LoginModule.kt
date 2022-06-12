@@ -2,11 +2,12 @@ package com.example.coffeeapp.di.login
 
 import androidx.lifecycle.ViewModel
 import com.example.coffeeapp.common.Constants.BASE_URL
-import com.example.coffeeapp.data.network.login.LoginRepositoryImpl
-import com.example.coffeeapp.data.network.login.LoginServiceApi
-import com.example.coffeeapp.di.ActivityScope
+import com.example.coffeeapp.data.login.network.LoginRepositoryImpl
+import com.example.coffeeapp.data.login.network.LoginServiceApi
+import com.example.coffeeapp.data.login.storage.SaveSharedPreferencesStorage
 import com.example.coffeeapp.di.ViewModelKey
-import com.example.coffeeapp.domain.network.login.LoginRepository
+import com.example.coffeeapp.domain.login.network.LoginRepository
+import com.example.coffeeapp.domain.login.storage.SaveStorage
 import com.example.coffeeapp.presentation.login.LoginViewModel
 import dagger.Binds
 import dagger.Module
@@ -14,7 +15,7 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
+import javax.inject.Qualifier
 
 @Module
 interface LoginModule {
@@ -25,10 +26,18 @@ interface LoginModule {
     fun bindViewModel(viewModel: LoginViewModel): ViewModel
 
     @Binds
-    fun bindLoginRepository(repository: LoginRepositoryImpl):LoginRepository
+    fun bindLoginRepository(repository: LoginRepositoryImpl): LoginRepository
+
+    @FakeLoginApi
+    @Binds
+    fun bindFakeLoginAPi(api: LoginServiceApi.FakeLoginService): LoginServiceApi
+
+    @Binds
+    fun bindSaveStorage(storage: SaveSharedPreferencesStorage):SaveStorage
 
     companion object{
 
+        @RetrofitLoginApi
         @Provides
         @ActivityScope
         fun provideLoginServiceApi(): LoginServiceApi {
@@ -40,3 +49,12 @@ interface LoginModule {
         }
     }
 }
+
+@Retention(AnnotationRetention.BINARY)
+@Qualifier
+annotation class RetrofitLoginApi
+
+@Retention(AnnotationRetention.BINARY)
+@Qualifier
+annotation class FakeLoginApi
+
