@@ -2,13 +2,17 @@ package com.example.coffeeapp.presentation.login
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.adapters.TextViewBindingAdapter
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.EventObserver
 import com.example.coffeeapp.common.Resource
@@ -48,20 +52,21 @@ class LoginFragment : Fragment() {
         binding.viewmodel = loginViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        loginViewModel.status.observe(viewLifecycleOwner, EventObserver{info->
-            when(info){
-                is Loading ->{
+        loginViewModel.status.observe(viewLifecycleOwner, EventObserver { info ->
+            when (info) {
+                is Loading -> {
                     //show loading
                 }
                 is Error -> {
                     //show error
                 }
-                is Success ->{
+                is Success -> {
 
                     Toast.makeText(requireContext(), "test", Toast.LENGTH_LONG).show()
                 }
             }
         })
+
     }
 
     override fun onDestroyView() {

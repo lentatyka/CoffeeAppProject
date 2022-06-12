@@ -1,12 +1,15 @@
 package com.example.coffeeapp.presentation.login
 
+import android.text.TextUtils
 import android.view.View
+import androidx.databinding.adapters.TextViewBindingAdapter
 import androidx.lifecycle.*
 import com.example.coffeeapp.common.Event
 import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.data.login.network.UserInfoDto
 import com.example.coffeeapp.di.login.ActivityScope
 import com.example.coffeeapp.domain.login.network.LoginUseCase
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,7 +40,7 @@ class LoginViewModel @Inject constructor(
 //        }
     }
 
-    fun signUp(email: String, password: String){
+    fun signUp(email: String, password: String) {
         viewModelScope.launch {
             loginUseCase.signUp(email, password).collect {
 
@@ -45,11 +48,11 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun getEmailFocusChangeListener() = View.OnFocusChangeListener {_, hasFocus: Boolean ->
-        _emailError.value = !hasFocus
+    fun getPasswordFocusChangeListener() = View.OnFocusChangeListener { _, hasFocus: Boolean ->
+        _passwordError.value = !hasFocus
     }
 
-    fun getPasswordFocusChangeListener() = View.OnFocusChangeListener {_, hasFocus: Boolean ->
-        _passwordError.value = !hasFocus
+    fun getEmailTextChangeListener() = TextViewBindingAdapter.OnTextChanged { str:CharSequence, _, _, count:Int ->
+        _emailError.value = !android.util.Patterns.EMAIL_ADDRESS.matcher(str).matches()
     }
 }

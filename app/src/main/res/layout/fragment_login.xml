@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textEmailAddress"
-                app:onFocusChangeListener="@{viewmodel.emailFocusChangeListener}"
+                android:onTextChanged="@{viewmodel.emailTextChangeListener}"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
