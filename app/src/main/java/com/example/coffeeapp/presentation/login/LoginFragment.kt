@@ -11,15 +11,15 @@ import androidx.databinding.DataBindingUtil
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.databinding.FragmentLoginBinding
+import javax.inject.Inject
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: LoginViewModel by lazy {
-        (activity as LoginActivity).loginViewModel
-    }
+    @Inject
+    lateinit var loginViewModel: LoginViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -42,12 +42,12 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewmodel = viewModel
+        binding.viewmodel = loginViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.status.observe(viewLifecycleOwner){info ->
+        loginViewModel.status.observe(viewLifecycleOwner){info ->
             if(info is Resource.Error){
-                Log.d("TAG", "${info.message}")
+                Log.d("TAG", info.message)
             }
         }
     }

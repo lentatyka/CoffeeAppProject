@@ -1,7 +1,7 @@
 package com.example.coffeeapp.di
 
 import android.app.Application
-import android.content.Context
+import com.example.coffeeapp.di.login.LoginComponent
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
