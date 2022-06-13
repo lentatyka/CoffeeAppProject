@@ -2,20 +2,16 @@ package com.example.coffeeapp.presentation.login
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.adapters.TextViewBindingAdapter
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.EventObserver
-import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.common.Resource.*
 import com.example.coffeeapp.databinding.FragmentLoginBinding
 import javax.inject.Inject
@@ -61,12 +57,15 @@ class LoginFragment : Fragment() {
                     //show error
                 }
                 is Success -> {
-
                     Toast.makeText(requireContext(), "test", Toast.LENGTH_LONG).show()
                 }
             }
         })
-
+        binding.btnRegistration.setOnClickListener {
+            requireActivity().supportFragmentManager.commit {
+                replace<RegistrationFragment>(R.id.nav_host_fragment)
+            }
+        }
     }
 
     override fun onDestroyView() {

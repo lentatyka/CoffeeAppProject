@@ -2,6 +2,8 @@ package com.example.coffeeapp.presentation.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.example.coffeeapp.CoffeeApp
 import com.example.coffeeapp.R
 import com.example.coffeeapp.di.login.LoginComponent
@@ -19,5 +21,16 @@ class LoginActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
+    }
+
+    override fun onBackPressed() {
+        for(fragment in supportFragmentManager.fragments){
+            if(fragment is RegistrationFragment)
+                supportFragmentManager.commit {
+                    replace<LoginFragment>(R.id.nav_host_fragment)
+                }
+            else
+                super.onBackPressed()
+        }
     }
 }

@@ -8,4 +8,5 @@
     <string name="sign_up">Регистрация</string>
     <string name="bad_email">Неверный формат email</string>
     <string name="bad_password">Пустое поле</string>
+    <string name="password_not_equals">Пароли не совпадают</string>
 </resources>
