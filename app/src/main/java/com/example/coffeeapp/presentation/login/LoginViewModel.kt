@@ -1,7 +1,5 @@
 package com.example.coffeeapp.presentation.login
 
-import android.text.TextUtils
-import android.view.View
 import androidx.databinding.adapters.TextViewBindingAdapter
 import androidx.lifecycle.*
 import com.example.coffeeapp.common.Event
@@ -9,7 +7,6 @@ import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.data.login.network.UserInfoDto
 import com.example.coffeeapp.di.login.ActivityScope
 import com.example.coffeeapp.domain.login.network.LoginUseCase
-import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,12 +29,19 @@ class LoginViewModel @Inject constructor(
     val status: LiveData<Event<Resource<UserInfoDto>>> get() = _status
 
     fun signIn(email: String, password: String) {
-        _passwordError.value = true
-//        viewModelScope.launch {
-//            loginUseCase.signIn(email, password).collect {
-//                _status.postValue(Event(it))
-//            }
-//        }
+        if(!isEmailValid(email)){
+            _emailError.value = true
+            return
+        }
+        if(!isPasswordValid(password)){
+            _passwordError.value = true
+            return
+        }
+        viewModelScope.launch {
+            loginUseCase.signIn(email, password).collect {
+                _status.postValue(Event(it))
+            }
+        }
     }
 
     fun signUp(email: String, password: String) {
@@ -48,11 +52,18 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun getPasswordFocusChangeListener() = View.OnFocusChangeListener { _, hasFocus: Boolean ->
-        _passwordError.value = !hasFocus
-    }
+    fun getPasswordTextChangeListener() =
+        TextViewBindingAdapter.OnTextChanged { str: CharSequence, _, _, count: Int ->
+            _passwordError.value = !isPasswordValid(str)
+        }
 
-    fun getEmailTextChangeListener() = TextViewBindingAdapter.OnTextChanged { str:CharSequence, _, _, count:Int ->
-        _emailError.value = !android.util.Patterns.EMAIL_ADDRESS.matcher(str).matches()
-    }
+    fun getEmailTextChangeListener() =
+        TextViewBindingAdapter.OnTextChanged { str: CharSequence, _, _, count: Int ->
+            _emailError.value = !isEmailValid(str)
+        }
+
+    private fun isEmailValid(email: CharSequence) =
+        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+
+    private fun isPasswordValid(password: CharSequence) = password.isNotEmpty()
 }

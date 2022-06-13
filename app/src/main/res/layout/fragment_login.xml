@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             app:layout_constraintVertical_chainStyle="packed"
             android:layout_marginBottom="16dp"
-            android:layout_height="64dp"
+            android:layout_height="wrap_content"
             android:hint="@string/hint_email"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
@@ -44,7 +44,7 @@
             android:id="@+id/layout_password"
             style="@style/CustomTextInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:hint="@string/hint_password"
             app:errorEnabled="true"
@@ -58,6 +58,7 @@
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:onTextChanged="@{viewmodel.passwordTextChangeListener}"
                 android:inputType="textPassword"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
