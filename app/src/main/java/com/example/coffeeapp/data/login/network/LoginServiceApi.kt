@@ -17,21 +17,27 @@ interface LoginServiceApi {
     suspend fun signIn(@Body user: User): UserInfoDto
 
 
-    class FakeLoginService @Inject constructor(): LoginServiceApi {
+    class FakeLoginService @Inject constructor() : LoginServiceApi {
 
         private val token = "token"
+        private val users = mutableListOf<User>()
 
         override suspend fun signUp(user: User): UserInfoDto {
-            return UserInfoDto(token, setTokenLifeTime())
+            return if (user in users) throw Exception("login already exists")
+            else {
+                users += user
+                UserInfoDto(token, setTokenLifeTime())
+            }
         }
 
         override suspend fun signIn(user: User): UserInfoDto {
-            return UserInfoDto(token, setTokenLifeTime())
+            return if (user !in users) throw Exception("login not exists")
+            else UserInfoDto(token, setTokenLifeTime())
         }
 
         private fun setTokenLifeTime(): Long {
             //current time + 24 hours
-            return System.currentTimeMillis()+86400000
+            return System.currentTimeMillis() + 86400000
         }
     }
 

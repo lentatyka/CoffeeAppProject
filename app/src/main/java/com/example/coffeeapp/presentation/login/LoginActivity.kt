@@ -1,18 +1,19 @@
 package com.example.coffeeapp.presentation.login
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.coffeeapp.CoffeeApp
 import com.example.coffeeapp.R
 import com.example.coffeeapp.di.login.LoginComponent
-import com.example.coffeeapp.presentation.ViewModelFactory
-import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 
     lateinit var loginComponent: LoginComponent
+
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -21,16 +22,16 @@ class LoginActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+
+        navController = navHostFragment.navController
+
+        setupActionBarWithNavController(navController)
     }
 
-    override fun onBackPressed() {
-        for(fragment in supportFragmentManager.fragments){
-            if(fragment is RegistrationFragment)
-                supportFragmentManager.commit {
-                    replace<LoginFragment>(R.id.nav_host_fragment)
-                }
-            else
-                super.onBackPressed()
-        }
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

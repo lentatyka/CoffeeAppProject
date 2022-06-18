@@ -1,7 +1,7 @@
 package com.example.coffeeapp.presentation.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.coffeeapp.R
 
 class MainActivity : AppCompatActivity() {

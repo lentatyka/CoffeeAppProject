@@ -1,18 +1,15 @@
 package com.example.coffeeapp.presentation.login
 
-import android.util.Log
-import android.view.View
-import androidx.databinding.adapters.TextViewBindingAdapter
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.common.Event
 import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.data.login.network.UserInfoDto
 import com.example.coffeeapp.di.login.ActivityScope
 import com.example.coffeeapp.domain.login.network.LoginUseCase
-import com.example.coffeeapp.generated.callback.OnClickListener
-import com.google.android.material.textfield.TextInputEditText
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

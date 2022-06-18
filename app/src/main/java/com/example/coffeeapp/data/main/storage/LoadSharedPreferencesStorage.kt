@@ -1,7 +1,6 @@
 package com.example.coffeeapp.data.main.storage
 
 import android.content.SharedPreferences
-import com.example.coffeeapp.common.Constants
 import com.example.coffeeapp.common.Constants.TOKEN
 import com.example.coffeeapp.common.Constants.TOKENLIFETIME
 import com.example.coffeeapp.data.login.network.UserInfoDto
