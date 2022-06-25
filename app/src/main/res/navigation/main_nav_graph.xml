@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/shopsFragment">
+
+    <fragment
+        android:id="@+id/shopsFragment"
+        android:name="com.example.coffeeapp.presentation.main.screens.ShopsFragment"
+        android:label="ShopsFragment" >
+        <action
+            android:id="@+id/action_shopsFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/totalFragment"
+        android:name="com.example.coffeeapp.presentation.main.screens.TotalFragment"
+        android:label="TotalFragment" >
+        <action
+            android:id="@+id/action_totalFragment_to_shopsFragment2"
+            app:destination="@id/shopsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.coffeeapp.presentation.main.screens.MenuFragment"
+        android:label="MenuFragment" >
+        <action
+            android:id="@+id/action_menuFragment_to_totalFragment"
+            app:destination="@id/totalFragment" />
+    </fragment>
+</navigation>
