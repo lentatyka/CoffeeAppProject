@@ -9,17 +9,23 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.coffeeapp.R
+import com.example.coffeeapp.common.EventObserver
+import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.databinding.FragmentShopsBinding
+import com.example.coffeeapp.presentation.main.CoffeeActivity
+import javax.inject.Inject
 
 class ShopsFragment : Fragment() {
 
     private var _binding: FragmentShopsBinding? = null
     private val binding get() = _binding!!
 
+    @Inject
+    lateinit var shopsViewModel: ShopsViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
+        (activity as CoffeeActivity).mainComponent.inject(this)
     }
 
     override fun onCreateView(
@@ -38,22 +44,19 @@ class ShopsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.viewmodel = loginViewModel
-//        binding.lifecycleOwner = viewLifecycleOwner
-
-//        loginViewModel.status.observe(viewLifecycleOwner, EventObserver { info ->
-//            when (info) {
-//                is Loading -> {
-//                    //show loading
-//                }
-//                is Error -> {
-//                    showMessage(info.message)
-//                }
-//                is Success -> {
-//                    showMessage(getString(R.string.success))
-//                }
-//            }
-//        })
+        shopsViewModel.status.observe(viewLifecycleOwner, EventObserver { info ->
+            when (info) {
+                is Resource.Loading -> {
+                    //show loading
+                }
+                is Resource.Error -> {
+                    showMessage(info.message)
+                }
+                is Resource.Success -> {
+                    showMessage(getString(R.string.success))
+                }
+            }
+        })
     }
 
     private fun showMessage(message: String) {

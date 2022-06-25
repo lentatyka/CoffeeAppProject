@@ -11,7 +11,7 @@ import com.example.coffeeapp.di.main.MainComponent
 
 class CoffeeActivity : AppCompatActivity() {
 
-    private lateinit var mainComponent: MainComponent
+    lateinit var mainComponent: MainComponent
 
     private lateinit var navController: NavController
 

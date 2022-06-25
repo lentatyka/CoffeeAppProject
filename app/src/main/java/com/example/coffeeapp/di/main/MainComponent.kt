@@ -6,7 +6,7 @@ import com.example.coffeeapp.presentation.main.screens.shops.ShopsFragment
 import com.example.coffeeapp.presentation.main.screens.OrderFragment
 import dagger.Subcomponent
 
-@Subcomponent()
+@Subcomponent(modules = [ShopModule::class])
 interface MainComponent {
 
     @Subcomponent.Factory
