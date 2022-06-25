@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/shopsFragment"
-        android:name="com.example.coffeeapp.presentation.main.screens.ShopsFragment"
+        android:name="com.example.coffeeapp.presentation.main.screens.shops.ShopsFragment"
         android:label="@string/shops_near">
         <action
             android:id="@+id/action_shopsFragment_to_menuFragment"

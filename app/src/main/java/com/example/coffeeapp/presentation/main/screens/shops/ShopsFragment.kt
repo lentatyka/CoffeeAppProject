@@ -1,4 +1,4 @@
-package com.example.coffeeapp.presentation.main.screens
+package com.example.coffeeapp.presentation.main.screens.shops
 
 import android.content.Context
 import android.os.Bundle

@@ -2,7 +2,7 @@ package com.example.coffeeapp.di.main
 
 import com.example.coffeeapp.presentation.main.CoffeeActivity
 import com.example.coffeeapp.presentation.main.screens.MenuFragment
-import com.example.coffeeapp.presentation.main.screens.ShopsFragment
+import com.example.coffeeapp.presentation.main.screens.shops.ShopsFragment
 import com.example.coffeeapp.presentation.main.screens.OrderFragment
 import dagger.Subcomponent
 
