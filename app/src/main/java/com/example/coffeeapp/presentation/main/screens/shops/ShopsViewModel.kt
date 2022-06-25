@@ -16,13 +16,13 @@ class ShopsViewModel @Inject constructor(
     private val shopsLocationUseCase: ShopsLocationUseCase
 ):ViewModel() {
 
-    private val _status = MutableLiveData<Event<Resource<ArrayList<ShopLocationDto>>>>()
-    val status: LiveData<Event<Resource<ArrayList<ShopLocationDto>>>> get() = _status
+    private val _status = MutableLiveData<Resource<List<ShopLocationDto>>>()
+    val status: LiveData<Resource<List<ShopLocationDto>>> = _status
 
     init {
         viewModelScope.launch {
             shopsLocationUseCase().collect {
-                _status.postValue(Event(it))
+                _status.postValue(it)
             }
         }
     }
