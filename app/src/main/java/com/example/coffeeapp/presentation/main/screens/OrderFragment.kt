@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.coffeeapp.R
-import com.example.coffeeapp.databinding.FragmentTotalBinding
+import com.example.coffeeapp.databinding.FragmentOrderBinding
 
-class TotalFragment : Fragment() {
+class OrderFragment : Fragment() {
 
-    private var _binding: FragmentTotalBinding? = null
+    private var _binding: FragmentOrderBinding? = null
     private val binding get() = _binding!!
 
 

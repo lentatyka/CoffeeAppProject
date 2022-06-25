@@ -12,4 +12,7 @@
     <string name="bad_password">Пустое поле</string>
     <string name="password_not_equals">Пароли не совпадают</string>
     <string name="success">Success!</string>
+    <string name="shops_near">Ближайшие кофейни</string>
+    <string name="menu">Меню</string>
+    <string name="your_order">Ваш заказ</string>
 </resources>

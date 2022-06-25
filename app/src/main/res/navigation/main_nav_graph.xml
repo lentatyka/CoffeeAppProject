@@ -7,15 +7,15 @@
     <fragment
         android:id="@+id/shopsFragment"
         android:name="com.example.coffeeapp.presentation.main.screens.ShopsFragment"
-        android:label="ShopsFragment" >
+        android:label="@string/shops_near">
         <action
             android:id="@+id/action_shopsFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/totalFragment"
-        android:name="com.example.coffeeapp.presentation.main.screens.TotalFragment"
-        android:label="TotalFragment" >
+        android:name="com.example.coffeeapp.presentation.main.screens.OrderFragment"
+        android:label="@string/your_order">
         <action
             android:id="@+id/action_totalFragment_to_shopsFragment2"
             app:destination="@id/shopsFragment" />
@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.example.coffeeapp.presentation.main.screens.MenuFragment"
-        android:label="MenuFragment" >
+        android:label="@string/menu">
         <action
             android:id="@+id/action_menuFragment_to_totalFragment"
             app:destination="@id/totalFragment" />
