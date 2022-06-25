@@ -1,4 +1,4 @@
-package com.example.coffeeapp.presentation.main
+package com.example.coffeeapp.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

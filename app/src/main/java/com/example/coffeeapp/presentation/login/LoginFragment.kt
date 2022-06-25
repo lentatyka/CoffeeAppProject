@@ -53,10 +53,10 @@ class LoginFragment : Fragment() {
                     //show loading
                 }
                 is Error -> {
-                    //show error
+                    showMessage(info.message)
                 }
                 is Success -> {
-                    Toast.makeText(requireContext(), "test", Toast.LENGTH_LONG).show()
+                    showMessage(getString(R.string.success))
                 }
             }
         })
@@ -65,6 +65,10 @@ class LoginFragment : Fragment() {
                 findNavController().navigate(it)
             }
         }
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {

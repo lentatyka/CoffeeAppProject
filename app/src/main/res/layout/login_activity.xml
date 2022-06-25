@@ -6,15 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".presentation.login.LoginActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/my_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
-    </com.google.android.material.appbar.AppBarLayout>
+    <include
+        layout="@layout/toolbar"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"

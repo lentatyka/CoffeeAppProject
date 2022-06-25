@@ -14,7 +14,7 @@
         android:theme="@style/Theme.CoffeeApp"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".presentation.login.LoginActivity"
+            android:name=".presentation.main.CoffeeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.main.MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true">
         </activity>
     </application>

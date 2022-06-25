@@ -18,10 +18,5 @@
         android:id="@+id/registrationFragment"
         android:name="com.example.coffeeapp.presentation.login.RegistrationFragment"
         android:label="@string/registration"
-        tools:layout="@layout/fragment_registration">
-        <action
-            android:id="@+id/action_registrationFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/loginFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_registration"/>
 </navigation>
