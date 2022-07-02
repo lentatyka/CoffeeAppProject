@@ -25,7 +25,7 @@ interface LoginModule {
     @Binds
     @IntoMap
     @ViewModelKey(LoginViewModel::class)
-    @ActivityScope
+    @LoginScope
     fun bindViewModel(viewModel: LoginViewModel): ViewModel
 
     @Binds
@@ -45,7 +45,7 @@ interface LoginModule {
 
         @RetrofitLoginApi
         @Provides
-        @ActivityScope
+        @LoginScope
         fun provideLoginServiceApi(): LoginServiceApi {
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)

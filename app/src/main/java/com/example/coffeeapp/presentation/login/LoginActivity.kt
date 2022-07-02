@@ -8,10 +8,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.coffeeapp.CoffeeApp
 import com.example.coffeeapp.R
-import com.example.coffeeapp.di.login.ActivityScope
+import com.example.coffeeapp.di.login.LoginScope
 import com.example.coffeeapp.di.login.LoginComponent
 
-@ActivityScope
+@LoginScope
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginComponent: LoginComponent

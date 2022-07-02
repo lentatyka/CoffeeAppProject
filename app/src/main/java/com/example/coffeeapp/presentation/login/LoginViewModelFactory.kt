@@ -2,12 +2,12 @@ package com.example.coffeeapp.presentation.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.coffeeapp.di.login.ActivityScope
+import com.example.coffeeapp.di.login.LoginScope
 import javax.inject.Inject
 import javax.inject.Provider
 
 @Suppress("UNCHECKED_CAST")
-@ActivityScope
+@LoginScope
 class LoginViewModelFactory @Inject constructor(
     private val viewModels: MutableMap<Class<out ViewModel>,
             @JvmSuppressWildcards Provider<ViewModel>>
