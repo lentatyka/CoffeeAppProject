@@ -41,7 +41,7 @@ dependencies {
     def viewmodel_lyfecycle = '2.4.1'
     def navigation = '2.4.2'
     def glide = '4.12.0'
-    def service_location = '19.0.1'
+    def service_location = '20.0.0'
     def dagger = '2.40'
 
     implementation 'androidx.core:core-ktx:1.7.0'

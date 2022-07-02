@@ -1,17 +1,24 @@
 package com.example.coffeeapp.presentation.login
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.coffeeapp.CoffeeApp
 import com.example.coffeeapp.R
+import com.example.coffeeapp.di.login.ActivityScope
 import com.example.coffeeapp.di.login.LoginComponent
 
+@ActivityScope
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var loginComponent: LoginComponent
+    private lateinit var loginComponent: LoginComponent
+
+    val loginViewModel by viewModels<LoginViewModel> {
+        loginComponent.viewModelFactory()
+    }
 
     private lateinit var navController: NavController
 

@@ -31,11 +31,11 @@ class LoginViewModel @Inject constructor(
     val status: LiveData<Event<Resource<UserInfoDto>>> get() = _status
 
     fun signIn(email: String, password: String) {
-        if(!isEmailValid(email)){
+        if (!isEmailValid(email)) {
             _emailError.value = Event(true)
             return
         }
-        if(!isPasswordValid(password)){
+        if (!isPasswordValid(password)) {
             _passwordError.value = Event(true)
             return
         }
@@ -47,15 +47,15 @@ class LoginViewModel @Inject constructor(
     }
 
     fun signUp(email: String, password: String, confirmPassword: String) {
-        if(!isEmailValid(email)){
+        if (!isEmailValid(email)) {
             _emailError.value = Event(true)
             return
         }
-        if(!isPasswordValid(password)){
+        if (!isPasswordValid(password)) {
             _passwordError.value = Event(true)
             return
         }
-        if(password != confirmPassword){
+        if (password != confirmPassword) {
             _cPasswordError.value = Event(true)
             return
         }

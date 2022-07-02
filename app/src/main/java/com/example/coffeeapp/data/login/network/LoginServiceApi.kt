@@ -3,6 +3,7 @@ package com.example.coffeeapp.data.login.network
 import com.example.coffeeapp.domain.login.network.User
 import retrofit2.http.Body
 import retrofit2.http.POST
+import java.io.IOException
 import javax.inject.Inject
 
 /**
@@ -23,7 +24,7 @@ interface LoginServiceApi {
         private val users = mutableListOf<User>()
 
         override suspend fun signUp(user: User): UserInfoDto {
-            return if (user in users) throw Exception("login already exists")
+            return if (user in users) throw IOException("login already exists")
             else {
                 users += user
                 UserInfoDto(token, setTokenLifeTime())
@@ -31,7 +32,7 @@ interface LoginServiceApi {
         }
 
         override suspend fun signIn(user: User): UserInfoDto {
-            return if (user !in users) throw Exception("login not exists")
+            return if (user !in users) throw IOException("login not exists")
             else UserInfoDto(token, setTokenLifeTime())
         }
 

@@ -1,6 +1,7 @@
 package com.example.coffeeapp.di.login
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.coffeeapp.common.Constants.BASE_URL
 import com.example.coffeeapp.data.login.network.LoginRepositoryImpl
 import com.example.coffeeapp.data.login.network.LoginServiceApi
@@ -9,6 +10,7 @@ import com.example.coffeeapp.di.ViewModelKey
 import com.example.coffeeapp.domain.login.network.LoginRepository
 import com.example.coffeeapp.domain.login.storage.SaveStorage
 import com.example.coffeeapp.presentation.login.LoginViewModel
+import com.example.coffeeapp.presentation.login.LoginViewModelFactory
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -23,6 +25,7 @@ interface LoginModule {
     @Binds
     @IntoMap
     @ViewModelKey(LoginViewModel::class)
+    @ActivityScope
     fun bindViewModel(viewModel: LoginViewModel): ViewModel
 
     @Binds
@@ -34,6 +37,9 @@ interface LoginModule {
 
     @Binds
     fun bindSaveStorage(storage: SaveSharedPreferencesStorage):SaveStorage
+
+    @Binds
+    fun bindViewModelFactory(factory: LoginViewModelFactory):ViewModelProvider.Factory
 
     companion object{
 

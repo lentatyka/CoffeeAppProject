@@ -1,8 +1,7 @@
 package com.example.coffeeapp.di.login
 
 import com.example.coffeeapp.presentation.login.LoginActivity
-import com.example.coffeeapp.presentation.login.LoginFragment
-import com.example.coffeeapp.presentation.login.RegistrationFragment
+import com.example.coffeeapp.presentation.login.LoginViewModelFactory
 import dagger.Subcomponent
 
 @ActivityScope
@@ -15,8 +14,8 @@ interface LoginComponent {
     }
 
     fun inject(activity: LoginActivity)
-    fun inject(fragment: LoginFragment)
-    fun inject(fragment: RegistrationFragment)
+
+    fun viewModelFactory():LoginViewModelFactory
 
 
 }

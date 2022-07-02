@@ -12,7 +12,6 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AppSubComponent::class,
-        ViewModelFactoryModule::class,
         StorageModule::class
     ]
 )
