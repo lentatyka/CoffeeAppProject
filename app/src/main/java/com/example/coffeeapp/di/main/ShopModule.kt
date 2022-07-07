@@ -2,10 +2,11 @@ package com.example.coffeeapp.di.main
 
 import androidx.lifecycle.ViewModel
 import com.example.coffeeapp.common.Constants
-import com.example.coffeeapp.data.main.shops.ShopRepositoryImpl
-import com.example.coffeeapp.data.main.shops.ShopServiceApi
+import com.example.coffeeapp.data.main.shops.location.LocationDataSource
+import com.example.coffeeapp.data.main.shops.remote.ShopRepositoryImpl
+import com.example.coffeeapp.data.main.shops.remote.ShopServiceApi
 import com.example.coffeeapp.di.ViewModelKey
-import com.example.coffeeapp.di.login.ActivityScope
+import com.example.coffeeapp.domain.main.shops.LocationRepository
 import com.example.coffeeapp.domain.main.shops.ShopsRepository
 import com.example.coffeeapp.presentation.main.screens.shops.ShopsViewModel
 import dagger.Binds
@@ -22,27 +23,31 @@ abstract class ShopModule {
     @Binds
     @IntoMap
     @ViewModelKey(ShopsViewModel::class)
-    abstract fun bindViewModel(viewModel: ShopsViewModel):ViewModel
+    abstract fun bindViewModel(viewModel: ShopsViewModel): ViewModel
 
     @Binds
     @FakeShopServiceApi
-    abstract fun bindFakeShopServiceApi(api: ShopServiceApi.FakeShopService):ShopServiceApi
+    abstract fun bindFakeShopServiceApi(api: ShopServiceApi.FakeShopService): ShopServiceApi
 
     @Binds
     abstract fun bindShopRepository(repository: ShopRepositoryImpl): ShopsRepository
 
-    companion object{
+    @Binds
+    abstract fun provideLocationDataSource(repository: LocationDataSource): LocationRepository
+
+    companion object {
 
         @RetrofitShoServiceApi
         @Provides
-        @ActivityScope
-        fun provideLoginServiceApi(): ShopServiceApi {
+        fun provideShopServiceApi(): ShopServiceApi {
             return Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ShopServiceApi::class.java)
         }
+
+
     }
 
 }

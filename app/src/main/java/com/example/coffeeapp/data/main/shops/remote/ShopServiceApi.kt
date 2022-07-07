@@ -1,4 +1,4 @@
-package com.example.coffeeapp.data.main.shops
+package com.example.coffeeapp.data.main.shops.remote
 
 import retrofit2.http.GET
 import javax.inject.Inject

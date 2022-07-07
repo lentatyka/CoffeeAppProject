@@ -1,6 +1,6 @@
 package com.example.coffeeapp.domain.main.shops
 
-import com.example.coffeeapp.data.main.shops.ShopLocationDto
+import com.example.coffeeapp.data.main.shops.remote.ShopLocationDto
 
 interface ShopsRepository {
     suspend operator fun invoke():ArrayList<ShopLocationDto>

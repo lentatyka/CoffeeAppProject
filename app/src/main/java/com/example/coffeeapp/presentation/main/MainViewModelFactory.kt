@@ -1,12 +1,15 @@
-package com.example.coffeeapp.presentation
+package com.example.coffeeapp.presentation.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.coffeeapp.di.login.LoginScope
+import com.example.coffeeapp.di.main.MainScope
 import javax.inject.Inject
 import javax.inject.Provider
 
 @Suppress("UNCHECKED_CAST")
-class ViewModelFactory @Inject constructor(
+@MainScope
+class MainViewModelFactory @Inject constructor(
     private val viewModels: MutableMap<Class<out ViewModel>,
             @JvmSuppressWildcards Provider<ViewModel>>
 ) : ViewModelProvider.Factory {

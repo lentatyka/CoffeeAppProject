@@ -8,18 +8,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeapp.R
-import com.example.coffeeapp.data.main.shops.ShopLocationDto
 import com.example.coffeeapp.databinding.ItemShopsBinding
+import com.example.coffeeapp.domain.main.shops.ShopLocation
 
 class ShopsLocationAdapter(
     private val callback: (Long)->Unit
-):ListAdapter<ShopLocationDto, ShopsLocationAdapter.ShopLocationViewHolder>(DiffCallback) {
+):ListAdapter<ShopLocation, ShopsLocationAdapter.ShopLocationViewHolder>(DiffCallback) {
 
     class ShopLocationViewHolder(
         private val  binding: ItemShopsBinding
     ):RecyclerView.ViewHolder(binding.root){
 
-        fun bind(item: ShopLocationDto){
+        fun bind(item: ShopLocation){
             binding.location = item
         }
     }
@@ -42,13 +42,13 @@ class ShopsLocationAdapter(
     }
 
     companion object {
-        val DiffCallback = object : DiffUtil.ItemCallback<ShopLocationDto>(){
-            override fun areItemsTheSame(oldItem: ShopLocationDto, newItem: ShopLocationDto): Boolean {
+        val DiffCallback = object : DiffUtil.ItemCallback<ShopLocation>(){
+            override fun areItemsTheSame(oldItem: ShopLocation, newItem: ShopLocation): Boolean {
                 return oldItem.id == newItem.id
             }
 
             @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldItem: ShopLocationDto, newItem: ShopLocationDto): Boolean {
+            override fun areContentsTheSame(oldItem: ShopLocation, newItem: ShopLocation): Boolean {
                 return oldItem == newItem
             }
         }

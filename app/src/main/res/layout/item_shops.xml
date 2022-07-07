@@ -6,7 +6,7 @@
     <data>
         <variable
             name="location"
-            type="com.example.coffeeapp.data.main.shops.ShopLocationDto" />
+            type="com.example.coffeeapp.domain.main.shops.ShopLocation" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/coffee_200"
-                android:text="@{Double.toString(location.point.latitude)}"
+                android:text="@{Double.toString(location.distance)}"
                 tools:text="2 km from you" />
         </LinearLayout>
 

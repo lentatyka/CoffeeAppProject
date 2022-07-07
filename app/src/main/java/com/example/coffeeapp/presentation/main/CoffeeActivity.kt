@@ -8,7 +8,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.coffeeapp.CoffeeApp
 import com.example.coffeeapp.R
 import com.example.coffeeapp.di.main.MainComponent
+import com.example.coffeeapp.di.main.MainScope
 
+@MainScope
 class CoffeeActivity : AppCompatActivity() {
 
     lateinit var mainComponent: MainComponent

@@ -1,4 +1,4 @@
-package com.example.coffeeapp.data.main.shops
+package com.example.coffeeapp.data.main.shops.remote
 
 import com.example.coffeeapp.di.main.FakeShopServiceApi
 import com.example.coffeeapp.domain.main.shops.ShopsRepository
