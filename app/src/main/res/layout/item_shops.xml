@@ -6,7 +6,7 @@
     <data>
         <variable
             name="location"
-            type="com.example.coffeeapp.domain.main.shops.ShopLocation" />
+            type="com.example.coffeeapp.domain.main.shops.model.ShopLocation" />
     </data>
 
     <androidx.cardview.widget.CardView

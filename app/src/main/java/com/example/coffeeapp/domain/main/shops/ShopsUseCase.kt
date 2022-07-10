@@ -3,6 +3,9 @@ package com.example.coffeeapp.domain.main.shops
 import android.location.Location
 import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.data.main.shops.remote.Point
+import com.example.coffeeapp.domain.main.shops.location.UserLocationUseCase
+import com.example.coffeeapp.domain.main.shops.model.ShopLocation
+import com.example.coffeeapp.domain.main.shops.remote.ShopsLocationUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*

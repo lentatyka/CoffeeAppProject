@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeapp.R
 import com.example.coffeeapp.databinding.ItemShopsBinding
-import com.example.coffeeapp.domain.main.shops.ShopLocation
+import com.example.coffeeapp.domain.main.shops.model.ShopLocation
 
 class ShopsLocationAdapter(
     private val callback: (Long)->Unit

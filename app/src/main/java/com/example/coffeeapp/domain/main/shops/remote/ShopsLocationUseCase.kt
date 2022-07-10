@@ -1,10 +1,6 @@
-package com.example.coffeeapp.domain.main.shops
+package com.example.coffeeapp.domain.main.shops.remote
 
 import com.example.coffeeapp.data.main.shops.remote.ShopLocationDto
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject

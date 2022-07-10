@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.location.Location
 import android.os.Looper
-import com.example.coffeeapp.domain.main.shops.LocationRepository
+import com.example.coffeeapp.domain.main.shops.location.LocationRepository
 import com.google.android.gms.location.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
@@ -15,7 +15,7 @@ import javax.inject.Inject
 private const val LOCATION_REQUEST_INTERVAL = 60L //seconds
 private const val LOCATION_REQUEST_FASTEST_INTERVAL = 10L //seconds
 
-class LocationDataSource @Inject constructor(context: Application):LocationRepository {
+class LocationDataSource @Inject constructor(context: Application): LocationRepository {
 
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
     private val locationRequest = LocationRequest.create().apply {

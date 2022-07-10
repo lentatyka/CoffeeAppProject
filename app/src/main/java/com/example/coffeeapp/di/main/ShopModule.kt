@@ -6,8 +6,8 @@ import com.example.coffeeapp.data.main.shops.location.LocationDataSource
 import com.example.coffeeapp.data.main.shops.remote.ShopRepositoryImpl
 import com.example.coffeeapp.data.main.shops.remote.ShopServiceApi
 import com.example.coffeeapp.di.ViewModelKey
-import com.example.coffeeapp.domain.main.shops.LocationRepository
-import com.example.coffeeapp.domain.main.shops.ShopsRepository
+import com.example.coffeeapp.domain.main.shops.location.LocationRepository
+import com.example.coffeeapp.domain.main.shops.remote.ShopsRepository
 import com.example.coffeeapp.presentation.main.screens.shops.ShopsViewModel
 import dagger.Binds
 import dagger.Module

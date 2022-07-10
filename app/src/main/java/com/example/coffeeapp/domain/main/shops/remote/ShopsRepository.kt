@@ -1,4 +1,4 @@
-package com.example.coffeeapp.domain.main.shops
+package com.example.coffeeapp.domain.main.shops.remote
 
 import com.example.coffeeapp.data.main.shops.remote.ShopLocationDto
 
