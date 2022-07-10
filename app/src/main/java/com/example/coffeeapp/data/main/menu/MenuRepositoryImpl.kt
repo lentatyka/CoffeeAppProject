@@ -8,5 +8,5 @@ class MenuRepositoryImpl @Inject constructor(
     @FakeMenuServiceApi private val menuServiceApi: MenuServiceApi
 ):MenuRepository {
 
-    override suspend fun invoke(id: Int) = menuServiceApi.invoke(id)
+    override suspend fun invoke(id: Int?) = menuServiceApi.invoke(id)
 }
