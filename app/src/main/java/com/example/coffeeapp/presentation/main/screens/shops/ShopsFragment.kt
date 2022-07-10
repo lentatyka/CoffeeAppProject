@@ -7,9 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,13 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.Resource
-import com.example.coffeeapp.common.hasPermission
-import com.example.coffeeapp.common.requestPermissionWithRationale
 import com.example.coffeeapp.databinding.FragmentShopsBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
-import com.google.android.material.snackbar.Snackbar
-import java.util.jar.Manifest
-import javax.inject.Inject
 
 class ShopsFragment : Fragment() {
 
@@ -68,11 +61,11 @@ class ShopsFragment : Fragment() {
                 permissions.getOrDefault(
                     android.Manifest.permission.ACCESS_COARSE_LOCATION, false
                 ) -> {
-                    shopsViewModel.tester()
+                    shopsViewModel.getShopList()
                 }
                 else -> {
                     Log.d("TAG", "DENY")
-                    shopsViewModel.tester()
+                    shopsViewModel.getShopList()
                 }
             }
         }

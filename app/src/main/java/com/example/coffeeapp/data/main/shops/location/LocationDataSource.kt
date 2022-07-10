@@ -2,7 +2,6 @@ package com.example.coffeeapp.data.main.shops.location
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.content.Context
 import android.location.Location
 import android.os.Looper
 import com.example.coffeeapp.domain.main.shops.LocationRepository
@@ -48,9 +47,5 @@ class LocationDataSource @Inject constructor(context: Application):LocationRepos
         awaitClose {
             fusedLocationClient.removeLocationUpdates(locationCallback)
         }
-    }
-
-    fun test(back: (Int)->Unit){
-        back(2)
     }
 }
