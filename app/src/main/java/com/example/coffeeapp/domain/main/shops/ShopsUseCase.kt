@@ -29,7 +29,7 @@ class ShopsUseCase @Inject constructor(
                     async { shopsLocationUseCase() }
                 }.await().map { shop ->
                     ShopLocation(
-                        id = shop.id,
+                        id = shop.id.toInt(),
                         name = shop.name,
                         point = shop.point
                     )
