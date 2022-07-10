@@ -1,11 +1,8 @@
 package com.example.coffeeapp.domain.main.shops
 
 import android.location.Location
-import android.util.Log
 import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.data.main.shops.remote.Point
-import com.example.coffeeapp.data.main.shops.remote.ShopLocationDto
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
@@ -20,42 +17,36 @@ class ShopsUseCase @Inject constructor(
     private val userLocationUseCase: UserLocationUseCase
 ) {
 
-    suspend fun zzz(): Flow<Resource<List<ShopLocation>>> {
+    /*
+    Returned ShopList without distance if Location permission denied
+     */
+    @Suppress("BlockingMethodInNonBlockingContext")
+    fun getShopsList(): Flow<Resource<List<ShopLocation>>> {
         return flow {
-            emit(Resource.Loading)
-            userLocationUseCase.invoke().map { location ->
-                emit(Resource.Success(emptyList()))
-                val b = withContext(Dispatchers.IO) {
-                    async { shopsLocationUseCase.testero() }
-                }
+            try {
                 emit(Resource.Loading)
-                b.await().map { shop ->
+                val shopList = withContext(Dispatchers.IO) {
+                    async { shopsLocationUseCase() }
+                }.await().map { shop ->
                     ShopLocation(
                         id = shop.id,
                         name = shop.name,
-                        point = shop.point,
-                        distance = (calculateDistance(shop.point, location))
+                        point = shop.point
                     )
                 }
-
-            }.collect {
-                emit(Resource.Success(it))
-            }
-        }
-    }
-
-    suspend operator fun invoke(): Flow<Resource<ShopLocation>> {
-        return flow {
-            emit(Resource.Loading)
-            try {
-                combine(
-                    shopsLocationUseCase.testero().asFlow(),
-                    userLocationUseCase.invoke(),
-                    ::merge
-                ).collect {
+                emit(Resource.Success(shopList))
+                userLocationUseCase().map { location ->
+                    shopList.map { shop ->
+                        ShopLocation(
+                            id = shop.id,
+                            name = shop.name,
+                            point = shop.point,
+                            distance = (calculateDistance(shop.point, location))
+                        )
+                    }
+                }.collect {
                     emit(Resource.Success(it))
                 }
-
             } catch (e: HttpException) {
                 emit(Resource.Error(e.localizedMessage ?: "unknown error"))
             } catch (e: IOException) {
@@ -64,26 +55,6 @@ class ShopsUseCase @Inject constructor(
                 emit(Resource.Error(e.localizedMessage ?: "unknown error"))
             }
         }
-    }
-
-    private fun merge(shopList: List<ShopLocationDto>, location: Location): List<ShopLocation> {
-        return shopList.map { shop ->
-            ShopLocation(
-                id = shop.id,
-                name = shop.name,
-                point = shop.point,
-                distance = (calculateDistance(shop.point, location))
-            )
-        }
-    }
-
-    private fun merge(shop: ShopLocationDto, location: Location): ShopLocation {
-        return ShopLocation(
-            id = shop.id,
-            name = shop.name,
-            point = shop.point,
-            distance = (calculateDistance(shop.point, location))
-        )
     }
 
     private fun calculateDistance(point: Point, location: Location): Double {

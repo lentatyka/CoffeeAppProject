@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.example.coffeeapp.presentation.main.screens.MenuFragment"
+        android:name="com.example.coffeeapp.presentation.main.screens.menu.MenuFragment"
         android:label="@string/menu">
         <action
             android:id="@+id/action_menuFragment_to_totalFragment"

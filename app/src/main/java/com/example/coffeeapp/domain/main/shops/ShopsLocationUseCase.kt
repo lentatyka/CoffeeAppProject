@@ -13,18 +13,13 @@ class ShopsLocationUseCase @Inject constructor(
     private val shopsRepository: ShopsRepository
 ) {
     @Throws(HttpException::class, IOException::class)
-    suspend operator fun invoke(): Flow<List<ShopLocationDto>> {
+    suspend operator fun invoke(): ArrayList<ShopLocationDto> {
         return try {
-            flow { emit(shopsRepository()) }
+            shopsRepository()
         } catch (e: HttpException) {
             throw e
         } catch (e: IOException) {
             throw e
         }
-    }
-
-    suspend fun testero(): ArrayList<ShopLocationDto> {
-        delay(3000)
-        return shopsRepository()
     }
 }

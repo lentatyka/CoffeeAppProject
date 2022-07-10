@@ -6,5 +6,5 @@ data class ShopLocation(
     val id: Double,
     val name: String,
     val point: Point,
-    val distance: Double
+    val distance: Double? = null
 )

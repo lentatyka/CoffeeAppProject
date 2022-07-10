@@ -1,4 +1,4 @@
-package com.example.coffeeapp.presentation.main.screens
+package com.example.coffeeapp.presentation.main.screens.menu
 
 import android.content.Context
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.coffeeapp.R
 import com.example.coffeeapp.databinding.FragmentMenuBinding
+import com.example.coffeeapp.presentation.main.CoffeeActivity
 
 class MenuFragment : Fragment() {
 
@@ -18,7 +19,7 @@ class MenuFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
+        (activity as CoffeeActivity).mainComponent.inject(this)
     }
 
     override fun onCreateView(
@@ -27,7 +28,7 @@ class MenuFragment : Fragment() {
     ): View {
         _binding = DataBindingUtil.inflate(
             layoutInflater,
-            R.layout.fragment_shops,
+            R.layout.fragment_menu,
             container,
             false
         )
