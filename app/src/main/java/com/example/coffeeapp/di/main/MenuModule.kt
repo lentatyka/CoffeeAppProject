@@ -5,6 +5,7 @@ import com.example.coffeeapp.common.Constants
 import com.example.coffeeapp.data.main.menu.MenuRepositoryImpl
 import com.example.coffeeapp.data.main.menu.MenuServiceApi
 import com.example.coffeeapp.di.ViewModelKey
+import com.example.coffeeapp.domain.main.menu.GetMenuUseCase
 import com.example.coffeeapp.domain.main.menu.MenuRepository
 import com.example.coffeeapp.presentation.main.screens.menu.MenuViewModel
 import dagger.Binds
@@ -18,10 +19,10 @@ import javax.inject.Qualifier
 @Module
 abstract class MenuModule {
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(MenuViewModel::class)
-    abstract fun bindViewModel(viewModel: MenuViewModel): ViewModel
+//    @Binds
+//    @IntoMap
+//    @ViewModelKey(MenuViewModel::class)
+//    abstract fun bindViewModel(viewModel: MenuViewModel): ViewModel
 
     @Binds
     abstract fun bindMenuRepository(repository: MenuRepositoryImpl):MenuRepository

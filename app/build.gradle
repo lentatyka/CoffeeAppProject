@@ -38,7 +38,7 @@ android {
 
 dependencies {
 
-    def viewmodel_lyfecycle = '2.4.1'
+    def viewmodel_lyfecycle = '2.5.0'
     def navigation = '2.4.2'
     def glide = '4.12.0'
     def service_location = '20.0.0'
@@ -59,8 +59,9 @@ dependencies {
 
     //Viewmodel lyfecycle
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_lyfecycle"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:viewmodel_lyfecycle"
-    implementation "androidx.activity:activity-ktx:1.4.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$viewmodel_lyfecycle"
+    implementation "androidx.activity:activity-ktx:1.5.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$viewmodel_lyfecycle"
 
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation"

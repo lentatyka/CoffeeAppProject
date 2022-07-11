@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.Resource
@@ -92,7 +93,9 @@ class ShopsFragment : Fragment() {
 
     private fun setAdapter() {
         shopLocationAdapted = ShopsLocationAdapter {
-            showMessage(it.toString())
+            val tmp = it.toInt()
+            val action = ShopsFragmentDirections.actionShopsFragmentToMenuFragment(tmp)
+            findNavController().navigate(action)
         }
         binding.shopsRecycler.apply {
             layoutManager =
