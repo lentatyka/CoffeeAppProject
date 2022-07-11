@@ -25,7 +25,7 @@ class ShopsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val shopsViewModel by viewModels<ShopsViewModel> {
-        (activity as CoffeeActivity).mainComponent.viewModelFactory()
+        (activity as CoffeeActivity).mainComponent.shopsViewModelFactory()
     }
 
     private lateinit var shopLocationAdapted: ShopsLocationAdapter

@@ -1,6 +1,7 @@
 package com.example.coffeeapp.domain.main.shops
 
 import android.location.Location
+import android.util.Log
 import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.data.main.shops.remote.Point
 import com.example.coffeeapp.domain.main.shops.location.UserLocationUseCase
@@ -19,6 +20,10 @@ class ShopsUseCase @Inject constructor(
     private val shopsLocationUseCase: ShopsLocationUseCase,
     private val userLocationUseCase: UserLocationUseCase
 ) {
+
+    init {
+        Log.d("TAG", "ININ SUC: $this")
+    }
 
     /*
     Returned ShopList without distance if Location permission denied

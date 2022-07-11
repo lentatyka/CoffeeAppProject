@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.example.coffeeapp.R
 import com.example.coffeeapp.databinding.FragmentMenuBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
@@ -19,7 +18,7 @@ class MenuFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val menuViewModel by lazyViewModel {
-        (activity as CoffeeActivity).mainComponent.vmv().create(it)
+        (activity as CoffeeActivity).mainComponent.menuViewModelFactory().create(it)
     }
 
 
