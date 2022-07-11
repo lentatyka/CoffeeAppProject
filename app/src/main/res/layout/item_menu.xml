@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="menu"
+            type="com.example.coffeeapp.data.main.menu.ShopMenu" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/coffee_img"
+            android:layout_width="128dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/coffee_desc"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{menu.name}"
+            android:textColor="@color/coffee_500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            tools:text="@tools:sample/full_names" />
+
+        <TextView
+            android:id="@+id/price_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/login"
+            android:textColor="@color/coffee_700"
+            app:layout_constraintStart_toStartOf="@id/name_tv"
+            app:layout_constraintTop_toBottomOf="@id/name_tv"
+            tools:text="200 $" />
+
+        <ImageButton
+            android:id="@+id/add_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/ic_add_light"
+            app:layout_constraintTop_toTopOf="@id/price_tv"
+            app:layout_constraintBottom_toBottomOf="@id/price_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/add" />
+        <TextView
+            android:id="@+id/amout_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/add_ib"
+            app:layout_constraintBottom_toBottomOf="@id/add_ib"
+            app:layout_constraintEnd_toStartOf="@id/add_ib"
+            android:layout_marginEnd="4dp"
+            tools:text="1" />
+        <ImageButton
+            android:id="@+id/remove_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/ic_remove_light"
+            app:layout_constraintTop_toTopOf="@id/price_tv"
+            app:layout_constraintBottom_toBottomOf="@id/price_tv"
+            app:layout_constraintEnd_toStartOf="@id/amout_tv"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@string/add" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

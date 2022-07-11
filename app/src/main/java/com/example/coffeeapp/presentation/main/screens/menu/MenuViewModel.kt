@@ -21,16 +21,14 @@ class MenuViewModel @AssistedInject constructor(
     val status: LiveData<Resource<ArrayList<ShopMenu>>> = _status
 
     init {
-        val shopId = savedStateHandle.get<Int>("shopId")
+        val shopId = savedStateHandle.get<Any>("shopId")
         Log.d("TAG", "INIT SHOP ID -> $shopId")
-        viewModelScope.launch {
-            getMenuUseCase(shopId).onEach { result ->
-                if(result is Resource.Success)
-                Log.d("TAG", "${result.data}")
+//        viewModelScope.launch {
+//            getMenuUseCase(shopId).onEach { result ->
 //                _status.postValue(result)
-            }.collect()
-
-        }
+//            }.collect()
+//
+//        }
     }
 
     @AssistedFactory

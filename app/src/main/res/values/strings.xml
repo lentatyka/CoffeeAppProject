@@ -15,4 +15,7 @@
     <string name="shops_near">Ближайшие кофейни</string>
     <string name="menu">Меню</string>
     <string name="your_order">Ваш заказ</string>
+    <string name="coffee_desc">COFFEE</string>
+    <string name="coffee_price">%d руб</string>
+    <string name="add">Add</string>
 </resources>

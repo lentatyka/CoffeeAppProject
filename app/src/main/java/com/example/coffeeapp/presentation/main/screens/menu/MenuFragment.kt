@@ -8,16 +8,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
+import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.databinding.FragmentMenuBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
+import com.example.coffeeapp.presentation.main.screens.shops.ShopsFragmentDirections
+import com.example.coffeeapp.presentation.main.screens.shops.ShopsLocationAdapter
 
 class MenuFragment : Fragment() {
 
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var menuAdapter: MenuAdapter
+    private val args: MenuFragmentArgs by navArgs()
     private val menuViewModel by lazyViewModel {
+        Log.d("TAG", "some --- ${it.get<Any>("shopId")}")
         (activity as CoffeeActivity).mainComponent.menuViewModelFactory().create(it)
     }
 
@@ -42,9 +52,34 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setAdapter()
+        setViewModel()
+    }
 
-        menuViewModel.status.observe(viewLifecycleOwner) { menu ->
-            Log.d("TAG", "LOG")
+    private fun setViewModel(){
+        lifecycleScope.launchWhenStarted {
+            menuViewModel.status.observe(viewLifecycleOwner) { menu ->
+                when(menu){
+                    is Resource.Loading ->{
+                        //show loading
+                    }
+                    is Resource.Success ->{
+                        menuAdapter.submitList(menu.data)
+                    }
+                    is Resource.Error ->{
+                        //show error
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setAdapter(){
+        menuAdapter = MenuAdapter {}
+        binding.menuRecycler.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = menuAdapter
         }
     }
 
