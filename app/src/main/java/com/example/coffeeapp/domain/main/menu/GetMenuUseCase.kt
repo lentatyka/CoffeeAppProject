@@ -11,7 +11,7 @@ import javax.inject.Inject
 class GetMenuUseCase @Inject constructor(
     private val menuRepository: MenuRepository
 ) {
-    suspend operator fun invoke(id: Int?): Flow<Resource<ArrayList<ShopMenu>>> {
+    suspend operator fun invoke(id: Long?): Flow<Resource<ArrayList<ShopMenu>>> {
         return flow {
             emit(Resource.Loading)
             try {

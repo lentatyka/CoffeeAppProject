@@ -1,27 +1,26 @@
 package com.example.coffeeapp.presentation.main.screens.menu
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.AbstractSavedStateViewModelFactory
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.savedstate.SavedStateRegistryOwner
+import androidx.lifecycle.ViewModelProvider
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 
-class MenuViewModelFactory<T : ViewModel>(
-    savedStateRegistryOwner: SavedStateRegistryOwner,
-    private val create: (stateHandle: SavedStateHandle) -> T
-) : AbstractSavedStateViewModelFactory(savedStateRegistryOwner, null) {
+/*
+Too long way to create Factory with parameters :D
+ */
+class MenuViewModelFactory @AssistedInject constructor(
+    private val factory: MenuViewModel.Factory,
+    @Assisted private val shopId: Long
+) : ViewModelProvider.Factory {
+
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(
-        key: String,
-        modelClass: Class<T>,
-        handle: SavedStateHandle
-    ): T {
-        return create.invoke(handle) as T
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return factory.create(shopId) as T
     }
-}
-inline fun <reified T : ViewModel> Fragment.lazyViewModel(
-    noinline create: (stateHandle: SavedStateHandle) -> T
-) = viewModels<T> {
-    MenuViewModelFactory(this, create)
+
+    @AssistedFactory
+    interface Factory {
+        fun create(shopId: Long): MenuViewModelFactory
+    }
 }

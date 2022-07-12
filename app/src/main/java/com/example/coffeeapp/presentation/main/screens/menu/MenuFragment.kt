@@ -2,22 +2,19 @@ package com.example.coffeeapp.presentation.main.screens.menu
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.databinding.FragmentMenuBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
-import com.example.coffeeapp.presentation.main.screens.shops.ShopsFragmentDirections
-import com.example.coffeeapp.presentation.main.screens.shops.ShopsLocationAdapter
 
 class MenuFragment : Fragment() {
 
@@ -26,9 +23,9 @@ class MenuFragment : Fragment() {
 
     private lateinit var menuAdapter: MenuAdapter
     private val args: MenuFragmentArgs by navArgs()
-    private val menuViewModel by lazyViewModel {
-        Log.d("TAG", "some --- ${it.get<Any>("shopId")}")
-        (activity as CoffeeActivity).mainComponent.menuViewModelFactory().create(it)
+
+    private val menuViewModel by viewModels<MenuViewModel>{
+       (activity as CoffeeActivity).mainComponent.menuViewModelFactory().create(args.shopId)
     }
 
 
@@ -64,7 +61,7 @@ class MenuFragment : Fragment() {
                         //show loading
                     }
                     is Resource.Success ->{
-                        menuAdapter.submitList(menu.data)
+                        //menuAdapter.submitList(menu.data)
                     }
                     is Resource.Error ->{
                         //show error
@@ -78,7 +75,7 @@ class MenuFragment : Fragment() {
         menuAdapter = MenuAdapter {}
         binding.menuRecycler.apply {
             layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = menuAdapter
         }
     }

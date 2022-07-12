@@ -6,7 +6,7 @@ import com.example.coffeeapp.presentation.main.screens.shops.ShopsViewModelFacto
 import com.example.coffeeapp.presentation.main.screens.menu.MenuFragment
 import com.example.coffeeapp.presentation.main.screens.shops.ShopsFragment
 import com.example.coffeeapp.presentation.main.screens.OrderFragment
-import com.example.coffeeapp.presentation.main.screens.menu.MenuViewModel
+import com.example.coffeeapp.presentation.main.screens.menu.MenuViewModelFactory
 import dagger.Subcomponent
 
 @Subcomponent(
@@ -30,6 +30,6 @@ interface MainComponent {
 
     fun shopsViewModelFactory(): ShopsViewModelFactory
 
-    fun menuViewModelFactory():MenuViewModel.Factory
+    fun menuViewModelFactory(): MenuViewModelFactory.Factory
 
 }

@@ -30,6 +30,6 @@
             app:destination="@id/totalFragment" />
         <argument
             android:name="shopId"
-            app:argType="integer" />
+            app:argType="long" />
     </fragment>
 </navigation>

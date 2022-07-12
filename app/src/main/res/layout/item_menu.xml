@@ -17,6 +17,7 @@
             android:id="@+id/coffee_img"
             android:layout_width="128dp"
             android:layout_height="100dp"
+            android:src="@drawable/common_full_open_on_phone"
             android:contentDescription="@string/coffee_desc"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"

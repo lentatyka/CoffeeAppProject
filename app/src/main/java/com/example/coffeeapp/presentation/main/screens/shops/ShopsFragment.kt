@@ -92,9 +92,8 @@ class ShopsFragment : Fragment() {
     }
 
     private fun setAdapter() {
-        shopLocationAdapted = ShopsLocationAdapter {
-            val tmp = it.toInt()
-            val action = ShopsFragmentDirections.actionShopsFragmentToMenuFragment(tmp)
+        shopLocationAdapted = ShopsLocationAdapter { id ->
+            val action = ShopsFragmentDirections.actionShopsFragmentToMenuFragment(id)
             findNavController().navigate(action)
         }
         binding.shopsRecycler.apply {

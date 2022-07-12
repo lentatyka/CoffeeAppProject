@@ -7,9 +7,14 @@ import javax.inject.Inject
 interface MenuServiceApi {
 
     @GET("/location/{id}/menu")
-    suspend operator fun invoke(@Path("id") id: Int?): ArrayList<ShopMenu>
+    suspend operator fun invoke(@Path("id") id: Long?): ArrayList<ShopMenu>
 
     class FakeMenuService @Inject constructor() : MenuServiceApi {
+
+        override suspend fun invoke(id: Long?): ArrayList<ShopMenu> {
+            return ArrayList(shopMenList.shuffled().take((1..6).random()))
+        }
+
         private val shopMenList = listOf(
             ShopMenu(
                 1, "Колд Брю",
@@ -70,9 +75,5 @@ interface MenuServiceApi {
                 300.0
             )
         )
-
-        override suspend fun invoke(id: Int?): ArrayList<ShopMenu> {
-            return ArrayList(shopMenList.shuffled().take((1..6).random()))
-        }
     }
 }
