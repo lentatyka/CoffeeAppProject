@@ -17,7 +17,9 @@
             android:id="@+id/coffee_img"
             android:layout_width="128dp"
             android:layout_height="100dp"
-            android:src="@drawable/common_full_open_on_phone"
+            app:imageUrl="@{menu.imageUrl}"
+            app:loading="@{@drawable/ic_coffee}"
+            app:error="@{@drawable/ic_coffee}"
             android:contentDescription="@string/coffee_desc"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +36,7 @@
             android:text="@{menu.name}"
             android:textColor="@color/coffee_500"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/coffee_img"
             tools:text="@tools:sample/full_names" />
 
         <TextView
@@ -42,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/login"
+            android:text="@{@string/coffee_price(menu.price)}"
             android:textColor="@color/coffee_700"
             app:layout_constraintStart_toStartOf="@id/name_tv"
             app:layout_constraintTop_toBottomOf="@id/name_tv"
@@ -66,6 +68,7 @@
             app:layout_constraintBottom_toBottomOf="@id/add_ib"
             app:layout_constraintEnd_toStartOf="@id/add_ib"
             android:layout_marginEnd="4dp"
+            android:text="1"
             tools:text="1" />
         <ImageButton
             android:id="@+id/remove_ib"
