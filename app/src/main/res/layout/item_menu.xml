@@ -8,78 +8,88 @@
             name="menu"
             type="com.example.coffeeapp.data.main.menu.ShopMenu" />
     </data>
+    <androidx.cardview.widget.CardView
+        android:layout_width="160dp"
+        android:layout_height="180dp"
+        android:layout_margin="6dp"
+        app:cardCornerRadius="4dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="160dp"
+            android:layout_height="180dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/coffee_img"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:imageUrl="@{menu.imageUrl}"
+                app:loading="@{@drawable/ic_coffee}"
+                app:error="@{@drawable/ic_coffee}"
+                android:contentDescription="@string/coffee_desc"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
 
-        <ImageView
-            android:id="@+id/coffee_img"
-            android:layout_width="128dp"
-            android:layout_height="100dp"
-            app:imageUrl="@{menu.imageUrl}"
-            app:loading="@{@drawable/ic_coffee}"
-            app:error="@{@drawable/ic_coffee}"
-            android:contentDescription="@string/coffee_desc"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            <TextView
+                android:id="@+id/name_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{menu.name}"
+                android:textColor="@color/coffee_500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/coffee_img"
+                tools:text="@tools:sample/full_names" />
 
-        <TextView
-            android:id="@+id/name_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@{menu.name}"
-            android:textColor="@color/coffee_500"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/coffee_img"
-            tools:text="@tools:sample/full_names" />
+            <TextView
+                android:id="@+id/price_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{@string/coffee_price(menu.price)}"
+                android:textColor="@color/coffee_500"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/name_tv"
+                android:layout_marginBottom="8dp"
+                tools:text="200.00 руб" />
 
-        <TextView
-            android:id="@+id/price_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@{@string/coffee_price(menu.price)}"
-            android:textColor="@color/coffee_700"
-            app:layout_constraintStart_toStartOf="@id/name_tv"
-            app:layout_constraintTop_toBottomOf="@id/name_tv"
-            tools:text="200 $" />
-
-        <ImageButton
-            android:id="@+id/add_ib"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:src="@drawable/ic_add_light"
-            app:layout_constraintTop_toTopOf="@id/price_tv"
-            app:layout_constraintBottom_toBottomOf="@id/price_tv"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/add" />
-        <TextView
-            android:id="@+id/amout_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/add_ib"
-            app:layout_constraintBottom_toBottomOf="@id/add_ib"
-            app:layout_constraintEnd_toStartOf="@id/add_ib"
-            android:layout_marginEnd="4dp"
-            android:text="1"
-            tools:text="1" />
-        <ImageButton
-            android:id="@+id/remove_ib"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:src="@drawable/ic_remove_light"
-            app:layout_constraintTop_toTopOf="@id/price_tv"
-            app:layout_constraintBottom_toBottomOf="@id/price_tv"
-            app:layout_constraintEnd_toStartOf="@id/amout_tv"
-            android:layout_marginEnd="4dp"
-            android:contentDescription="@string/add" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageButton
+                android:id="@+id/add_ib"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:contentDescription="@string/add"
+                android:src="@drawable/ic_add_light"
+                app:layout_constraintBottom_toBottomOf="@id/price_tv"
+                app:layout_constraintEnd_toEndOf="@id/name_tv"
+                app:layout_constraintTop_toTopOf="@id/price_tv" />
+            <TextView
+                android:id="@+id/amout_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/add_ib"
+                app:layout_constraintBottom_toBottomOf="@id/add_ib"
+                app:layout_constraintEnd_toStartOf="@id/add_ib"
+                android:layout_marginEnd="4dp"
+                android:textColor="@color/coffee_500"
+                android:text="1"
+                tools:text="1" />
+            <ImageButton
+                android:id="@+id/remove_ib"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/ic_remove_light"
+                app:layout_constraintTop_toTopOf="@id/price_tv"
+                app:layout_constraintBottom_toBottomOf="@id/price_tv"
+                app:layout_constraintEnd_toStartOf="@id/amout_tv"
+                android:layout_marginEnd="4dp"
+                android:contentDescription="@string/add" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

@@ -10,6 +10,7 @@ fun loadImage(view: ImageView, url: String, errorImage: Drawable, loadingImage: 
     Glide.with(view)
         .load(url)
         .placeholder(loadingImage)
+        .centerCrop()
         .error(errorImage)
         .into(view)
 }

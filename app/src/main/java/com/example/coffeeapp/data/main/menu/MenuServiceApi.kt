@@ -12,7 +12,7 @@ interface MenuServiceApi {
     class FakeMenuService @Inject constructor() : MenuServiceApi {
 
         override suspend fun invoke(id: Long?): ArrayList<ShopMenu> {
-            return ArrayList(shopMenList.shuffled().take((1..6).random()))
+            return ArrayList(shopMenList.shuffled().take(5))
         }
 
         private val shopMenList = listOf(
