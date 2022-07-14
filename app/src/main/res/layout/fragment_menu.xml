@@ -6,7 +6,7 @@
     <data>
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.login.LoginFragment"
@@ -18,7 +18,18 @@
             android:id="@+id/menu_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_menu"
-            />
-    </LinearLayout>
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@id/show_cart_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_menu" />
+        <Button
+            android:id="@+id/show_cart_btn"
+            style="@style/CustomButton"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="16dp"
+            android:text="@string/show_cart"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
