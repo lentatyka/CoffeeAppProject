@@ -38,4 +38,26 @@ class MenuViewModel @AssistedInject constructor(
         Log.d("TAG", "MENU CLEARED")
         super.onCleared()
     }
+
+    fun addAmount(id: Int): Boolean {
+        val current = _status.value as Resource.Success
+        return current.data.find { it.id == id }?.let { shopMenu ->
+            if (shopMenu.amount < 9) {
+                shopMenu.amount += 1
+                true
+            } else
+                false
+        } ?: false
+    }
+
+    fun subAmount(id: Int): Boolean {
+        val current = _status.value as Resource.Success
+        return current.data.find { it.id == id }?.let { shopMenu ->
+            if (shopMenu.amount > 0) {
+                shopMenu.amount -= 1            //limit min 0
+                true
+            } else
+                false
+        } ?: false
+    }
 }

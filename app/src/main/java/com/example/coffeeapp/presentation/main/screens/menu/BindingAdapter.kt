@@ -2,6 +2,7 @@ package com.example.coffeeapp.presentation.main.screens.menu
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
@@ -14,3 +15,9 @@ fun loadImage(view: ImageView, url: String, errorImage: Drawable, loadingImage: 
         .error(errorImage)
         .into(view)
 }
+//
+//@BindingAdapter("isAdd")
+//fun increaseOrDecrease(view: TextView, inc: Boolean, dec: Boolean){
+//    if(inc)
+//
+//}

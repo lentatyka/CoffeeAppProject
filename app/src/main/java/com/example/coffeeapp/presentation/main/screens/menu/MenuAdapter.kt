@@ -11,15 +11,23 @@ import com.example.coffeeapp.data.main.menu.ShopMenu
 import com.example.coffeeapp.databinding.ItemMenuBinding
 
 class MenuAdapter(
-    private val callback: (Long) -> Unit
+    private val callback: (Int, Boolean) -> Boolean
 ) : ListAdapter<ShopMenu, MenuAdapter.MenuViewHolder>(DiffCallback) {
 
-    class MenuViewHolder(
+    inner class MenuViewHolder(
         private val binding: ItemMenuBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ShopMenu) {
             binding.menu = item
+            binding.addIb.setOnClickListener {
+                if((callback(item.id, true)))
+                    binding.amount = item.amount
+            }
+            binding.removeIb.setOnClickListener {
+                if((callback(item.id, false)))
+                    binding.amount = item.amount
+            }
         }
     }
 
@@ -36,15 +44,12 @@ class MenuAdapter(
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
-//        holder.itemView.setOnClickListener {
-//            callback(item.id.toLong())
-//        }
     }
 
     companion object {
         val DiffCallback = object : DiffUtil.ItemCallback<ShopMenu>() {
             override fun areItemsTheSame(oldItem: ShopMenu, newItem: ShopMenu): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem.amount == newItem.amount
             }
 
             override fun areContentsTheSame(oldItem: ShopMenu, newItem: ShopMenu): Boolean {

@@ -4,5 +4,6 @@ data class ShopMenu(
     val id: Int,
     val name: String,
     val imageUrl: String,
-    val price: Double
+    val price: Double,
+    var amount: Int = 0
 )

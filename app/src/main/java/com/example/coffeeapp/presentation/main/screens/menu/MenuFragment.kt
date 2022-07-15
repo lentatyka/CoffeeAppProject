@@ -14,7 +14,6 @@ import com.example.coffeeapp.R
 import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.databinding.FragmentMenuBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
-import com.google.android.flexbox.AlignContent
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
@@ -27,8 +26,8 @@ class MenuFragment : Fragment() {
     private lateinit var menuAdapter: MenuAdapter
     private val args: MenuFragmentArgs by navArgs()
 
-    private val menuViewModel by viewModels<MenuViewModel>{
-       (activity as CoffeeActivity).mainComponent.menuViewModelFactory().create(args.shopId)
+    private val menuViewModel by viewModels<MenuViewModel> {
+        (activity as CoffeeActivity).mainComponent.menuViewModelFactory().create(args.shopId)
     }
 
 
@@ -56,17 +55,17 @@ class MenuFragment : Fragment() {
         setViewModel()
     }
 
-    private fun setViewModel(){
+    private fun setViewModel() {
         lifecycleScope.launchWhenStarted {
             menuViewModel.status.observe(viewLifecycleOwner) { menu ->
-                when(menu){
-                    is Resource.Loading ->{
+                when (menu) {
+                    is Resource.Loading -> {
                         //show loading
                     }
-                    is Resource.Success ->{
+                    is Resource.Success -> {
                         menuAdapter.submitList(menu.data)
                     }
-                    is Resource.Error ->{
+                    is Resource.Error -> {
                         //show error
                     }
                 }
@@ -74,8 +73,13 @@ class MenuFragment : Fragment() {
         }
     }
 
-    private fun setAdapter(){
-        menuAdapter = MenuAdapter {}
+    private fun setAdapter() {
+        menuAdapter = MenuAdapter { id, isAdd ->
+            if (isAdd)
+                menuViewModel.addAmount(id)
+            else
+                menuViewModel.subAmount(id)
+        }
         binding.menuRecycler.apply {
             val flexBox = FlexboxLayoutManager(requireContext()).apply {
                 justifyContent = JustifyContent.SPACE_AROUND
