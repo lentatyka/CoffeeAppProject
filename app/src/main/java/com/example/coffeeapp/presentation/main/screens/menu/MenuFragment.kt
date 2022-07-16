@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.Resource
@@ -17,7 +18,6 @@ import com.example.coffeeapp.presentation.main.CoffeeActivity
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-
 class MenuFragment : Fragment() {
 
     private var _binding: FragmentMenuBinding? = null
@@ -53,6 +53,11 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
         setViewModel()
+        binding.showCartBtn.setOnClickListener {
+            MenuFragmentDirections.actionMenuFragmentToTotalFragment().also {
+                findNavController().navigate(it)
+            }
+        }
     }
 
     private fun setViewModel() {

@@ -20,11 +20,11 @@ class MenuAdapter(
 
         fun bind(item: ShopMenu) {
             binding.menu = item
-            binding.addIb.setOnClickListener {
+            binding.menuAddIb.setOnClickListener {
                 if((callback(item.id, true)))
                     binding.amount = item.amount
             }
-            binding.removeIb.setOnClickListener {
+            binding.menuRemoveIb.setOnClickListener {
                 if((callback(item.id, false)))
                     binding.amount = item.amount
             }

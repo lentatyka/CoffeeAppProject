@@ -21,7 +21,7 @@
             android:layout_height="180dp">
 
             <ImageView
-                android:id="@+id/coffee_img"
+                android:id="@+id/menu_coffee_iv"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 app:imageUrl="@{menu.imageUrl}"
@@ -35,7 +35,7 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/name_tv"
+                android:id="@+id/menu_name_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -45,11 +45,11 @@
                 android:textColor="@color/coffee_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/coffee_img"
+                app:layout_constraintTop_toBottomOf="@id/menu_coffee_iv"
                 tools:text="@tools:sample/full_names" />
 
             <TextView
-                android:id="@+id/price_tv"
+                android:id="@+id/menu_price_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -57,40 +57,40 @@
                 android:textColor="@color/coffee_500"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/name_tv"
+                app:layout_constraintStart_toStartOf="@id/menu_name_tv"
                 android:layout_marginBottom="8dp"
                 tools:text="200.00 руб" />
 
             <ImageButton
-                android:id="@+id/add_ib"
+                android:id="@+id/menu_add_ib"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:contentDescription="@string/add"
                 android:src="@drawable/ic_add_light"
-                app:layout_constraintBottom_toBottomOf="@id/price_tv"
-                app:layout_constraintEnd_toEndOf="@id/name_tv"
-                app:layout_constraintTop_toTopOf="@id/price_tv" />
+                app:layout_constraintBottom_toBottomOf="@id/menu_price_tv"
+                app:layout_constraintEnd_toEndOf="@id/menu_name_tv"
+                app:layout_constraintTop_toTopOf="@id/menu_price_tv" />
             <TextView
-                android:id="@+id/amout_tv"
+                android:id="@+id/menu_amount_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/add_ib"
-                app:layout_constraintBottom_toBottomOf="@id/add_ib"
-                app:layout_constraintEnd_toStartOf="@id/add_ib"
+                app:layout_constraintTop_toTopOf="@id/menu_add_ib"
+                app:layout_constraintBottom_toBottomOf="@id/menu_add_ib"
+                app:layout_constraintEnd_toStartOf="@id/menu_add_ib"
                 android:layout_marginEnd="4dp"
                 android:textColor="@color/coffee_500"
                 android:text="@{Integer.toString(amount)}"
                 tools:text="1" />
             <ImageButton
-                android:id="@+id/remove_ib"
+                android:id="@+id/menu_remove_ib"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:src="@drawable/ic_remove_light"
-                app:layout_constraintTop_toTopOf="@id/price_tv"
-                app:layout_constraintBottom_toBottomOf="@id/price_tv"
-                app:layout_constraintEnd_toStartOf="@id/amout_tv"
+                app:layout_constraintTop_toTopOf="@id/menu_price_tv"
+                app:layout_constraintBottom_toBottomOf="@id/menu_price_tv"
+                app:layout_constraintEnd_toStartOf="@id/menu_amount_tv"
                 android:layout_marginEnd="4dp"
                 android:contentDescription="@string/add" />
         </androidx.constraintlayout.widget.ConstraintLayout>

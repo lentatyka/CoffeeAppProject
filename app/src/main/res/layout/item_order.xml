@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="menu"
+            type="com.example.coffeeapp.data.main.menu.ShopMenu" />
+        <variable
+            name="amount"
+            type="Integer"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cream"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/order_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{menu.name}"
+                android:textColor="@color/coffee_500"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Name" />
+
+            <TextView
+                android:id="@+id/order_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/coffee_200"
+                app:layout_constraintStart_toStartOf="@id/order_name_tv"
+                app:layout_constraintTop_toBottomOf="@id/order_name_tv"
+                android:layout_marginTop="4dp"
+                android:text="@{Integer.toString(amount)}"
+                tools:text="200 rub"/>
+
+            <ImageButton
+                android:id="@+id/order_add_ib"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:contentDescription="@string/add"
+                android:src="@drawable/ic_add_dark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/order_amount_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{Integer.toString(amount)}"
+                android:textColor="@color/coffee_500"
+                android:layout_marginEnd="8dp"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/order_add_ib"
+                app:layout_constraintEnd_toStartOf="@+id/order_add_ib"
+                app:layout_constraintTop_toTopOf="@+id/order_add_ib"
+                tools:text="1" />
+
+            <ImageButton
+                android:id="@+id/order_remove_ib"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@string/add"
+                android:src="@drawable/ic_remove_dark"
+                app:layout_constraintBottom_toBottomOf="@+id/order_add_ib"
+                app:layout_constraintEnd_toStartOf="@+id/order_amount_tv"
+                app:layout_constraintTop_toTopOf="@+id/order_add_ib" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -15,9 +15,3 @@ fun loadImage(view: ImageView, url: String, errorImage: Drawable, loadingImage: 
         .error(errorImage)
         .into(view)
 }
-//
-//@BindingAdapter("isAdd")
-//fun increaseOrDecrease(view: TextView, inc: Boolean, dec: Boolean){
-//    if(inc)
-//
-//}
