@@ -1,14 +1,14 @@
 package com.example.coffeeapp.data.main.menu.local
 
 import com.example.coffeeapp.common.Constants.MAX_ITEMS
-import com.example.coffeeapp.data.main.menu.model.ShopMenu
+import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.domain.main.menu.local.StorageMenuRepository
 import javax.inject.Inject
 
 class StorageMenuRepositoryImpl @Inject constructor(
 ) : StorageMenuRepository {
 
-    private lateinit var shopMenuArray:ArrayList<ShopMenu>
+    private lateinit var shopMenuArray:ArrayList<MenuItem>
 
     override fun add(id: Int): Boolean {
         return shopMenuArray.find { it.id == id }?.let { item ->
@@ -30,11 +30,11 @@ class StorageMenuRepositoryImpl @Inject constructor(
         } ?: false
     }
 
-    override fun getList(): ArrayList<ShopMenu> {
+    override fun getList(): ArrayList<MenuItem> {
         return shopMenuArray
     }
 
-    override fun setList(list: ArrayList<ShopMenu>) {
+    override fun setList(list: ArrayList<MenuItem>) {
         shopMenuArray = list
     }
 }

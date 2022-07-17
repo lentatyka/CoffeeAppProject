@@ -1,6 +1,6 @@
 package com.example.coffeeapp.domain.main.menu.local
 
-import com.example.coffeeapp.data.main.menu.model.ShopMenu
+import com.example.coffeeapp.data.main.menu.model.MenuItem
 
 interface StorageMenuRepository {
 
@@ -8,7 +8,7 @@ interface StorageMenuRepository {
 
     fun sub(id: Int):Boolean
 
-    fun getList():ArrayList<ShopMenu>
+    fun getList():ArrayList<MenuItem>
 
-    fun setList(list: ArrayList<ShopMenu>)
+    fun setList(list: ArrayList<MenuItem>)
 }

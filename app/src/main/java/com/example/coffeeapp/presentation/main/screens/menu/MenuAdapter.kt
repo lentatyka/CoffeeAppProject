@@ -7,18 +7,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeapp.R
-import com.example.coffeeapp.data.main.menu.model.ShopMenu
+import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.databinding.ItemMenuBinding
 
 class MenuAdapter(
     private val callback: (Int, Boolean) -> Boolean
-) : ListAdapter<ShopMenu, MenuAdapter.MenuViewHolder>(DiffCallback) {
+) : ListAdapter<MenuItem, MenuAdapter.MenuViewHolder>(DiffCallback) {
 
     inner class MenuViewHolder(
         private val binding: ItemMenuBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ShopMenu) {
+        fun bind(item: MenuItem) {
             binding.menu = item
             binding.amount = item.amount
             binding.menuAddIb.setOnClickListener {
@@ -48,12 +48,12 @@ class MenuAdapter(
     }
 
     companion object {
-        val DiffCallback = object : DiffUtil.ItemCallback<ShopMenu>() {
-            override fun areItemsTheSame(oldItem: ShopMenu, newItem: ShopMenu): Boolean {
+        val DiffCallback = object : DiffUtil.ItemCallback<MenuItem>() {
+            override fun areItemsTheSame(oldItem: MenuItem, newItem: MenuItem): Boolean {
                 return oldItem.amount == newItem.amount
             }
 
-            override fun areContentsTheSame(oldItem: ShopMenu, newItem: ShopMenu): Boolean {
+            override fun areContentsTheSame(oldItem: MenuItem, newItem: MenuItem): Boolean {
                 return oldItem == newItem
             }
         }

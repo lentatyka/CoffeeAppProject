@@ -1,6 +1,6 @@
 package com.example.coffeeapp.data.main.menu.model
 
-data class ShopMenu(
+data class MenuItem(
     val id: Int,
     val name: String,
     val imageUrl: String,
