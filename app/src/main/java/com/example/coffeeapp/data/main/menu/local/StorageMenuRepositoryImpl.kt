@@ -2,9 +2,11 @@ package com.example.coffeeapp.data.main.menu.local
 
 import com.example.coffeeapp.common.Constants.MAX_ITEMS
 import com.example.coffeeapp.data.main.menu.model.MenuItem
+import com.example.coffeeapp.di.main.MainScope
 import com.example.coffeeapp.domain.main.menu.local.StorageMenuRepository
 import javax.inject.Inject
 
+@MainScope
 class StorageMenuRepositoryImpl @Inject constructor(
 ) : StorageMenuRepository {
 

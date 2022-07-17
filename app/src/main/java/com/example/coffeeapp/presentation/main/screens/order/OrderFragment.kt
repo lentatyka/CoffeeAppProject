@@ -1,6 +1,5 @@
 package com.example.coffeeapp.presentation.main.screens.order
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.databinding.FragmentOrderBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
-import com.example.coffeeapp.presentation.main.screens.menu.MenuViewModel
-import com.google.android.flexbox.AlignItems
-import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.flexbox.JustifyContent
 
 
 class OrderFragment : Fragment() {
@@ -25,10 +20,6 @@ class OrderFragment : Fragment() {
 
     private val orderViewModel by viewModels<OrderViewModel> {
         (activity as CoffeeActivity).mainComponent.shopsViewModelFactory()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
     }
 
     override fun onCreateView(
@@ -46,12 +37,17 @@ class OrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapterz = OrderAdapter(
-            orderViewModel.getList()
-        ) { a, b -> true }
         binding.orderRecycler.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = adapterz
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = OrderAdapter(
+                orderViewModel.getList()
+            ) { id, isAdd ->
+                if (isAdd)
+                    orderViewModel.addAmount(id)
+                else
+                    orderViewModel.subAmount(id)
+            }
         }
     }
 

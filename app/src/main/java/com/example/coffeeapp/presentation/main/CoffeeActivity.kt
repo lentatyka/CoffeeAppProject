@@ -20,7 +20,6 @@ class CoffeeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         mainComponent = (application as CoffeeApp).appComponent.mainComponent().create()
-        mainComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.coffee_activity)

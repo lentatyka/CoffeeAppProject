@@ -26,12 +26,14 @@
 
             <TextView
                 android:id="@+id/order_name_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{menu.name}"
                 android:textColor="@color/coffee_500"
+                android:layout_marginEnd="8dp"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/order_remove_ib"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Name" />
@@ -40,12 +42,12 @@
                 android:id="@+id/order_price_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@{Integer.toString(menu.price)}"
                 android:textColor="@color/coffee_200"
                 app:layout_constraintStart_toStartOf="@id/order_name_tv"
                 app:layout_constraintTop_toBottomOf="@id/order_name_tv"
-                android:layout_marginTop="4dp"
-                android:text="@{Integer.toString(amount)}"
-                tools:text="200 rub"/>
+                tools:text="200 rub" />
 
             <ImageButton
                 android:id="@+id/order_add_ib"
@@ -62,9 +64,9 @@
                 android:id="@+id/order_amount_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:text="@{Integer.toString(amount)}"
                 android:textColor="@color/coffee_500"
-                android:layout_marginEnd="8dp"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/order_add_ib"
                 app:layout_constraintEnd_toStartOf="@+id/order_add_ib"
@@ -75,13 +77,23 @@
                 android:id="@+id/order_remove_ib"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@null"
                 android:layout_marginEnd="8dp"
+                android:background="@null"
                 android:contentDescription="@string/add"
                 android:src="@drawable/ic_remove_dark"
                 app:layout_constraintBottom_toBottomOf="@+id/order_add_ib"
                 app:layout_constraintEnd_toStartOf="@+id/order_amount_tv"
                 app:layout_constraintTop_toTopOf="@+id/order_add_ib" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="left"
+                app:constraint_referenced_ids="order_name_tv"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

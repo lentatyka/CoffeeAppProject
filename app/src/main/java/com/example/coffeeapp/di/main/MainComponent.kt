@@ -24,10 +24,10 @@ interface MainComponent {
         fun create(): MainComponent
     }
 
-    fun inject(activity: CoffeeActivity)
-    fun inject(fragment: ShopsFragment)
-    fun inject(fragment: MenuFragment)
-    fun inject(fragment: OrderFragment)
+//    fun inject(activity: CoffeeActivity)
+//    fun inject(fragment: ShopsFragment)
+//    fun inject(fragment: MenuFragment)
+//    fun inject(fragment: OrderFragment)
 
     fun shopsViewModelFactory(): ShopsViewModelFactory
 
