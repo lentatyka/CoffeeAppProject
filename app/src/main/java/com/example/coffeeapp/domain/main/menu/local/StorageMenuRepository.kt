@@ -1,5 +1,6 @@
 package com.example.coffeeapp.domain.main.menu.local
 
+import androidx.lifecycle.LiveData
 import com.example.coffeeapp.data.main.menu.model.MenuItem
 
 interface StorageMenuRepository {
@@ -11,4 +12,6 @@ interface StorageMenuRepository {
     fun getList():ArrayList<MenuItem>
 
     fun setList(list: ArrayList<MenuItem>)
+
+    fun getTotal():LiveData<Double>
 }

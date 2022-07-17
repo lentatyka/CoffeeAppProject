@@ -19,4 +19,6 @@
     <string name="coffee_price">%.2f руб</string>
     <string name="add">Add</string>
     <string name="show_cart">Перейти к оплате</string>
+    <string name="confirm_order">Оплатить</string>
+    <string name="total">Итого</string>
 </resources>

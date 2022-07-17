@@ -49,6 +49,8 @@ class OrderFragment : Fragment() {
                     orderViewModel.subAmount(id)
             }
         }
+        binding.viewmodel = orderViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
     }
 
     override fun onDestroyView() {

@@ -4,33 +4,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="viewmodel"
+            type="com.example.coffeeapp.presentation.main.screens.order.OrderViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.login.LoginFragment"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="8dp"
+        tools:context=".presentation.login.LoginFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/order_recycler"
-            app:layout_constrainedHeight="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/item_order"
-            app:layout_constraintBottom_toTopOf="@id/confirm_order_btn"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/total_price_tv"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/total_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total"
+            android:textSize="18sp"
+            android:textColor="@color/coffee_500"
+            app:layout_constraintBottom_toTopOf="@+id/confirm_order_btn"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@id/order_recycler"
+            android:layout_marginBottom="8dp"
+            tools:text="2000 rub" />
+        <TextView
+            android:id="@+id/total_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/coffee_price(viewmodel.getTotal())}"
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            android:textColor="@color/coffee_500"
+            app:layout_constraintBottom_toTopOf="@+id/confirm_order_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@id/order_recycler"
+            android:layout_marginBottom="8dp"
+            tools:text="2000 rub" />
+
         <Button
             android:id="@+id/confirm_order_btn"
             style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_marginBottom="16dp"
-            android:text="@string/show_cart"
-            app:layout_constraintBottom_toBottomOf="parent"
-           />
+            android:text="@string/confirm_order"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

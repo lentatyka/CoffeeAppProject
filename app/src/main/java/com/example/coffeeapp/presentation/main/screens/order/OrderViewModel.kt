@@ -1,16 +1,19 @@
 package com.example.coffeeapp.presentation.main.screens.order
 
+
 import androidx.lifecycle.ViewModel
-import com.example.coffeeapp.domain.main.menu.UserCase
+import com.example.coffeeapp.domain.main.order.GetOrderUseCase
 import javax.inject.Inject
 
 class OrderViewModel @Inject constructor(
-    private val useCase: UserCase
+    private val getOrderUseCase: GetOrderUseCase
 ):ViewModel() {
 
-    fun addAmount(id: Int) = useCase.add(id)
+    fun addAmount(id: Int) = getOrderUseCase.add(id)
 
-    fun subAmount(id: Int) = useCase.sub(id)
+    fun subAmount(id: Int) = getOrderUseCase.sub(id)
 
-    fun getList() = useCase.getList()
+    fun getList() = getOrderUseCase.getList()
+
+    fun getTotal() = getOrderUseCase.getTotal()
 }
