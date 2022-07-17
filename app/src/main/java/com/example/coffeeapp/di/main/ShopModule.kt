@@ -2,7 +2,7 @@ package com.example.coffeeapp.di.main
 
 import androidx.lifecycle.ViewModel
 import com.example.coffeeapp.common.Constants
-import com.example.coffeeapp.data.main.shops.location.LocationDataSource
+import com.example.coffeeapp.data.main.shops.local.LocationDataSource
 import com.example.coffeeapp.data.main.shops.remote.ShopRepositoryImpl
 import com.example.coffeeapp.data.main.shops.remote.ShopServiceApi
 import com.example.coffeeapp.di.ViewModelKey

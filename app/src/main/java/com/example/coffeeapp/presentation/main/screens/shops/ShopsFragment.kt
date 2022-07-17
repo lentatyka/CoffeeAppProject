@@ -1,7 +1,8 @@
 package com.example.coffeeapp.presentation.main.screens.shops
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.example.coffeeapp.R
 import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.databinding.FragmentShopsBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
+import com.google.android.gms.location.*
 
 class ShopsFragment : Fragment() {
 
@@ -29,10 +31,6 @@ class ShopsFragment : Fragment() {
     }
 
     private lateinit var shopLocationAdapted: ShopsLocationAdapter
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,14 +52,15 @@ class ShopsFragment : Fragment() {
         setAdapter()
         setViewModel()
 
-        val test = registerForActivityResult(
+        val accessLocation = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissions ->
             when {
                 permissions.getOrDefault(
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION, false
+                    android.Manifest.permission.ACCESS_FINE_LOCATION, false
                 ) -> {
                     shopsViewModel.getShopList()
+                    //setUpLocationListener()
                 }
                 else -> {
                     Log.d("TAG", "DENY")
@@ -69,7 +68,32 @@ class ShopsFragment : Fragment() {
                 }
             }
         }
-        test.launch(arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION))
+        accessLocation.launch(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION))
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun setUpLocationListener() {
+        val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        // for getting the current location update after every 2 seconds with high accuracy
+        val locationRequest = LocationRequest.create().apply{
+            interval = 2000
+            fastestInterval = 2000
+            priority = Priority.PRIORITY_HIGH_ACCURACY
+        }
+        fusedLocationProviderClient.requestLocationUpdates(
+            locationRequest,
+            object : LocationCallback() {
+                override fun onLocationResult(locationResult: LocationResult) {
+                    super.onLocationResult(locationResult)
+                    for (location in locationResult.locations) {
+                        Log.d("TAG", "LOC ANSWER: $location")
+                    }
+                    // Few more things we can do here:
+                    // For example: Update the location of user on server
+                }
+            },
+            Looper.getMainLooper()
+        )
     }
 
     private fun setViewModel() {

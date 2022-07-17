@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.common.Resource
+import com.example.coffeeapp.data.main.shops.local.LocationDataSource
 import com.example.coffeeapp.domain.main.shops.model.ShopLocation
 import com.example.coffeeapp.domain.main.shops.ShopsUseCase
 import kotlinx.coroutines.launch

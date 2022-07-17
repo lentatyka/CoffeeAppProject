@@ -1,9 +1,10 @@
-package com.example.coffeeapp.data.main.shops.location
+package com.example.coffeeapp.data.main.shops.local
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.location.Location
 import android.os.Looper
+import android.util.Log
 import com.example.coffeeapp.domain.main.shops.location.LocationRepository
 import com.google.android.gms.location.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -12,8 +13,8 @@ import kotlinx.coroutines.flow.callbackFlow
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-private const val LOCATION_REQUEST_INTERVAL = 60L //seconds
-private const val LOCATION_REQUEST_FASTEST_INTERVAL = 10L //seconds
+private const val LOCATION_REQUEST_INTERVAL = 2L //seconds
+private const val LOCATION_REQUEST_FASTEST_INTERVAL = 2L //seconds
 
 class LocationDataSource @Inject constructor(context: Application): LocationRepository {
 
@@ -35,9 +36,6 @@ class LocationDataSource @Inject constructor(context: Application): LocationRepo
                     trySend(it)
                 }
             }
-        }
-        fusedLocationClient.lastLocation.addOnSuccessListener {
-            trySend(it)
         }
         fusedLocationClient.requestLocationUpdates(
             locationRequest,

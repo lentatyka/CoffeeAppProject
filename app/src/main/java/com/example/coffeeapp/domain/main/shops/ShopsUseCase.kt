@@ -7,12 +7,7 @@ import com.example.coffeeapp.data.main.shops.remote.Point
 import com.example.coffeeapp.domain.main.shops.location.UserLocationUseCase
 import com.example.coffeeapp.domain.main.shops.model.ShopLocation
 import com.example.coffeeapp.domain.main.shops.remote.ShopsLocationUseCase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.withContext
-import retrofit2.HttpException
-import java.io.IOException
 import javax.inject.Inject
 import kotlin.math.sqrt
 
@@ -32,7 +27,7 @@ class ShopsUseCase @Inject constructor(
     fun getShopsList(): Flow<Resource<List<ShopLocation>>> {
         return flow {
                 emit(Resource.Loading)
-                kotlin.runCatching {
+                runCatching {
                     shopsLocationUseCase().map { shop ->
                         ShopLocation(
                             id = shop.id.toInt(),
@@ -41,6 +36,7 @@ class ShopsUseCase @Inject constructor(
                         )
                     }
                 }.onSuccess {shopList ->
+                    Log.d("TAG", "on Success")
                     userLocationUseCase().map { location ->
                         shopList.map { shop ->
                             ShopLocation(
