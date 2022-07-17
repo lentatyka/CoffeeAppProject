@@ -28,40 +28,34 @@ class ShopsUseCase @Inject constructor(
     /*
     Returned ShopList without distance if Location permission denied
      */
-    @Suppress("BlockingMethodInNonBlockingContext")
+
     fun getShopsList(): Flow<Resource<List<ShopLocation>>> {
         return flow {
-            try {
                 emit(Resource.Loading)
-                val shopList = withContext(Dispatchers.IO) {
-                    async { shopsLocationUseCase() }
-                }.await().map { shop ->
-                    ShopLocation(
-                        id = shop.id.toInt(),
-                        name = shop.name,
-                        point = shop.point
-                    )
-                }
-                emit(Resource.Success(shopList))
-                userLocationUseCase().map { location ->
-                    shopList.map { shop ->
+                kotlin.runCatching {
+                    shopsLocationUseCase().map { shop ->
                         ShopLocation(
-                            id = shop.id,
+                            id = shop.id.toInt(),
                             name = shop.name,
-                            point = shop.point,
-                            distance = (calculateDistance(shop.point, location))
+                            point = shop.point
                         )
                     }
-                }.collect {
-                    emit(Resource.Success(it))
+                }.onSuccess {shopList ->
+                    userLocationUseCase().map { location ->
+                        shopList.map { shop ->
+                            ShopLocation(
+                                id = shop.id,
+                                name = shop.name,
+                                point = shop.point,
+                                distance = (calculateDistance(shop.point, location))
+                            )
+                        }
+                    }.collect {
+                        emit(Resource.Success(it))
+                    }
+                }.onFailure { error ->
+                    emit(Resource.Error(error.localizedMessage ?: "unknown error"))
                 }
-            } catch (e: HttpException) {
-                emit(Resource.Error(e.localizedMessage ?: "unknown error"))
-            } catch (e: IOException) {
-                emit(Resource.Error(e.localizedMessage ?: "unknown error"))
-            } catch (e: SecurityException) {
-                emit(Resource.Error(e.localizedMessage ?: "unknown error"))
-            }
         }
     }
 
