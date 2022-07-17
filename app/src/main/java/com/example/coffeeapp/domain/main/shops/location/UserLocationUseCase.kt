@@ -8,11 +8,5 @@ class UserLocationUseCase @Inject constructor(
     private val location: LocationRepository
 ) {
     @Throws(SecurityException::class)
-    suspend operator fun invoke(): Flow<Location> {
-        return try {
-            location()
-        } catch (e: SecurityException) {
-            throw e
-        }
-    }
+    suspend operator fun invoke() = location()
 }

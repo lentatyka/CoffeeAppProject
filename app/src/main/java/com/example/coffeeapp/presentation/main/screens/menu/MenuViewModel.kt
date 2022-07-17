@@ -3,8 +3,8 @@ package com.example.coffeeapp.presentation.main.screens.menu
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.coffeeapp.common.Resource
-import com.example.coffeeapp.data.main.menu.ShopMenu
-import com.example.coffeeapp.domain.main.menu.GetMenuUseCase
+import com.example.coffeeapp.data.main.menu.model.ShopMenu
+import com.example.coffeeapp.domain.main.menu.UserCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class MenuViewModel @AssistedInject constructor(
-    private val getMenuUseCase: GetMenuUseCase,
+    private val useCase: UserCase,
     @Assisted shopId: Long
 ) : ViewModel() {
 
@@ -22,12 +22,17 @@ class MenuViewModel @AssistedInject constructor(
 
     init {
         viewModelScope.launch {
-            getMenuUseCase(shopId).onEach { result ->
+            useCase.loadMenu(shopId).onEach { result ->
                 _status.postValue(result)
             }.collect()
-
         }
     }
+
+    fun addAmount(id: Int) = useCase.add(id)
+
+    fun subAmount(id: Int) = useCase.sub(id)
+
+    fun getList() = useCase.getList()
 
     @AssistedFactory
     interface Factory {
@@ -37,27 +42,5 @@ class MenuViewModel @AssistedInject constructor(
     override fun onCleared() {
         Log.d("TAG", "MENU CLEARED")
         super.onCleared()
-    }
-
-    fun addAmount(id: Int): Boolean {
-        val current = _status.value as Resource.Success
-        return current.data.find { it.id == id }?.let { shopMenu ->
-            if (shopMenu.amount < 9) {
-                shopMenu.amount += 1
-                true
-            } else
-                false
-        } ?: false
-    }
-
-    fun subAmount(id: Int): Boolean {
-        val current = _status.value as Resource.Success
-        return current.data.find { it.id == id }?.let { shopMenu ->
-            if (shopMenu.amount > 0) {
-                shopMenu.amount -= 1            //limit min 0
-                true
-            } else
-                false
-        } ?: false
     }
 }

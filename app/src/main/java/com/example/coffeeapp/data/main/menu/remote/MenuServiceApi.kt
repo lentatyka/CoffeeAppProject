@@ -1,5 +1,6 @@
-package com.example.coffeeapp.data.main.menu
+package com.example.coffeeapp.data.main.menu.remote
 
+import com.example.coffeeapp.data.main.menu.model.ShopMenu
 import retrofit2.http.GET
 import retrofit2.http.Path
 import javax.inject.Inject

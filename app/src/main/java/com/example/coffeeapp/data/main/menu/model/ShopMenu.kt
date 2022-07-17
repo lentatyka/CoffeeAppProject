@@ -1,4 +1,4 @@
-package com.example.coffeeapp.data.main.menu
+package com.example.coffeeapp.data.main.menu.model
 
 data class ShopMenu(
     val id: Int,

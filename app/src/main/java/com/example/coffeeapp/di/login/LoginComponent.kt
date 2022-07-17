@@ -17,5 +17,4 @@ interface LoginComponent {
 
     fun viewModelFactory():LoginViewModelFactory
 
-
 }

@@ -68,7 +68,8 @@ class MenuFragment : Fragment() {
                         //show loading
                     }
                     is Resource.Success -> {
-                        menuAdapter.submitList(menu.data)
+                        menuAdapter.submitList(menuViewModel.getList())
+                       // menuAdapter.submitList(menu.data)
                     }
                     is Resource.Error -> {
                         //show error

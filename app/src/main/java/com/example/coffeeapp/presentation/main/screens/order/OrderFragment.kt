@@ -17,7 +17,7 @@ class OrderFragment : Fragment() {
 
     private var _binding: FragmentOrderBinding? = null
     private val binding get() = _binding!!
-    private val  orderViewModel by viewModels<MenuViewModel>()
+//    private val  orderViewModel by viewModels<MenuViewModel>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -54,7 +54,7 @@ class OrderFragment : Fragment() {
 //                }
 //            }
 //        }
-        orderViewModel.addAmount(2)
+//        orderViewModel.addAmount(2)
     }
 
     override fun onDestroyView() {

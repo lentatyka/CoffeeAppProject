@@ -38,6 +38,7 @@ class LocationDataSource @Inject constructor(context: Application): LocationRepo
         }
         fusedLocationClient.lastLocation.addOnSuccessListener {
             trySend(it)
+            throw SecurityException("DS")
         }
         fusedLocationClient.requestLocationUpdates(
             locationRequest,

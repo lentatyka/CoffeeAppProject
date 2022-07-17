@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeapp.R
-import com.example.coffeeapp.data.main.menu.ShopMenu
+import com.example.coffeeapp.data.main.menu.model.ShopMenu
 import com.example.coffeeapp.databinding.ItemMenuBinding
 
 class MenuAdapter(
@@ -20,6 +20,7 @@ class MenuAdapter(
 
         fun bind(item: ShopMenu) {
             binding.menu = item
+            binding.amount = item.amount
             binding.menuAddIb.setOnClickListener {
                 if((callback(item.id, true)))
                     binding.amount = item.amount

@@ -5,5 +5,6 @@ object Constants {
     const val USER_PREFERENCES = "userPreferences"
     const val TOKEN = "token"
     const val TOKENLIFETIME = "tokenLifetime"
+    const val MAX_ITEMS = 9
 
 }

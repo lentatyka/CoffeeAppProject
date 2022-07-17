@@ -1,9 +1,11 @@
 package com.example.coffeeapp.di.main
 
 import com.example.coffeeapp.common.Constants
-import com.example.coffeeapp.data.main.menu.MenuRepositoryImpl
-import com.example.coffeeapp.data.main.menu.MenuServiceApi
-import com.example.coffeeapp.domain.main.menu.MenuRepository
+import com.example.coffeeapp.data.main.menu.local.StorageMenuRepositoryImpl
+import com.example.coffeeapp.data.main.menu.remote.MenuRepositoryImpl
+import com.example.coffeeapp.data.main.menu.remote.MenuServiceApi
+import com.example.coffeeapp.domain.main.menu.local.StorageMenuRepository
+import com.example.coffeeapp.domain.main.menu.remote.MenuRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -15,7 +17,10 @@ import javax.inject.Qualifier
 abstract class MenuModule {
 
     @Binds
-    abstract fun bindMenuRepository(repository: MenuRepositoryImpl):MenuRepository
+    abstract fun bindMenuRepository(repository: MenuRepositoryImpl): MenuRepository
+
+    @Binds
+    abstract fun bindStorageMenuRepository(repo: StorageMenuRepositoryImpl): StorageMenuRepository
 
     @Binds
     @FakeMenuServiceApi
