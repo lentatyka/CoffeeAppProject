@@ -8,20 +8,27 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.databinding.FragmentOrderBinding
+import com.example.coffeeapp.presentation.main.CoffeeActivity
 import com.example.coffeeapp.presentation.main.screens.menu.MenuViewModel
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 
 
 class OrderFragment : Fragment() {
 
     private var _binding: FragmentOrderBinding? = null
     private val binding get() = _binding!!
-//    private val  orderViewModel by viewModels<MenuViewModel>()
+
+    private val orderViewModel by viewModels<OrderViewModel> {
+        (activity as CoffeeActivity).mainComponent.shopsViewModelFactory()
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
     }
 
     override fun onCreateView(
@@ -39,22 +46,13 @@ class OrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        lifecycleScope.launchWhenStarted {
-//            orderViewModel.status.observe(viewLifecycleOwner) { info ->
-//                when (info) {
-//                    is Resource.Loading -> {
-//                        //show loading
-//                    }
-//                    is Resource.Error -> {
-//
-//                    }
-//                    is Resource.Success -> {
-//                        Log.d("TAG", "ORDER: ${info.data}")
-//                    }
-//                }
-//            }
-//        }
-//        orderViewModel.addAmount(2)
+        val adapterz = OrderAdapter(
+            orderViewModel.getList()
+        ) { a, b -> true }
+        binding.orderRecycler.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = adapterz
+        }
     }
 
     override fun onDestroyView() {

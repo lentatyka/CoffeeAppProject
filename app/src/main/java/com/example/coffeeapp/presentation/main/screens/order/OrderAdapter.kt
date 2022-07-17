@@ -9,8 +9,8 @@ import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.databinding.ItemOrderBinding
 
 class OrderAdapter(
-    private val callback:(Int, Boolean) -> Boolean,
-    private val list: ArrayList<MenuItem>
+    private val list: ArrayList<MenuItem>,
+    private val callback:(Int, Boolean) -> Boolean
 ) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 
     inner class OrderViewHolder(

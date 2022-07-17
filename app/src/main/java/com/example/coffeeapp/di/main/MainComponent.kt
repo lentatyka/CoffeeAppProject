@@ -12,7 +12,8 @@ import dagger.Subcomponent
 @Subcomponent(
     modules = [
         ShopModule::class,
-        MenuModule::class
+        MenuModule::class,
+        OrderModule::class
     ]
 )
 @MainScope
