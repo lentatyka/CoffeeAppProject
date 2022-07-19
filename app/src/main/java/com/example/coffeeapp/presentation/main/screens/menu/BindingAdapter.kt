@@ -2,7 +2,6 @@ package com.example.coffeeapp.presentation.main.screens.menu
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 

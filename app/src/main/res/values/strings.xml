@@ -21,4 +21,9 @@
     <string name="show_cart">Перейти к оплате</string>
     <string name="confirm_order">Оплатить</string>
     <string name="total">Итого</string>
+    <plurals name="distance_var">
+    <item quantity="one">%d м от вас</item>
+    <item quantity="other">%d км от вас</item>
+    </plurals>
+    <string name="location">lo: %.4f la: %.4f</string>
 </resources>

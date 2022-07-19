@@ -2,7 +2,6 @@ package com.example.coffeeapp.presentation.main.screens.shops
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +15,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.Resource
-import com.example.coffeeapp.data.main.shops.local.LocationRepositoryImpl
-import com.example.coffeeapp.data.main.shops.local.LocationSource
 import com.example.coffeeapp.databinding.FragmentShopsBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
 
@@ -109,5 +106,15 @@ class ShopsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        shopsViewModel.startUpdateLocation()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        shopsViewModel.stopUpdateLocation()
     }
 }

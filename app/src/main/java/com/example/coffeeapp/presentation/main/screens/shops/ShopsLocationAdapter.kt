@@ -1,6 +1,5 @@
 package com.example.coffeeapp.presentation.main.screens.shops
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -22,6 +21,10 @@ class ShopsLocationAdapter(
         fun bind(item: Shop){
             binding.location = item
         }
+
+        fun updateDistance(distance: Int){
+           binding.distance = distance
+        }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopLocationViewHolder {
         val binding = DataBindingUtil.inflate<ItemShopsBinding>(
@@ -31,6 +34,18 @@ class ShopsLocationAdapter(
             false
         )
         return ShopLocationViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(
+        holder: ShopLocationViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if(payloads.isEmpty())
+        super.onBindViewHolder(holder, position, payloads)
+        else{
+            holder.updateDistance(payloads[0] as Int)
+        }
     }
 
     override fun onBindViewHolder(holder: ShopLocationViewHolder, position: Int) {
@@ -49,6 +64,10 @@ class ShopsLocationAdapter(
 
             override fun areContentsTheSame(oldItem: Shop, newItem: Shop): Boolean {
                 return oldItem == newItem
+            }
+
+            override fun getChangePayload(oldItem: Shop, newItem: Shop): Any? {
+                return if(oldItem.distance != newItem.distance) newItem.distance else null
             }
         }
     }

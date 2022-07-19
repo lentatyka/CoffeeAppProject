@@ -7,6 +7,9 @@
         <variable
             name="location"
             type="com.example.coffeeapp.domain.main.shops.model.Shop" />
+        <variable
+            name="distance"
+            type="Integer" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -33,10 +36,12 @@
                 tools:text="Name" />
 
             <TextView
+                android:id="@+id/distance_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/coffee_200"
-                android:text="@{Double.toString(location.distance)}"
+                app:distance="@{distance}"
+                app:point="@{location.point}"
                 tools:text="2 km from you" />
         </LinearLayout>
 
