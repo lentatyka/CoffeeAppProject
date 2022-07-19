@@ -37,7 +37,7 @@ class ShopsLocationAdapter(
         val item = getItem(position)
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            callback(item.id.toLong())
+            callback(item.id)
         }
     }
 
@@ -47,7 +47,6 @@ class ShopsLocationAdapter(
                 return oldItem.id == newItem.id
             }
 
-            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(oldItem: Shop, newItem: Shop): Boolean {
                 return oldItem == newItem
             }

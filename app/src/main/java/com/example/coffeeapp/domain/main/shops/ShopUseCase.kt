@@ -30,13 +30,19 @@ class ShopUseCase @Inject constructor(
         }
     }
 
-    fun getShopList() = shopsLocationUseCase.getShopLocationDtoList()
-
+    fun getShopList() = shopsLocationUseCase.getShopLocationDtoList().map {shopDto ->
+        Shop(
+            id = shopDto.id.toLong(),
+            name = shopDto.name,
+            point = shopDto.point,
+            distance = 100500.0
+        )
+    }
     fun getShopListLocation(): LiveData<List<Shop>> {
         return Transformations.map(locationRepository.getLocation()) { location ->
             shopsLocationUseCase.getShopLocationDtoList().map {shop->
                 Shop(
-                    id = shop.id.toInt(),
+                    id = shop.id.toLong(),
                     name = shop.name,
                     point = shop.point,
                     distance = location.longitude

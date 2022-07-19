@@ -2,9 +2,11 @@ package com.example.coffeeapp.data.main.shops.local
 
 import android.location.Location
 import androidx.lifecycle.MutableLiveData
+import com.example.coffeeapp.di.main.MainScope
 import com.example.coffeeapp.domain.main.shops.location.LocationRepository
 import javax.inject.Inject
 
+@MainScope
 class LocationRepositoryImpl @Inject constructor() : LocationRepository {
 
     private val location = MutableLiveData<Location>()

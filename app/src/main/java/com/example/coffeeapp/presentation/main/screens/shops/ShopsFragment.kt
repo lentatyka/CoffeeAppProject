@@ -16,6 +16,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.Resource
+import com.example.coffeeapp.data.main.shops.local.LocationRepositoryImpl
+import com.example.coffeeapp.data.main.shops.local.LocationSource
 import com.example.coffeeapp.databinding.FragmentShopsBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
 
@@ -55,16 +57,15 @@ class ShopsFragment : Fragment() {
         ) { permissions ->
             when {
                 permissions.getOrDefault(
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION, false
+                    android.Manifest.permission.ACCESS_FINE_LOCATION, false
                 ) -> {
-                    shopsViewModel.getShopList()
+
                 }
                 else -> {
-                    shopsViewModel.getShopList()
                 }
             }
         }
-        accessLocation.launch(arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION))
+        accessLocation.launch(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION))
     }
 
     private fun setViewModel() {
@@ -78,9 +79,13 @@ class ShopsFragment : Fragment() {
                         showMessage(info.message)
                     }
                     is Resource.Success -> {
-                        shopLocationAdapted.submitList(info.data)
+                        shopLocationAdapted.submitList(shopsViewModel.getShopList())
+                        shopsViewModel.startUpdateLocation()
                     }
                 }
+            }
+            shopsViewModel.location.observe(viewLifecycleOwner) { shopList ->
+                shopLocationAdapted.submitList(shopList)
             }
         }
     }
