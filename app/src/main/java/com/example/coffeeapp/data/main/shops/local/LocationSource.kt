@@ -2,21 +2,19 @@ package com.example.coffeeapp.data.main.shops.local
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.location.Location
 import android.os.Looper
 import com.example.coffeeapp.domain.main.shops.location.LocationRepository
 import com.google.android.gms.location.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.callbackFlow
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 private const val LOCATION_REQUEST_INTERVAL = 2L //seconds
-private const val LOCATION_REQUEST_FASTEST_INTERVAL =2L //seconds
+private const val LOCATION_REQUEST_FASTEST_INTERVAL = 2L //seconds
 
 class LocationSource @Inject constructor(
-    context: Application) {
+    context: Application,
+    private val locationRepository: LocationRepository
+) {
 
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
     private val locationRequest = LocationRequest.create().apply {
@@ -26,28 +24,28 @@ class LocationSource @Inject constructor(
 
         priority = Priority.PRIORITY_HIGH_ACCURACY
     }
+    private var locationCallback: LocationCallback? = null
 
-//    @OptIn(ExperimentalCoroutinesApi::class)
-//    @SuppressLint("MissingPermission")
-//    override suspend fun invoke() = callbackFlow<Location> {
-//        val locationCallback: LocationCallback = object : LocationCallback() {
-//            override fun onLocationResult(locationResult: LocationResult) {
-//                locationResult.locations.onEach {
-//                    trySend(it)
-//                }
-//            }
-//        }
-//        fusedLocationClient.lastLocation.addOnSuccessListener {
-//            trySend(it)
-//        }
-//        fusedLocationClient.requestLocationUpdates(
-//            locationRequest,
-//            locationCallback,
-//            Looper.getMainLooper()
-//        )
-//        awaitClose {
-//            fusedLocationClient.removeLocationUpdates(locationCallback)
-//        }
-//    }
+    @SuppressLint("MissingPermission")
+    fun startUpdateLocation(){
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                locationResult.locations.onEach {
+                    locationRepository.updateLocation(it)
+                }
+            }
+        }
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback!!,
+            Looper.getMainLooper()
+        )
+    }
+
+    fun stopUpdateLocation(){
+        locationCallback?.let {
+            fusedLocationClient.removeLocationUpdates(it)
+        }
+    }
 
 }
