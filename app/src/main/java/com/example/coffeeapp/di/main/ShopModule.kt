@@ -2,7 +2,7 @@ package com.example.coffeeapp.di.main
 
 import androidx.lifecycle.ViewModel
 import com.example.coffeeapp.common.Constants
-import com.example.coffeeapp.data.main.shops.local.LocationSource
+import com.example.coffeeapp.data.main.shops.local.LocationRepositoryImpl
 import com.example.coffeeapp.data.main.shops.remote.ShopRepositoryImpl
 import com.example.coffeeapp.data.main.shops.remote.ShopServiceApi
 import com.example.coffeeapp.di.ViewModelKey
@@ -33,7 +33,7 @@ abstract class ShopModule {
     abstract fun bindShopRepository(repository: ShopRepositoryImpl): ShopRepository
 
     @Binds
-    abstract fun provideLocationDataSource(repository: LocationSource): LocationRepository
+    abstract fun provideLocationDataSource(repository: LocationRepositoryImpl): LocationRepository
 
     companion object {
 
