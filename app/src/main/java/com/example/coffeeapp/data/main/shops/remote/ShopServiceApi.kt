@@ -6,19 +6,19 @@ import javax.inject.Inject
 interface ShopServiceApi {
 
     @GET("/locations")
-    suspend operator fun invoke(): ArrayList<ShopLocationDto>
+    suspend operator fun invoke(): ArrayList<ShopDto>
 
     class FakeShopService @Inject constructor() : ShopServiceApi {
         private val shopsList = arrayListOf(
-            ShopLocationDto(1.0, "Горожанин", Point(56.833004, 60.603296)),
-            ShopLocationDto(2.0, "Eggs On", Point(56.833610, 60.604371)),
-            ShopLocationDto(3.0, "Ламаджо", Point(56.834831, 60.601059)),
-            ShopLocationDto(4.0, "Петров двор", Point(56.830837, 60.613060)),
-            ShopLocationDto(5.0, "Smart Cafe", Point(56.832398, 60.617192)),
-            ShopLocationDto(6.0, "Золотой бамбук", Point(56.835451, 60.610249))
+            ShopDto(1.0, "Горожанин", Point(56.833004, 60.603296)),
+            ShopDto(2.0, "Eggs On", Point(56.833610, 60.604371)),
+            ShopDto(3.0, "Ламаджо", Point(56.834831, 60.601059)),
+            ShopDto(4.0, "Петров двор", Point(56.830837, 60.613060)),
+            ShopDto(5.0, "Smart Cafe", Point(56.832398, 60.617192)),
+            ShopDto(6.0, "Золотой бамбук", Point(56.835451, 60.610249))
         )
 
-        override suspend fun invoke(): ArrayList<ShopLocationDto> {
+        override suspend fun invoke(): ArrayList<ShopDto> {
             return shopsList
         }
     }

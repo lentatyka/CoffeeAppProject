@@ -2,7 +2,7 @@ package com.example.coffeeapp.data.main.shops.remote
 
 import com.google.gson.annotations.SerializedName
 
-data class ShopLocationDto(
+data class ShopDto(
     @SerializedName("id")
     val id: Double,
     @SerializedName("name")

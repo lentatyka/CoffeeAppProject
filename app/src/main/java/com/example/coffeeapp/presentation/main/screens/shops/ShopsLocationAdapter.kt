@@ -9,17 +9,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeapp.R
 import com.example.coffeeapp.databinding.ItemShopsBinding
-import com.example.coffeeapp.domain.main.shops.model.ShopLocation
+import com.example.coffeeapp.domain.main.shops.model.Shop
 
 class ShopsLocationAdapter(
     private val callback: (Long)->Unit
-):ListAdapter<ShopLocation, ShopsLocationAdapter.ShopLocationViewHolder>(DiffCallback) {
+):ListAdapter<Shop, ShopsLocationAdapter.ShopLocationViewHolder>(DiffCallback) {
 
     class ShopLocationViewHolder(
         private val  binding: ItemShopsBinding
     ):RecyclerView.ViewHolder(binding.root){
 
-        fun bind(item: ShopLocation){
+        fun bind(item: Shop){
             binding.location = item
         }
     }
@@ -42,13 +42,13 @@ class ShopsLocationAdapter(
     }
 
     companion object {
-        val DiffCallback = object : DiffUtil.ItemCallback<ShopLocation>(){
-            override fun areItemsTheSame(oldItem: ShopLocation, newItem: ShopLocation): Boolean {
+        val DiffCallback = object : DiffUtil.ItemCallback<Shop>(){
+            override fun areItemsTheSame(oldItem: Shop, newItem: Shop): Boolean {
                 return oldItem.id == newItem.id
             }
 
             @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldItem: ShopLocation, newItem: ShopLocation): Boolean {
+            override fun areContentsTheSame(oldItem: Shop, newItem: Shop): Boolean {
                 return oldItem == newItem
             }
         }

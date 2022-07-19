@@ -8,7 +8,7 @@ class ShopRepositoryImpl @Inject constructor(
     @FakeShopServiceApi private val shopServiceApi: ShopServiceApi
 ): ShopRepository {
 
-    private val shopListDto = ArrayList<ShopLocationDto>()
+    private val shopListDto = ArrayList<ShopDto>()
     override suspend fun loadShopsLocationDtoList() {
         shopListDto.clear()
         shopListDto.addAll(shopServiceApi())

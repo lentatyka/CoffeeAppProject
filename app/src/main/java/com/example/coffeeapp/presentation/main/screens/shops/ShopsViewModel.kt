@@ -6,17 +6,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.common.Resource
-import com.example.coffeeapp.domain.main.shops.model.ShopLocation
-import com.example.coffeeapp.domain.main.shops.ShopsUseCase
+import com.example.coffeeapp.domain.main.shops.model.Shop
+import com.example.coffeeapp.domain.main.shops.ShopUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ShopsViewModel @Inject constructor(
-    private val shopsUseCase: ShopsUseCase
+    private val shopsUseCase: ShopUseCase
 ) : ViewModel() {
 
-    private val _status = MutableLiveData<Resource<List<ShopLocation>>>()
-    val status: LiveData<Resource<List<ShopLocation>>> = _status
+    private val _status = MutableLiveData<Resource<List<Shop>>>()
+    val status: LiveData<Resource<List<Shop>>> = _status
 
     fun getShopList() {
         viewModelScope.launch {
