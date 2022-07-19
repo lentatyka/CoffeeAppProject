@@ -6,7 +6,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 class ShopsLocationUseCase @Inject constructor(
-    private val shopsRepository: ShopsRepository
+    private val shopRepository: ShopRepository
 ) {
     @Throws(HttpException::class, IOException::class)
     suspend operator fun invoke(): ArrayList<ShopLocationDto> = shopsRepository()

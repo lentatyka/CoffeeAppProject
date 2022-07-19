@@ -7,7 +7,7 @@ import com.example.coffeeapp.data.main.shops.remote.ShopRepositoryImpl
 import com.example.coffeeapp.data.main.shops.remote.ShopServiceApi
 import com.example.coffeeapp.di.ViewModelKey
 import com.example.coffeeapp.domain.main.shops.location.LocationRepository
-import com.example.coffeeapp.domain.main.shops.remote.ShopsRepository
+import com.example.coffeeapp.domain.main.shops.remote.ShopRepository
 import com.example.coffeeapp.presentation.main.screens.shops.ShopsViewModel
 import dagger.Binds
 import dagger.Module
@@ -30,7 +30,7 @@ abstract class ShopModule {
     abstract fun bindFakeShopServiceApi(api: ShopServiceApi.FakeShopService): ShopServiceApi
 
     @Binds
-    abstract fun bindShopRepository(repository: ShopRepositoryImpl): ShopsRepository
+    abstract fun bindShopRepository(repository: ShopRepositoryImpl): ShopRepository
 
     @Binds
     abstract fun provideLocationDataSource(repository: LocationSource): LocationRepository
