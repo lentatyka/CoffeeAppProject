@@ -1,6 +1,5 @@
 package com.example.coffeeapp.data.main.menu.local
 
-import android.util.MutableDouble
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.coffeeapp.common.Constants.MAX_ITEMS

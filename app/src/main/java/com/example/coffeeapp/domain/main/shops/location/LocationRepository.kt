@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocationRepository {
 
-    suspend operator fun invoke(): Flow<Location>
+    suspend operator fun invoke(): Flow<Location?>
 }

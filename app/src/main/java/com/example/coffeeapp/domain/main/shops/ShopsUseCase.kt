@@ -1,10 +1,9 @@
 package com.example.coffeeapp.domain.main.shops
 
 import android.location.Location
-import android.util.Log
 import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.data.main.shops.remote.Point
-import com.example.coffeeapp.domain.main.shops.location.UserLocationUseCase
+import com.example.coffeeapp.domain.main.shops.location.LocationUseCase
 import com.example.coffeeapp.domain.main.shops.model.ShopLocation
 import com.example.coffeeapp.domain.main.shops.remote.ShopsLocationUseCase
 import kotlinx.coroutines.flow.*
@@ -13,13 +12,8 @@ import kotlin.math.sqrt
 
 class ShopsUseCase @Inject constructor(
     private val shopsLocationUseCase: ShopsLocationUseCase,
-    private val userLocationUseCase: UserLocationUseCase
+    private val locationUseCase: LocationUseCase
 ) {
-
-    init {
-        Log.d("TAG", "ININ SUC: $this")
-    }
-
     /*
     Returned ShopList without distance if Location permission denied
      */
@@ -36,14 +30,13 @@ class ShopsUseCase @Inject constructor(
                         )
                     }
                 }.onSuccess {shopList ->
-                    Log.d("TAG", "on Success")
-                    userLocationUseCase().map { location ->
+                    locationUseCase().map { location ->
                         shopList.map { shop ->
                             ShopLocation(
                                 id = shop.id,
                                 name = shop.name,
                                 point = shop.point,
-                                distance = (calculateDistance(shop.point, location))
+                                distance = if(location == null) 0.0 else (calculateDistance(shop.point, location))
                             )
                         }
                     }.collect {
