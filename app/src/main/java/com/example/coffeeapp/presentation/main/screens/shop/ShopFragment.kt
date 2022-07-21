@@ -18,12 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.common.Utils
-import com.example.coffeeapp.databinding.FragmentShopsBinding
+import com.example.coffeeapp.databinding.FragmentShopBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
 
 class ShopFragment : Fragment() {
 
-    private var _binding: FragmentShopsBinding? = null
+    private var _binding: FragmentShopBinding? = null
     private val binding get() = _binding!!
 
     private val shopViewModel by viewModels<ShopViewModel> {
@@ -106,7 +106,7 @@ class ShopFragment : Fragment() {
 
     private fun setAdapter() {
         shopLocationAdapted = ShopLocationAdapter { id ->
-            val action = ShopsFragmentDirections.actionShopsFragmentToMenuFragment(id)
+            val action = ShopFragmentDirections.actionShopsFragmentToMenuFragment(id)
             findNavController().navigate(action)
         }
         binding.shopsRecycler.apply {
