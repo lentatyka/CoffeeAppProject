@@ -23,9 +23,9 @@ class LoginUseCase @Inject constructor(
                 emit(State.Success)
             } catch (e: HttpException) {
                 //Обработать коды ошибок!
-                emit(State.Error(e.localizedMessage ?: "unknown error"))
+                emit(State.Error(e.localizedMessage))
             } catch (e: IOException) {
-                emit(State.Error(e.localizedMessage ?: "unknown error"))
+                emit(State.Error(e.localizedMessage))
             }
         }
     }
@@ -38,9 +38,9 @@ class LoginUseCase @Inject constructor(
                 emit(State.Success)
             } catch (e: HttpException) {
                 //Обработать коды ошибок!
-                emit(State.Error(e.localizedMessage ?: "unknown error"))
+                emit(State.Error(e.localizedMessage))
             } catch (e: IOException) {
-                emit(State.Error(e.localizedMessage ?: "unknown error"))
+                emit(State.Error(e.localizedMessage))
             }
         }
     }

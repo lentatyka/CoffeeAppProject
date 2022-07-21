@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.EventObserver
 import com.example.coffeeapp.common.State.*
+import com.example.coffeeapp.common.Utils
 import com.example.coffeeapp.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -47,10 +48,10 @@ class LoginFragment : Fragment() {
                     //show loading
                 }
                 is Error -> {
-                    showMessage(info.message)
+                    Utils.showToast(requireContext(), info.message)
                 }
                 is Success -> {
-                    showMessage(getString(R.string.success))
+                    Utils.showToast(requireContext(), getString(R.string.success))
                     //GOTO COFFEE ACTIVITY
                 }
             }
@@ -60,10 +61,6 @@ class LoginFragment : Fragment() {
                 findNavController().navigate(it)
             }
         }
-    }
-
-    private fun showMessage(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {

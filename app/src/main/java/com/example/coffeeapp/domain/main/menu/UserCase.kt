@@ -20,7 +20,7 @@ class UserCase @Inject constructor(
                 getStorageMenuUseCase.setList(shopMenu)
                 emit(State.Success)
             }.onFailure {error->
-                emit(State.Error(error.localizedMessage ?: "unknown error"))
+                emit(State.Error(error.localizedMessage))
             }
         }
     }

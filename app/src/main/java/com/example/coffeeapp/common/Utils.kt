@@ -30,7 +30,7 @@ object Utils {
         }.show()
     }
 
-    fun showToast(context: Context, message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    fun showToast(context: Context, message: String?) {
+        Toast.makeText(context, message ?:context.getString(R.string.unknown_error), Toast.LENGTH_LONG).show()
     }
 }

@@ -74,7 +74,6 @@ class MenuFragment : Fragment() {
                     }
                     is State.Success -> {
                         menuAdapter.submitList(menuViewModel.getList())
-                       // menuAdapter.submitList(menu.data)
                     }
                     is State.Error -> {
                         //show error

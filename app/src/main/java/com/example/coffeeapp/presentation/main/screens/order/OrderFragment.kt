@@ -7,10 +7,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
+import com.example.coffeeapp.common.State
+import com.example.coffeeapp.common.Utils
 import com.example.coffeeapp.databinding.FragmentOrderBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
 
 
 class OrderFragment : Fragment() {
@@ -51,6 +56,18 @@ class OrderFragment : Fragment() {
         }
         binding.viewmodel = orderViewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        setViewModel()
+    }
+
+    private fun setViewModel() {
+        lifecycleScope.launchWhenStarted {
+            orderViewModel.state.onEach { state ->
+                when (state) {
+                    is State.Success -> Utils.showToast(requireContext(), "SUCCESS")
+                    else -> Utils.showToast(requireContext(), "ERRRO")
+                }
+            }.collect()
+        }
     }
 
     override fun onDestroyView() {

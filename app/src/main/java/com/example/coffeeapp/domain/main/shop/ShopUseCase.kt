@@ -24,7 +24,7 @@ class ShopUseCase @Inject constructor(
             }.onSuccess {
                 emit(State.Success)
             }.onFailure {
-                emit(State.Error(it.localizedMessage ?: "unknown error"))
+                emit(State.Error(it.localizedMessage))
             }
         }
     }

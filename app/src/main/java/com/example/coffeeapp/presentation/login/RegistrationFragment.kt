@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.EventObserver
 import com.example.coffeeapp.common.State
+import com.example.coffeeapp.common.Utils
 import com.example.coffeeapp.databinding.FragmentRegistrationBinding
 
 class RegistrationFragment : Fragment() {
@@ -47,10 +48,10 @@ class RegistrationFragment : Fragment() {
                     //show loading
                 }
                 is State.Error -> {
-                    showMessage(info.message)
+                    Utils.showToast(requireContext(), info.message)
                 }
                 is State.Success -> {
-                    showMessage(getString(R.string.success))
+                    Utils.showToast(requireContext(), getString(R.string.success))
                     findNavController().popBackStack()
                 }
             }
