@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.EventObserver
-import com.example.coffeeapp.common.Resource
+import com.example.coffeeapp.common.State
 import com.example.coffeeapp.databinding.FragmentRegistrationBinding
 
 class RegistrationFragment : Fragment() {
@@ -43,13 +43,13 @@ class RegistrationFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         loginViewModel.status.observe(viewLifecycleOwner, EventObserver { info ->
             when (info) {
-                is Resource.Loading -> {
+                is State.Loading -> {
                     //show loading
                 }
-                is Resource.Error -> {
+                is State.Error -> {
                     showMessage(info.message)
                 }
-                is Resource.Success -> {
+                is State.Success -> {
                     showMessage(getString(R.string.success))
                     findNavController().popBackStack()
                 }

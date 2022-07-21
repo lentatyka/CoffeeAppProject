@@ -1,6 +1,6 @@
 package com.example.coffeeapp.domain.main.menu
 
-import com.example.coffeeapp.common.Resource
+import com.example.coffeeapp.common.State
 import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.domain.main.menu.local.GetStorageMenuUseCase
 import com.example.coffeeapp.domain.main.menu.remote.GetMenuUseCase
@@ -12,16 +12,16 @@ class UserCase @Inject constructor(
     private val getMenuUseCase: GetMenuUseCase,
     private val getStorageMenuUseCase: GetStorageMenuUseCase
 ) {
-    suspend fun loadMenu(id: Long?): Flow<Resource<ArrayList<MenuItem>>> {
+    suspend fun loadMenu(id: Long?): Flow<State> {
         return flow {
-            emit(Resource.Loading)
+            emit(State.Loading)
             runCatching {
                 getMenuUseCase(id)
             }.onSuccess {shopMenu ->
                 getStorageMenuUseCase.setList(shopMenu)
-                emit(Resource.Success(shopMenu))
+                emit(State.Success)
             }.onFailure {error->
-                emit(Resource.Error(error.localizedMessage ?: "unknown error"))
+                emit(State.Error(error.localizedMessage ?: "unknown error"))
             }
         }
     }

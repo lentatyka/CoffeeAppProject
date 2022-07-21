@@ -17,7 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.Utils
-import com.example.coffeeapp.common.Resource
+import com.example.coffeeapp.common.State
 import com.example.coffeeapp.databinding.FragmentShopsBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
 
@@ -84,13 +84,13 @@ class ShopsFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             shopViewModel.status.observe(viewLifecycleOwner) { info ->
                 when (info) {
-                    is Resource.Loading -> {
+                    is State.Loading -> {
                         //show loading
                     }
-                    is Resource.Error -> {
+                    is State.Error -> {
                         //error
                     }
-                    is Resource.Success -> {
+                    is State.Success -> {
                         setAdapter()
                         shopLocationAdapted.submitList(shopViewModel.getShopList())
                         shopViewModel.startUpdateLocation()

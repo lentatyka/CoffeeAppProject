@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.EventObserver
-import com.example.coffeeapp.common.Resource.*
+import com.example.coffeeapp.common.State.*
 import com.example.coffeeapp.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {

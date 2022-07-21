@@ -2,7 +2,7 @@ package com.example.coffeeapp.presentation.main.screens.menu
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.coffeeapp.common.Resource
+import com.example.coffeeapp.common.State
 import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.domain.main.menu.UserCase
 import dagger.assisted.Assisted
@@ -17,8 +17,8 @@ class MenuViewModel @AssistedInject constructor(
     @Assisted shopId: Long
 ) : ViewModel() {
 
-    private val _status = MutableLiveData<Resource<ArrayList<MenuItem>>>()
-    val status: LiveData<Resource<ArrayList<MenuItem>>> = _status
+    private val _status = MutableLiveData<State>()
+    val status: LiveData<State> = _status
 
     init {
         viewModelScope.launch {

@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.coffeeapp.common.Resource
+import com.example.coffeeapp.common.State
 import com.example.coffeeapp.domain.main.shops.model.Shop
 import com.example.coffeeapp.domain.main.shops.ShopUseCase
 import com.example.coffeeapp.domain.main.shops.location.LocationUseCase
@@ -17,8 +17,8 @@ class ShopViewModel @Inject constructor(
     private val locationUseCase: LocationUseCase
 ) : ViewModel() {
 
-    private val _status = MutableLiveData<Resource<List<Shop>>>()
-    val status: LiveData<Resource<List<Shop>>> = _status
+    private val _status = MutableLiveData<State>()
+    val status: LiveData<State> = _status
 
     private var locationPermissionGranted = false
 
@@ -32,7 +32,7 @@ class ShopViewModel @Inject constructor(
 
     fun startUpdateLocation() {
         _status.value?.let { state->
-            if(state is Resource.Success && locationPermissionGranted)
+            if(state is State.Success && locationPermissionGranted)
                 locationUseCase.startUpdateLocation()
         }
     }

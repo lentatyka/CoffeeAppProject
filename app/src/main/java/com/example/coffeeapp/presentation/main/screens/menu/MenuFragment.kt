@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.coffeeapp.R
-import com.example.coffeeapp.common.Resource
+import com.example.coffeeapp.common.State
 import com.example.coffeeapp.databinding.FragmentMenuBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
 import com.google.android.flexbox.AlignItems
@@ -69,14 +69,14 @@ class MenuFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             menuViewModel.status.observe(viewLifecycleOwner) { menu ->
                 when (menu) {
-                    is Resource.Loading -> {
+                    is State.Loading -> {
                         //show loading
                     }
-                    is Resource.Success -> {
+                    is State.Success -> {
                         menuAdapter.submitList(menuViewModel.getList())
                        // menuAdapter.submitList(menu.data)
                     }
-                    is Resource.Error -> {
+                    is State.Error -> {
                         //show error
                     }
                 }

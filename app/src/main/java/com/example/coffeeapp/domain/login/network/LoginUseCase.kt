@@ -1,7 +1,7 @@
 package com.example.coffeeapp.domain.login.network
 
 
-import com.example.coffeeapp.common.Resource
+import com.example.coffeeapp.common.State
 import com.example.coffeeapp.data.login.network.UserInfoDto
 import com.example.coffeeapp.domain.login.storage.SaveStorage
 import kotlinx.coroutines.flow.Flow
@@ -14,34 +14,34 @@ class LoginUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
     private val storage: SaveStorage
 ) {
-    fun signIn(email: String, password: String): Flow<Resource<UserInfoDto>> {
+    fun signIn(email: String, password: String): Flow<State> {
         return flow {
-            emit(Resource.Loading)
+            emit(State.Loading)
             try {
                 val userInfo = loginRepository.signIn(User(email, password))
                 //Success. Save token to storage
                 storage(userInfo)
-                emit(Resource.Success(userInfo))
+                emit(State.Success)
             } catch (e: HttpException) {
                 //Обработать коды ошибок!
-                emit(Resource.Error(e.localizedMessage ?: "unknown error"))
+                emit(State.Error(e.localizedMessage ?: "unknown error"))
             } catch (e: IOException) {
-                emit(Resource.Error(e.localizedMessage ?: "unknown error"))
+                emit(State.Error(e.localizedMessage ?: "unknown error"))
             }
         }
     }
 
-    fun signUp(email: String, password: String): Flow<Resource<UserInfoDto>> {
+    fun signUp(email: String, password: String): Flow<State> {
         return flow {
-            emit(Resource.Loading)
+            emit(State.Loading)
             try {
                 val userInfo = loginRepository.signUp(User(email, password))
-                emit(Resource.Success(userInfo))
+                emit(State.Success)
             } catch (e: HttpException) {
                 //Обработать коды ошибок!
-                emit(Resource.Error(e.localizedMessage ?: "unknown error"))
+                emit(State.Error(e.localizedMessage ?: "unknown error"))
             } catch (e: IOException) {
-                emit(Resource.Error(e.localizedMessage ?: "unknown error"))
+                emit(State.Error(e.localizedMessage ?: "unknown error"))
             }
         }
     }

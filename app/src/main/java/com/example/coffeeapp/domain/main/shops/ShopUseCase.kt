@@ -3,7 +3,7 @@ package com.example.coffeeapp.domain.main.shops
 import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.example.coffeeapp.common.Resource
+import com.example.coffeeapp.common.State
 import com.example.coffeeapp.domain.main.shops.location.LocationRepository
 import com.example.coffeeapp.domain.main.shops.model.Shop
 import com.example.coffeeapp.domain.main.shops.remote.ShopsLocationUseCase
@@ -15,15 +15,15 @@ class ShopUseCase @Inject constructor(
     private val locationRepository: LocationRepository
 ) {
 
-    fun loadShopList(): Flow<Resource<List<Shop>>> {
+    fun loadShopList(): Flow<State> {
         return flow {
-            emit(Resource.Loading)
+            emit(State.Loading)
             kotlin.runCatching {
                 shopsLocationUseCase.loadShopListDto()
             }.onSuccess {
-                emit(Resource.Success(emptyList<Shop>()))
+                emit(State.Success)
             }.onFailure {
-                emit(Resource.Error(it.localizedMessage ?: "unknown error"))
+                emit(State.Error(it.localizedMessage ?: "unknown error"))
             }
         }
     }
