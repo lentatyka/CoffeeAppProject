@@ -1,9 +1,9 @@
-package com.example.coffeeapp.data.main.shops.local
+package com.example.coffeeapp.data.main.shop.local
 
 import android.location.Location
 import androidx.lifecycle.MutableLiveData
 import com.example.coffeeapp.di.main.MainScope
-import com.example.coffeeapp.domain.main.shops.location.LocationRepository
+import com.example.coffeeapp.domain.main.shop.location.LocationRepository
 import javax.inject.Inject
 
 @MainScope

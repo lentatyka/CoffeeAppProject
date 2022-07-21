@@ -1,17 +1,18 @@
-package com.example.coffeeapp.domain.main.shops
+package com.example.coffeeapp.domain.main.shop
 
 import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.coffeeapp.common.State
-import com.example.coffeeapp.domain.main.shops.location.LocationRepository
-import com.example.coffeeapp.domain.main.shops.model.Shop
-import com.example.coffeeapp.domain.main.shops.remote.ShopsLocationUseCase
-import kotlinx.coroutines.flow.*
+import com.example.coffeeapp.domain.main.shop.location.LocationRepository
+import com.example.coffeeapp.domain.main.shop.model.Shop
+import com.example.coffeeapp.domain.main.shop.remote.ShopLocationUseCase
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class ShopUseCase @Inject constructor(
-    private val shopsLocationUseCase: ShopsLocationUseCase,
+    private val shopsLocationUseCase: ShopLocationUseCase,
     private val locationRepository: LocationRepository
 ) {
 

@@ -2,13 +2,13 @@ package com.example.coffeeapp.di.main
 
 import androidx.lifecycle.ViewModel
 import com.example.coffeeapp.common.Constants
-import com.example.coffeeapp.data.main.shops.local.LocationRepositoryImpl
-import com.example.coffeeapp.data.main.shops.remote.ShopRepositoryImpl
-import com.example.coffeeapp.data.main.shops.remote.ShopServiceApi
+import com.example.coffeeapp.data.main.shop.local.LocationRepositoryImpl
+import com.example.coffeeapp.data.main.shop.remote.ShopRepositoryImpl
+import com.example.coffeeapp.data.main.shop.remote.ShopServiceApi
 import com.example.coffeeapp.di.ViewModelKey
-import com.example.coffeeapp.domain.main.shops.location.LocationRepository
-import com.example.coffeeapp.domain.main.shops.remote.ShopRepository
-import com.example.coffeeapp.presentation.main.screens.shops.ShopViewModel
+import com.example.coffeeapp.domain.main.shop.location.LocationRepository
+import com.example.coffeeapp.domain.main.shop.remote.ShopRepository
+import com.example.coffeeapp.presentation.main.screens.shop.ShopViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

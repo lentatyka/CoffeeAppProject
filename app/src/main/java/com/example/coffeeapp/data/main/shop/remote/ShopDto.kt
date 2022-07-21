@@ -1,4 +1,4 @@
-package com.example.coffeeapp.data.main.shops.remote
+package com.example.coffeeapp.data.main.shop.remote
 
 import com.google.gson.annotations.SerializedName
 

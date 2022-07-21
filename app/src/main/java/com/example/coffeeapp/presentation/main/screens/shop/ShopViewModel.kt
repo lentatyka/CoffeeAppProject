@@ -1,4 +1,4 @@
-package com.example.coffeeapp.presentation.main.screens.shops
+package com.example.coffeeapp.presentation.main.screens.shop
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,9 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.common.State
-import com.example.coffeeapp.domain.main.shops.model.Shop
-import com.example.coffeeapp.domain.main.shops.ShopUseCase
-import com.example.coffeeapp.domain.main.shops.location.LocationUseCase
+import com.example.coffeeapp.domain.main.shop.ShopUseCase
+import com.example.coffeeapp.domain.main.shop.location.LocationUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

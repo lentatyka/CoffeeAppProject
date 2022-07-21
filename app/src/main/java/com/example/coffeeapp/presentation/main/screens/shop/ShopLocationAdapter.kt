@@ -1,4 +1,4 @@
-package com.example.coffeeapp.presentation.main.screens.shops
+package com.example.coffeeapp.presentation.main.screens.shop
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeapp.R
 import com.example.coffeeapp.databinding.ItemShopsBinding
-import com.example.coffeeapp.domain.main.shops.model.Shop
+import com.example.coffeeapp.domain.main.shop.model.Shop
 
-class ShopsLocationAdapter(
+class ShopLocationAdapter(
     private val callback: (Long)->Unit
-):ListAdapter<Shop, ShopsLocationAdapter.ShopLocationViewHolder>(DiffCallback) {
+):ListAdapter<Shop, ShopLocationAdapter.ShopLocationViewHolder>(DiffCallback) {
 
     class ShopLocationViewHolder(
         private val  binding: ItemShopsBinding

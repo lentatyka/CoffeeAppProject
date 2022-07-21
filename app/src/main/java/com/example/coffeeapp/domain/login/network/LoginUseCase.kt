@@ -2,7 +2,6 @@ package com.example.coffeeapp.domain.login.network
 
 
 import com.example.coffeeapp.common.State
-import com.example.coffeeapp.data.login.network.UserInfoDto
 import com.example.coffeeapp.domain.login.storage.SaveStorage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

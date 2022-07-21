@@ -1,9 +1,9 @@
-package com.example.coffeeapp.data.main.shops.local
+package com.example.coffeeapp.data.main.shop.local
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.os.Looper
-import com.example.coffeeapp.domain.main.shops.location.LocationRepository
+import com.example.coffeeapp.domain.main.shop.location.LocationRepository
 import com.google.android.gms.location.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

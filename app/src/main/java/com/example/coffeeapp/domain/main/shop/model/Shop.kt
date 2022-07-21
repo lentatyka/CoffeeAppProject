@@ -1,6 +1,6 @@
-package com.example.coffeeapp.domain.main.shops.model
+package com.example.coffeeapp.domain.main.shop.model
 
-import com.example.coffeeapp.data.main.shops.remote.Point
+import com.example.coffeeapp.data.main.shop.remote.Point
 
 data class Shop(
     val id: Long,

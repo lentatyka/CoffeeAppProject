@@ -1,4 +1,4 @@
-package com.example.coffeeapp.presentation.main.screens.shops
+package com.example.coffeeapp.presentation.main.screens.shop
 
 
 import android.content.Intent
@@ -16,12 +16,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
-import com.example.coffeeapp.common.Utils
 import com.example.coffeeapp.common.State
+import com.example.coffeeapp.common.Utils
 import com.example.coffeeapp.databinding.FragmentShopsBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
 
-class ShopsFragment : Fragment() {
+class ShopFragment : Fragment() {
 
     private var _binding: FragmentShopsBinding? = null
     private val binding get() = _binding!!
@@ -30,7 +30,7 @@ class ShopsFragment : Fragment() {
         (activity as CoffeeActivity).mainComponent.shopsViewModelFactory()
     }
 
-    private lateinit var shopLocationAdapted: ShopsLocationAdapter
+    private lateinit var shopLocationAdapted: ShopLocationAdapter
 
     private lateinit var locationPermission: ActivityResultLauncher<Array<String>>
 
@@ -40,7 +40,7 @@ class ShopsFragment : Fragment() {
     ): View {
         _binding = DataBindingUtil.inflate(
             layoutInflater,
-            R.layout.fragment_shops,
+            R.layout.fragment_shop,
             container,
             false
         )
@@ -105,7 +105,7 @@ class ShopsFragment : Fragment() {
     }
 
     private fun setAdapter() {
-        shopLocationAdapted = ShopsLocationAdapter { id ->
+        shopLocationAdapted = ShopLocationAdapter { id ->
             val action = ShopsFragmentDirections.actionShopsFragmentToMenuFragment(id)
             findNavController().navigate(action)
         }

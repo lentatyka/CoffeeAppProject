@@ -1,7 +1,6 @@
 package com.example.coffeeapp.domain.main.menu
 
 import com.example.coffeeapp.common.State
-import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.domain.main.menu.local.GetStorageMenuUseCase
 import com.example.coffeeapp.domain.main.menu.remote.GetMenuUseCase
 import kotlinx.coroutines.flow.Flow

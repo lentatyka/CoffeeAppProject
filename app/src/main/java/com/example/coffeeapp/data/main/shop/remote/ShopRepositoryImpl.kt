@@ -1,7 +1,7 @@
-package com.example.coffeeapp.data.main.shops.remote
+package com.example.coffeeapp.data.main.shop.remote
 
 import com.example.coffeeapp.di.main.FakeShopServiceApi
-import com.example.coffeeapp.domain.main.shops.remote.ShopRepository
+import com.example.coffeeapp.domain.main.shop.remote.ShopRepository
 import javax.inject.Inject
 
 class ShopRepositoryImpl @Inject constructor(

@@ -1,9 +1,11 @@
 package com.example.coffeeapp.presentation.main.screens.menu
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.common.State
-import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.domain.main.menu.UserCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory

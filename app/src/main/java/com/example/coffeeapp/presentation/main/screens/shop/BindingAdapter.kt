@@ -1,9 +1,9 @@
-package com.example.coffeeapp.presentation.main.screens.shops
+package com.example.coffeeapp.presentation.main.screens.shop
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.coffeeapp.R
-import com.example.coffeeapp.data.main.shops.remote.Point
+import com.example.coffeeapp.data.main.shop.remote.Point
 
 @BindingAdapter("distance", "point")
 fun setDistance(textView: TextView, distance: Int?, point: Point){

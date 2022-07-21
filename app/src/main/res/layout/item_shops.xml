@@ -6,7 +6,7 @@
     <data>
         <variable
             name="location"
-            type="com.example.coffeeapp.domain.main.shops.model.Shop" />
+            type="com.example.coffeeapp.domain.main.shop.model.Shop" />
         <variable
             name="distance"
             type="Integer" />

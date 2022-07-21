@@ -1,4 +1,4 @@
-package com.example.coffeeapp.domain.main.shops.location
+package com.example.coffeeapp.domain.main.shop.location
 
 import android.location.Location
 import androidx.lifecycle.LiveData
