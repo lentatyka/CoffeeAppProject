@@ -9,11 +9,12 @@ class ShopRepositoryImpl @Inject constructor(
 ): ShopRepository {
 
     private val shopListDto = ArrayList<ShopDto>()
-    override suspend fun loadShopsLocationDtoList() {
+
+    override suspend fun loadShopListDto() {
         shopListDto.clear()
         shopListDto.addAll(shopServiceApi())
     }
 
-    override fun getShopLocationDtoList() = shopListDto
+    override fun getShopListDto() = shopListDto
 
 }

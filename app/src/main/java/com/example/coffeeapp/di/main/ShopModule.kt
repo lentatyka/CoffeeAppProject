@@ -8,7 +8,7 @@ import com.example.coffeeapp.data.main.shops.remote.ShopServiceApi
 import com.example.coffeeapp.di.ViewModelKey
 import com.example.coffeeapp.domain.main.shops.location.LocationRepository
 import com.example.coffeeapp.domain.main.shops.remote.ShopRepository
-import com.example.coffeeapp.presentation.main.screens.shops.ShopsViewModel
+import com.example.coffeeapp.presentation.main.screens.shops.ShopViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -22,8 +22,8 @@ abstract class ShopModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(ShopsViewModel::class)
-    abstract fun bindViewModel(viewModel: ShopsViewModel): ViewModel
+    @ViewModelKey(ShopViewModel::class)
+    abstract fun bindViewModel(viewModel: ShopViewModel): ViewModel
 
     @Binds
     @FakeShopServiceApi

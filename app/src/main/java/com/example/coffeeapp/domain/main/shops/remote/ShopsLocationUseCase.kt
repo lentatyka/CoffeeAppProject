@@ -8,7 +8,7 @@ class ShopsLocationUseCase @Inject constructor(
     private val shopRepository: ShopRepository
 ) {
     @Throws(HttpException::class, IOException::class)
-    suspend fun loadShopsLocationDtoList() = shopRepository.loadShopsLocationDtoList()
+    suspend fun loadShopListDto() = shopRepository.loadShopListDto()
 
-    fun getShopLocationDtoList() = shopRepository.getShopLocationDtoList()
+    fun getShopListDto() = shopRepository.getShopListDto()
 }

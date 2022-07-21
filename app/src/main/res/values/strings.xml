@@ -26,4 +26,7 @@
     <item quantity="other">%d км от вас</item>
     </plurals>
     <string name="location">lo: %.4f la: %.4f</string>
+    <string name="gps_enable">Включить GPS</string>
+    <string name="ok">OK</string>
+    <string name="location_disable">Разрешение на геолокацию не предоставлено</string>
 </resources>

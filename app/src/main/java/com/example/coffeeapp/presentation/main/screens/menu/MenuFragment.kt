@@ -18,6 +18,8 @@ import com.example.coffeeapp.presentation.main.CoffeeActivity
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import javax.inject.Inject
+
 class MenuFragment : Fragment() {
 
     private var _binding: FragmentMenuBinding? = null
@@ -26,13 +28,17 @@ class MenuFragment : Fragment() {
     private lateinit var menuAdapter: MenuAdapter
     private val args: MenuFragmentArgs by navArgs()
 
+    @Inject
+    lateinit var vmFactory:MenuViewModelFactory.Factory
+
     private val menuViewModel by viewModels<MenuViewModel> {
-        (activity as CoffeeActivity).mainComponent.menuViewModelFactory().create(args.shopId)
+        vmFactory.create(args.shopId)
     }
 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        (activity as CoffeeActivity).mainComponent.inject(this)
     }
 
     override fun onCreateView(

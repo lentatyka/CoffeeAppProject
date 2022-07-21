@@ -1,11 +1,13 @@
 package com.example.coffeeapp.presentation.main.screens.shops
 
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -14,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
+import com.example.coffeeapp.common.Utils
 import com.example.coffeeapp.common.Resource
 import com.example.coffeeapp.databinding.FragmentShopsBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
@@ -23,11 +26,13 @@ class ShopsFragment : Fragment() {
     private var _binding: FragmentShopsBinding? = null
     private val binding get() = _binding!!
 
-    private val shopsViewModel by viewModels<ShopsViewModel> {
+    private val shopViewModel by viewModels<ShopViewModel> {
         (activity as CoffeeActivity).mainComponent.shopsViewModelFactory()
     }
 
     private lateinit var shopLocationAdapted: ShopsLocationAdapter
+
+    private lateinit var locationPermission: ActivityResultLauncher<Array<String>>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,44 +49,56 @@ class ShopsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        setAdapter()
-        setViewModel()
-
-        val accessLocation = registerForActivityResult(
+        locationPermission = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissions ->
             when {
                 permissions.getOrDefault(
                     android.Manifest.permission.ACCESS_FINE_LOCATION, false
                 ) -> {
-
+                    when {
+                        Utils.isGPSEnabled(requireContext()) -> {
+                            shopViewModel.setLocationEnable(true)
+                            shopViewModel.startUpdateLocation()
+                        }
+                        else -> Utils.showSnackBar(
+                            view,
+                            getString(R.string.gps_enable)
+                        ) {
+                            val intent = Intent()
+                            intent.action = Settings.ACTION_LOCATION_SOURCE_SETTINGS
+                            startActivity(intent)
+                        }
+                    }
                 }
                 else -> {
+                    Utils.showToast(requireContext(), getString(R.string.location_disable))
+                    shopViewModel.setLocationEnable(false)
                 }
             }
         }
-        accessLocation.launch(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION))
+        setViewModel()
     }
 
     private fun setViewModel() {
         lifecycleScope.launchWhenStarted {
-            shopsViewModel.status.observe(viewLifecycleOwner) { info ->
+            shopViewModel.status.observe(viewLifecycleOwner) { info ->
                 when (info) {
                     is Resource.Loading -> {
                         //show loading
                     }
                     is Resource.Error -> {
-                        showMessage(info.message)
+                        //error
                     }
                     is Resource.Success -> {
-                        shopLocationAdapted.submitList(shopsViewModel.getShopList())
-                        shopsViewModel.startUpdateLocation()
+                        setAdapter()
+                        shopLocationAdapted.submitList(shopViewModel.getShopList())
+                        shopViewModel.startUpdateLocation()
                     }
                 }
             }
-            shopsViewModel.location.observe(viewLifecycleOwner) { shopList ->
+
+            shopViewModel.getShopListLocation().observe(viewLifecycleOwner) { shopList ->
                 shopLocationAdapted.submitList(shopList)
             }
         }
@@ -99,22 +116,18 @@ class ShopsFragment : Fragment() {
         }
     }
 
-    private fun showMessage(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    override fun onStop() {
+        super.onStop()
+        shopViewModel.stopUpdateLocation()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        locationPermission.launch(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION))
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onResume() {
-        super.onResume()
-        shopsViewModel.startUpdateLocation()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        shopsViewModel.stopUpdateLocation()
     }
 }

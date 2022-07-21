@@ -12,7 +12,7 @@ import com.example.coffeeapp.domain.main.shops.location.LocationUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ShopsViewModel @Inject constructor(
+class ShopViewModel @Inject constructor(
     private val shopsUseCase: ShopUseCase,
     private val locationUseCase: LocationUseCase
 ) : ViewModel() {
@@ -20,9 +20,9 @@ class ShopsViewModel @Inject constructor(
     private val _status = MutableLiveData<Resource<List<Shop>>>()
     val status: LiveData<Resource<List<Shop>>> = _status
 
-    val location = shopsUseCase.getShopListLocation()
+    private var locationPermissionGranted = false
 
-    init{
+    init {
         viewModelScope.launch {
             shopsUseCase.loadShopList().collect {
                 _status.postValue(it)
@@ -30,11 +30,9 @@ class ShopsViewModel @Inject constructor(
         }
     }
 
-    fun getShopList() = shopsUseCase.getShopList()
-
     fun startUpdateLocation() {
-        _status.value?.let { status ->
-            if (status is Resource.Success)
+        _status.value?.let { state->
+            if(state is Resource.Success && locationPermissionGranted)
                 locationUseCase.startUpdateLocation()
         }
     }
@@ -43,9 +41,19 @@ class ShopsViewModel @Inject constructor(
         locationUseCase.stopUpdateLocation()
     }
 
+    fun setLocationEnable(isEnabled: Boolean){
+        locationPermissionGranted = isEnabled
+    }
+
+    fun getShopList() = shopsUseCase.getShopList()
+
+    fun getShopListLocation() = shopsUseCase.getShopListLocation()
+
     override fun onCleared() {
         Log.d("TAG", "SHOPVM CLEAR")
-        stopUpdateLocation()
+        locationUseCase.stopUpdateLocation()
         super.onCleared()
     }
+
+
 }

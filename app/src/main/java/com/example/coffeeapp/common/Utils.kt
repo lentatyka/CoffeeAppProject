@@ -1,28 +1,41 @@
 package com.example.coffeeapp.common
 
-import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.LocationManager
+import android.net.Uri
+import android.provider.Settings
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.example.coffeeapp.BuildConfig
+import com.example.coffeeapp.R
 import com.google.android.material.snackbar.Snackbar
 
-fun Context.hasPermission(permission: String) = ActivityCompat.checkSelfPermission(
-    this, permission
-) == PackageManager.PERMISSION_GRANTED
+object Utils {
 
-fun Activity.requestPermissionWithRationale(
-    permission: String,
-    requestCode: Int,
-    snackbar: Snackbar
-){
-    val provideRationale = shouldShowRequestPermissionRationale(permission)
-    if(provideRationale){
-        snackbar.show()
-    }else{
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(permission),
-            requestCode
-        )
+    fun isLocationPermissionGranted(context: Context) =
+        ActivityCompat.checkSelfPermission(
+            context, android.Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+
+    fun isGPSEnabled(context: Context): Boolean {
+        val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    }
+
+    fun showSnackBar(view: View, message: String, callback: () -> Unit) {
+        Snackbar.make(
+            view, message, Snackbar.LENGTH_INDEFINITE
+        ).setAction(R.string.ok) {
+            callback()
+        }.show()
+    }
+
+    fun showToast(context: Context, message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 }
