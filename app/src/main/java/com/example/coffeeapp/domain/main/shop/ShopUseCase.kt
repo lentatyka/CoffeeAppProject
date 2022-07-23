@@ -1,14 +1,11 @@
 package com.example.coffeeapp.domain.main.shop
 
 import android.location.Location
-import android.util.Log
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.domain.main.shop.location.LocationRepository
 import com.example.coffeeapp.domain.main.shop.model.Shop
 import com.example.coffeeapp.domain.main.shop.remote.ShopLocationUseCase
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class ShopUseCase @Inject constructor(
@@ -29,14 +26,6 @@ class ShopUseCase @Inject constructor(
         }
     }
 
-    fun getShopList() = shopsLocationUseCase.getShopListDto().map { shopDto ->
-        Shop(
-            id = shopDto.id.toLong(),
-            name = shopDto.name,
-            point = shopDto.point
-        )
-    }
-
     fun getShopListLocation(): Flow<List<Shop>> {
         return locationRepository.getLocation().map { location ->
             shopsLocationUseCase.getShopListDto().map { shop ->
@@ -49,6 +38,16 @@ class ShopUseCase @Inject constructor(
                         longitude = shop.point.longitude
                     }).toInt()
                 )
+            }
+        }.onStart {
+            shopsLocationUseCase.getShopListDto().map {shop->
+                Shop(
+                    id = shop.id.toLong(),
+                    name = shop.name,
+                    point = shop.point
+                )
+            }.also {
+                emit(it)
             }
         }
     }

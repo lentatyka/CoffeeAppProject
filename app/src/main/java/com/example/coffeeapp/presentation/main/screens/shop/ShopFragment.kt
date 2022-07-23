@@ -4,6 +4,7 @@ package com.example.coffeeapp.presentation.main.screens.shop
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +24,6 @@ import com.example.coffeeapp.presentation.main.CoffeeActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onEmpty
-import kotlinx.coroutines.flow.onStart
 
 class ShopFragment : Fragment() {
 

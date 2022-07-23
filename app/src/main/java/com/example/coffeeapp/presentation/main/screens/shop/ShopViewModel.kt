@@ -5,7 +5,9 @@ import com.example.coffeeapp.common.State
 import com.example.coffeeapp.domain.main.shop.ShopUseCase
 import com.example.coffeeapp.domain.main.shop.location.LocationUseCase
 import com.example.coffeeapp.domain.main.shop.model.Shop
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,6 +19,8 @@ class ShopViewModel @Inject constructor(
 
     private val _status = MutableLiveData<State>()
     val status: LiveData<State> = _status
+
+    private val job: Job? = null
 
     private var locationPermissionGranted = false
 
@@ -35,18 +39,18 @@ class ShopViewModel @Inject constructor(
     fun startUpdateLocation() {
         _status.value?.let { state ->
             if (state is State.Success) {
-                if (locationPermissionGranted) {
-                    locationUseCase.startUpdateLocation()
+                    if(locationPermissionGranted)
+                        locationUseCase.startUpdateLocation()
                     getShopListLocation()
-                } else
-                    _shopList.tryEmit(shopsUseCase.getShopList())
             }
-
         }
     }
 
     fun stopUpdateLocation() {
-        locationUseCase.stopUpdateLocation()
+        job?.let {
+            locationUseCase.stopUpdateLocation()
+            it.cancel()
+        }
     }
 
     fun setLocationEnable(isEnabled: Boolean) {
@@ -54,10 +58,12 @@ class ShopViewModel @Inject constructor(
     }
 
     private fun getShopListLocation() {
-        viewModelScope.launch {
-            shopsUseCase.getShopListLocation().collectLatest {
-                _shopList.emit(it)
-            }
+        if(job == null){
+            viewModelScope.launch {
+                shopsUseCase.getShopListLocation().collect {
+                    _shopList.emit(it)
+                }
+            }.start()
         }
     }
 

@@ -1,7 +1,6 @@
 package com.example.coffeeapp.data.main.shop.local
 
 import android.location.Location
-import androidx.lifecycle.MutableLiveData
 import com.example.coffeeapp.di.main.MainScope
 import com.example.coffeeapp.domain.main.shop.location.LocationRepository
 import kotlinx.coroutines.channels.BufferOverflow
