@@ -1,6 +1,7 @@
 package com.example.coffeeapp.di.main
 
 import com.example.coffeeapp.common.Constants
+import com.example.coffeeapp.data.main.menu.local.MenuRepa
 import com.example.coffeeapp.data.main.menu.local.StorageMenuRepositoryImpl
 import com.example.coffeeapp.data.main.menu.remote.MenuRepositoryImpl
 import com.example.coffeeapp.data.main.menu.remote.MenuServiceApi
@@ -20,7 +21,7 @@ abstract class MenuModule {
     abstract fun bindMenuRepository(repository: MenuRepositoryImpl): MenuRepository
 
     @Binds
-    abstract fun bindStorageMenuRepository(repo: StorageMenuRepositoryImpl): StorageMenuRepository
+    abstract fun bindStorageMenuRepository(repo: MenuRepa): StorageMenuRepository
 
     @Binds
     @FakeMenuServiceApi

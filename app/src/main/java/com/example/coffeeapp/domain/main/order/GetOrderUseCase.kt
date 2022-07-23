@@ -14,7 +14,5 @@ class GetOrderUseCase @Inject constructor(
 
     fun getTotal() = storageMenuRepository.getTotal()
 
-    fun isEmptyOrder() = storageMenuRepository.getList().count { menuItem ->
-        menuItem.amount > 0
-    } == 0
+    fun isEmptyOrder() = false
 }

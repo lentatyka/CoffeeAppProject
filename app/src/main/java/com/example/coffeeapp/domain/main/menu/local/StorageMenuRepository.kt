@@ -2,6 +2,7 @@ package com.example.coffeeapp.domain.main.menu.local
 
 import androidx.lifecycle.LiveData
 import com.example.coffeeapp.data.main.menu.model.MenuItem
+import kotlinx.coroutines.flow.Flow
 
 interface StorageMenuRepository {
 
@@ -9,7 +10,7 @@ interface StorageMenuRepository {
 
     fun sub(id: Int):Boolean
 
-    fun getList():ArrayList<MenuItem>
+    fun getList(): Flow<MenuItem>
 
     fun setList(list: ArrayList<MenuItem>)
 

@@ -49,7 +49,7 @@ class OrderFragment : Fragment() {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = OrderAdapter(
-                orderViewModel.getList()
+                arrayListOf()
             ) { id, isAdd ->
                 if (isAdd)
                     orderViewModel.addAmount(id)
