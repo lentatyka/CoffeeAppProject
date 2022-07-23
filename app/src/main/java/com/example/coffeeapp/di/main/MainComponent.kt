@@ -9,7 +9,8 @@ import dagger.Subcomponent
     modules = [
         ShopModule::class,
         MenuModule::class,
-        OrderModule::class
+        OrderModule::class,
+        RoomModule::class
     ]
 )
 @MainScope
@@ -19,11 +20,7 @@ interface MainComponent {
     interface Factory {
         fun create(): MainComponent
     }
-
-//    fun inject(activity: CoffeeActivity)
-//    fun inject(fragment: ShopsFragment)
     fun inject(fragment: MenuFragment)
-//    fun inject(fragment: OrderFragment)
 
     fun shopsViewModelFactory(): ShopViewModelFactory
 
