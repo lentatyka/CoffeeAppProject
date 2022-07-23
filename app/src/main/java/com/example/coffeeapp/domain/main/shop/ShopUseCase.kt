@@ -4,12 +4,12 @@ import android.location.Location
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.domain.main.shop.location.LocationRepository
 import com.example.coffeeapp.domain.main.shop.model.Shop
-import com.example.coffeeapp.domain.main.shop.remote.ShopLocationUseCase
+import com.example.coffeeapp.domain.main.shop.remote.ShopRepository
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class ShopUseCase @Inject constructor(
-    private val shopsLocationUseCase: ShopLocationUseCase,
+    private val shopRepository: ShopRepository,
     private val locationRepository: LocationRepository
 ) {
 
@@ -17,7 +17,7 @@ class ShopUseCase @Inject constructor(
         return flow {
             emit(State.Loading)
             kotlin.runCatching {
-                shopsLocationUseCase.loadShopListDto()
+                shopRepository.loadShopListDto()
             }.onSuccess {
                 emit(State.Success)
             }.onFailure {
@@ -28,7 +28,7 @@ class ShopUseCase @Inject constructor(
 
     fun getShopListLocation(): Flow<List<Shop>> {
         return locationRepository.getLocation().map { location ->
-            shopsLocationUseCase.getShopListDto().map { shop ->
+            shopRepository.getShopListDto().map { shop ->
                 Shop(
                     id = shop.id.toLong(),
                     name = shop.name,
@@ -40,7 +40,7 @@ class ShopUseCase @Inject constructor(
                 )
             }
         }.onStart {
-            shopsLocationUseCase.getShopListDto().map {shop->
+            shopRepository.getShopListDto().map {shop->
                 Shop(
                     id = shop.id.toLong(),
                     name = shop.name,
