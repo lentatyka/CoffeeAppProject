@@ -1,6 +1,5 @@
 package com.example.coffeeapp.presentation.main.screens.menu
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -39,10 +38,5 @@ class MenuViewModel @AssistedInject constructor(
     @AssistedFactory
     interface Factory {
         fun create(shopId: Long): MenuViewModel
-    }
-
-    override fun onCleared() {
-        Log.d("TAG", "MENU CLEARED")
-        super.onCleared()
     }
 }

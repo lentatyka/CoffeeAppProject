@@ -1,7 +1,5 @@
 package com.example.coffeeapp.presentation.main.screens.order
 
-
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.coffeeapp.common.State
@@ -28,17 +26,12 @@ class OrderViewModel @Inject constructor(
 
     fun getList() = getOrderUseCase.getList()
 
-    fun getTotal() = getOrderUseCase.getTotal()
+    fun getTotal() = 2.0
 
     fun checkOrder() = View.OnClickListener{
         if (getOrderUseCase.isEmptyOrder()){
             _state.tryEmit(State.Error(null))
         }else
             _state.tryEmit(State.Success)
-    }
-
-    override fun onCleared() {
-        Log.d("TAG", "ORDER VM CLEAR")
-        super.onCleared()
     }
 }
