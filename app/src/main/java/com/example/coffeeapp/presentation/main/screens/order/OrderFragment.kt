@@ -1,6 +1,7 @@
 package com.example.coffeeapp.presentation.main.screens.order
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +9,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.common.Utils
+import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.databinding.FragmentOrderBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
 import kotlinx.coroutines.flow.collect
@@ -63,7 +66,11 @@ class OrderFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             orderViewModel.state.onEach { state ->
                 when (state) {
-                    is State.Success -> Utils.showToast(requireContext(), "SUCCESS")
+                    is State.Success ->{
+                        OrderFragmentDirections.actionTotalFragmentToShopsFragment().also {
+                            findNavController().navigate(it)
+                        }
+                    }
                     else -> Utils.showToast(requireContext(), "ERRRO")
                 }
             }.collect()
@@ -72,6 +79,11 @@ class OrderFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("TAG", "ORDER FR CLEAR -> $this")
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 }

@@ -1,12 +1,11 @@
 package com.example.coffeeapp.presentation.main.screens.order
 
 
+import android.util.Log
 import android.view.View
-import android.widget.Button
 import androidx.lifecycle.ViewModel
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.domain.main.order.GetOrderUseCase
-import com.example.coffeeapp.generated.callback.OnClickListener
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -36,5 +35,10 @@ class OrderViewModel @Inject constructor(
             _state.tryEmit(State.Error(null))
         }else
             _state.tryEmit(State.Success)
+    }
+
+    override fun onCleared() {
+        Log.d("TAG", "ORDER VM CLEAR")
+        super.onCleared()
     }
 }

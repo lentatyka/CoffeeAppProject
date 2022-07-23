@@ -1,14 +1,14 @@
 package com.example.coffeeapp.domain.main.shop
 
 import android.location.Location
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import android.util.Log
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.domain.main.shop.location.LocationRepository
 import com.example.coffeeapp.domain.main.shop.model.Shop
 import com.example.coffeeapp.domain.main.shop.remote.ShopLocationUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ShopUseCase @Inject constructor(
@@ -33,12 +33,12 @@ class ShopUseCase @Inject constructor(
         Shop(
             id = shopDto.id.toLong(),
             name = shopDto.name,
-            point = shopDto.point,
+            point = shopDto.point
         )
     }
 
-    fun getShopListLocation(): LiveData<List<Shop>> {
-        return Transformations.map(locationRepository.getLocation()) { location ->
+    fun getShopListLocation(): Flow<List<Shop>> {
+        return locationRepository.getLocation().map { location ->
             shopsLocationUseCase.getShopListDto().map { shop ->
                 Shop(
                     id = shop.id.toLong(),

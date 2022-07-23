@@ -20,6 +20,10 @@ import com.example.coffeeapp.common.State
 import com.example.coffeeapp.common.Utils
 import com.example.coffeeapp.databinding.FragmentShopBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onEmpty
+import kotlinx.coroutines.flow.onStart
 
 class ShopFragment : Fragment() {
 
@@ -92,15 +96,14 @@ class ShopFragment : Fragment() {
                     }
                     is State.Success -> {
                         setAdapter()
-                        shopLocationAdapted.submitList(shopViewModel.getShopList())
                         shopViewModel.startUpdateLocation()
                     }
                 }
             }
 
-            shopViewModel.getShopListLocation().observe(viewLifecycleOwner) { shopList ->
+            shopViewModel.shopList.onEach { shopList ->
                 shopLocationAdapted.submitList(shopList)
-            }
+            }.collect()
         }
     }
 
