@@ -1,7 +1,6 @@
 package com.example.coffeeapp.presentation.main.screens.order
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.common.Utils
-import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.databinding.FragmentOrderBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
 import kotlinx.coroutines.flow.collect
@@ -52,9 +50,9 @@ class OrderFragment : Fragment() {
                 arrayListOf()
             ) { id, isAdd ->
                 if (isAdd)
-                    orderViewModel.addAmount(id)
+                    true
                 else
-                    orderViewModel.subAmount(id)
+                    true
             }
         }
         binding.viewmodel = orderViewModel
@@ -79,11 +77,6 @@ class OrderFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("TAG", "ORDER FR CLEAR -> $this")
         _binding = null
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 }

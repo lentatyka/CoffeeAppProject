@@ -7,9 +7,7 @@
         <variable
             name="viewmodel"
             type="com.example.coffeeapp.presentation.login.LoginViewModel"/>
-        <variable
-            name="zaz"
-            type="Boolean" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

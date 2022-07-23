@@ -6,13 +6,11 @@ import javax.inject.Inject
 class GetOrderUseCase @Inject constructor(
     private val storageMenuRepository: StorageMenuRepository
 ) {
-    fun getList() = storageMenuRepository.getList()
+    fun getList() = storageMenuRepository.getMenu()
 
-    fun add(id: Int) = storageMenuRepository.add(id)
+    fun add(id: Int){}
 
-    fun sub(id: Int) = storageMenuRepository.sub(id)
-
-    fun getTotal() = storageMenuRepository.getTotal()
+    fun sub(id: Int){}
 
     fun isEmptyOrder() = false
 }

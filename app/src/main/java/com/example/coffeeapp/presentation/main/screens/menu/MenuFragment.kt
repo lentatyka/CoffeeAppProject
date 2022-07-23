@@ -18,6 +18,8 @@ import com.example.coffeeapp.presentation.main.CoffeeActivity
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class MenuFragment : Fragment() {
@@ -29,7 +31,7 @@ class MenuFragment : Fragment() {
     private val args: MenuFragmentArgs by navArgs()
 
     @Inject
-    lateinit var vmFactory:MenuViewModelFactory.Factory
+    lateinit var vmFactory: MenuViewModelFactory.Factory
 
     private val menuViewModel by viewModels<MenuViewModel> {
         vmFactory.create(args.shopId)
@@ -58,6 +60,8 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
         setViewModel()
+        binding.viewmodel = menuViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.showCartBtn.setOnClickListener {
             MenuFragmentDirections.actionMenuFragmentToTotalFragment().also {
                 findNavController().navigate(it)
@@ -66,27 +70,18 @@ class MenuFragment : Fragment() {
     }
 
     private fun setViewModel() {
-        lifecycleScope.launchWhenStarted {
-            menuViewModel.status.observe(viewLifecycleOwner) { menu ->
-                when (menu) {
-                    is State.Loading -> {
-                        //show loading
-                    }
-                    is State.Success -> {
-                        menuAdapter.submitList(emptyList())
-                    }
-                    is State.Error -> {
-                        //show error
-                    }
-                }
-            }
+        lifecycleScope.launchWhenCreated {
+            menuViewModel.getList().onEach { menuList ->
+                menuAdapter.submitList(menuList)
+            }.collect()
         }
     }
 
     private fun setAdapter() {
         menuAdapter = MenuAdapter { id, isAdd ->
-            if (isAdd)
+            if (isAdd){
                 menuViewModel.addAmount(id)
+            }
             else
                 menuViewModel.subAmount(id)
         }

@@ -1,18 +1,15 @@
 package com.example.coffeeapp.domain.main.menu.local
 
-import androidx.lifecycle.LiveData
 import com.example.coffeeapp.data.main.menu.model.MenuItem
 import kotlinx.coroutines.flow.Flow
 
 interface StorageMenuRepository {
 
-    fun add(id: Int):Boolean
+    suspend fun add(id: Int)
 
-    fun sub(id: Int):Boolean
+    suspend fun sub(id: Int)
 
-    fun getList(): Flow<MenuItem>
+    fun getMenu(): Flow<List<MenuItem>>
 
-    fun setList(list: ArrayList<MenuItem>)
-
-    fun getTotal():LiveData<Double>
+    suspend fun setMenu(list: ArrayList<MenuItem>)
 }

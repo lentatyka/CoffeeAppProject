@@ -5,16 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.common.State
-import com.example.coffeeapp.domain.main.menu.UserCase
+import com.example.coffeeapp.domain.main.menu.MenuUseCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class MenuViewModel @AssistedInject constructor(
-    private val useCase: UserCase,
+    private val useCase: MenuUseCase,
     @Assisted shopId: Long
 ) : ViewModel() {
 
@@ -29,11 +28,19 @@ class MenuViewModel @AssistedInject constructor(
         }
     }
 
-    fun addAmount(id: Int) = useCase.add(id)
+    fun addAmount(id: Int){
+        viewModelScope.launch {
+            useCase.add(id)
+        }
+    }
 
-    fun subAmount(id: Int) = useCase.sub(id)
+    fun subAmount(id: Int){
+        viewModelScope.launch {
+            useCase.sub(id)
+        }
+    }
 
-    fun getList() = useCase.getList()
+    fun getList() = useCase.getMenu()
 
     @AssistedFactory
     interface Factory {

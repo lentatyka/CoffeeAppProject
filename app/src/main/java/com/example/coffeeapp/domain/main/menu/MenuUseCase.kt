@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class UserCase @Inject constructor(
+class MenuUseCase @Inject constructor(
     private val storageRepository: StorageMenuRepository,
     private val menuRepository: MenuRepository
 ) {
@@ -17,7 +17,7 @@ class UserCase @Inject constructor(
             runCatching {
                 menuRepository(id)
             }.onSuccess {shopMenu ->
-                storageRepository.setList(shopMenu)
+                storageRepository.setMenu(shopMenu)
                 emit(State.Success)
             }.onFailure {error->
                 emit(State.Error(error.localizedMessage))
@@ -25,9 +25,9 @@ class UserCase @Inject constructor(
         }
     }
 
-    fun getList() = storageRepository.getList()
+    fun getMenu() = storageRepository.getMenu()
 
-    fun add(id: Int) = storageRepository.add(id)
+    suspend fun add(id: Int) = storageRepository.add(id)
 
-    fun sub(id: Int) = storageRepository.sub(id)
+    suspend fun sub(id: Int) = storageRepository.sub(id)
 }
