@@ -59,15 +59,11 @@ class OrderFragment : Fragment() {
 
     private fun setAdapter() {
         binding.orderRecycler.apply {
+            val addAmount: (Int) -> Unit = { id -> orderViewModel.addAmount(id) }
+            val subAmount: (Int) -> Unit = { id -> orderViewModel.subAmount(id) }
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            orderAdapter = OrderAdapter{ id, isAdd ->
-                if (isAdd){
-                    orderViewModel.addAmount(id)
-                }
-                else
-                    orderViewModel.subAmount(id)
-            }
+            orderAdapter = OrderAdapter(addAmount, subAmount)
             adapter = orderAdapter
         }
     }

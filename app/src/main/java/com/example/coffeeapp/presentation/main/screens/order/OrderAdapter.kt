@@ -11,7 +11,8 @@ import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.databinding.ItemOrderBinding
 
 class OrderAdapter(
-    private val callback: (Int, Boolean) -> Unit
+    private val addAmount: (Int) -> Unit,
+    private val subAmount: (Int) -> Unit
 ) : ListAdapter<MenuItem, OrderAdapter.OrderViewHolder>(DiffCallback) {
 
     inner class OrderViewHolder(
@@ -22,10 +23,10 @@ class OrderAdapter(
             binding.menu = item
             binding.amount = item.amount
             binding.orderAddIb.setOnClickListener {
-                callback(item.id, true)
+                addAmount(item.id)
             }
             binding.orderRemoveIb.setOnClickListener {
-                callback(item.id, false)
+                subAmount(item.id)
             }
         }
 
