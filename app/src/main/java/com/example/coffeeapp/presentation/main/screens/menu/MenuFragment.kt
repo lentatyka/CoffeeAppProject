@@ -12,13 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.coffeeapp.R
-import com.example.coffeeapp.common.State
+import com.example.coffeeapp.common.Utils.launchWhenStarted
 import com.example.coffeeapp.databinding.FragmentMenuBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
@@ -70,22 +69,15 @@ class MenuFragment : Fragment() {
     }
 
     private fun setViewModel() {
-        lifecycleScope.launchWhenCreated {
-            menuViewModel.getList().onEach { menuList ->
-                menuAdapter.submitList(menuList)
-            }.collect()
-        }
+        menuViewModel.getList().onEach(menuAdapter::submitList).launchWhenStarted(lifecycleScope)
     }
 
     private fun setAdapter() {
-        menuAdapter = MenuAdapter { id, isAdd ->
-            if (isAdd){
-                menuViewModel.addAmount(id)
-            }
-            else
-                menuViewModel.subAmount(id)
-        }
+
         binding.menuRecycler.apply {
+            val addAmount: (Int) -> Unit = { id -> menuViewModel.addAmount(id) }
+            val subAmount: (Int) -> Unit = { id -> menuViewModel.subAmount(id) }
+            menuAdapter = MenuAdapter(addAmount, subAmount)
             val flexBox = FlexboxLayoutManager(requireContext()).apply {
                 justifyContent = JustifyContent.SPACE_AROUND
                 alignItems = AlignItems.CENTER
