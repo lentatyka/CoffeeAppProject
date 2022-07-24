@@ -21,10 +21,16 @@ interface OrderDao {
     fun deleteOrder()
 
     @Query("SELECT * FROM product")
-    fun getMenuList():Flow<List<MenuItem>>
+    fun getMenuList(): Flow<List<MenuItem>>
+
+    @Query("SELECT * FROM product WHERE amount > 0")
+    fun getOrder(): Flow<List<MenuItem>>
+
+    @Query("SELECT SUM(price * amount) FROM product")
+    fun getTotal(): Flow<Double>
 
     @Transaction
-    suspend fun updateMenuList(menuList: List<MenuItem>){
+    suspend fun updateMenuList(menuList: List<MenuItem>) {
         deleteOrder()
         insertMenuList(menuList)
     }
