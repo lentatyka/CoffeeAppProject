@@ -1,8 +1,10 @@
 package com.example.coffeeapp.presentation.main.screens.shop
 
+import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.coffeeapp.R
+import com.example.coffeeapp.common.State
 import com.example.coffeeapp.data.main.shop.remote.Point
 
 @BindingAdapter("distance", "point")

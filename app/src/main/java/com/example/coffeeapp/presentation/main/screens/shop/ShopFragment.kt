@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.common.Utils
+import com.example.coffeeapp.common.Utils.launchWhenStarted
 import com.example.coffeeapp.databinding.FragmentShopBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
 import kotlinx.coroutines.flow.collect
@@ -79,30 +80,16 @@ class ShopFragment : Fragment() {
                 }
             }
         }
+        setAdapter()
         setViewModel()
     }
 
     private fun setViewModel() {
-        lifecycleScope.launchWhenStarted {
-            shopViewModel.status.observe(viewLifecycleOwner) { info ->
-                when (info) {
-                    is State.Loading -> {
-                        //show loading
-                    }
-                    is State.Error -> {
-                        //error
-                    }
-                    is State.Success -> {
-                        setAdapter()
-                        shopViewModel.startUpdateLocation()
-                    }
-                }
-            }
-
-            shopViewModel.shopList.onEach { shopList ->
-                shopLocationAdapted.submitList(shopList)
-            }.collect()
-        }
+        binding.viewmodel = shopViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        shopViewModel.shopList
+            .onEach(shopLocationAdapted::submitList)
+            .launchWhenStarted(lifecycleScope)
     }
 
     private fun setAdapter() {

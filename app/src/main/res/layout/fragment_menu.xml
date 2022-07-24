@@ -9,10 +9,6 @@
             name="viewmodel"
             type="com.example.coffeeapp.presentation.main.screens.menu.MenuViewModel" />
 
-        <variable
-            name="error"
-            type="String" />
-
         <import type="com.example.coffeeapp.common.State" />
 
         <import type="android.view.View" />
@@ -25,6 +21,25 @@
         android:layout_marginEnd="8dp"
         tools:context=".presentation.login.LoginFragment">
 
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/coffee_200"
+            android:visibility="@{viewmodel.status == State.Loading.INSTANCE ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/coffee_700"
+            android:textSize="20sp"
+            app:errorMessage="@{viewmodel.status}"
+            tools:text="ERROR" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/menu_recycler"
             android:layout_width="match_parent"
@@ -36,20 +51,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_menu" />
-
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="@{viewmodel.status == State.Loading.INSTANCE ? View.VISIBLE : View.GONE}" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textColor="@color/coffee_700"
-            android:textSize="20sp"
-            app:errorMessage="@{viewmodel.status}"
-            tools:text="ERROR" />
 
         <Button
             android:id="@+id/show_cart_btn"
