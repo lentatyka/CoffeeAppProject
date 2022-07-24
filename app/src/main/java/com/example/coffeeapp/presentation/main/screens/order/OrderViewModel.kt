@@ -35,8 +35,6 @@ class OrderViewModel @Inject constructor(
         }
     }
 
-    fun setText() = getOrderUseCase.getTotal()
-
     fun getOrder() = getOrderUseCase.getOrder()
 
     fun getTotal() = getOrderUseCase.getTotal()

@@ -47,10 +47,14 @@ class OrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewmodel = orderViewModel
-        binding.lifecycleOwner = viewLifecycleOwner
         setAdapter()
         setViewModel()
+        binding.confirmOrderBtn.setOnClickListener {
+            Utils.showToast(requireContext(), getString(R.string.success))
+            OrderFragmentDirections.actionTotalFragmentToShopsFragment().also {
+                findNavController().navigate(it)
+            }
+        }
     }
 
     private fun setAdapter() {

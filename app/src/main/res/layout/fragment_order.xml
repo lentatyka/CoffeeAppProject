@@ -5,9 +5,6 @@
 
     <data>
         <variable
-            name="viewmodel"
-            type="com.example.coffeeapp.presentation.main.screens.order.OrderViewModel" />
-        <variable
             name="total"
             type="Double" />
         <import type="android.view.View"/>
@@ -24,7 +21,7 @@
             android:id="@+id/order_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:visibility="@{total > 0 ? View.VISIBLE : View.GONE}"
+            android:visibility="@{total > 0 ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toTopOf="@id/total_price_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
