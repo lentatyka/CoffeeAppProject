@@ -1,16 +1,16 @@
 package com.example.coffeeapp.domain.main.order
 
-import com.example.coffeeapp.domain.main.menu.local.StorageMenuRepository
 import javax.inject.Inject
 
 class GetOrderUseCase @Inject constructor(
-    private val storageMenuRepository: StorageMenuRepository
+    private val orderRepository: OrderRepository
 ) {
-    fun getList() = storageMenuRepository.getMenu()
+    fun getOrder() = orderRepository.getOrder()
 
-    fun add(id: Int){}
+    fun getTotal() = orderRepository.getTotal()
 
-    fun sub(id: Int){}
+    suspend fun add(id: Int) = orderRepository.add(id)
 
-    fun isEmptyOrder() = false
+    suspend fun sub(id: Int) = orderRepository.sub(id)
+
 }

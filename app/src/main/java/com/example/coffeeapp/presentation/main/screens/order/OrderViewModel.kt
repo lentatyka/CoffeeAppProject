@@ -19,19 +19,4 @@ class OrderViewModel @Inject constructor(
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
     val state: SharedFlow<State> = _state.asSharedFlow()
-
-    fun addAmount(id: Int) = getOrderUseCase.add(id)
-
-    fun subAmount(id: Int) = getOrderUseCase.sub(id)
-
-    fun getList() = getOrderUseCase.getList()
-
-    fun getTotal() = 2.0
-
-    fun checkOrder() = View.OnClickListener{
-        if (getOrderUseCase.isEmptyOrder()){
-            _state.tryEmit(State.Error(null))
-        }else
-            _state.tryEmit(State.Success)
-    }
 }

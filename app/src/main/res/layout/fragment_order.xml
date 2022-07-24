@@ -43,7 +43,7 @@
             android:id="@+id/total_price_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/coffee_price(viewmodel.getTotal())}"
+            android:text="@{@string/coffee_price}"
             android:textAlignment="textEnd"
             android:textSize="18sp"
             android:textColor="@color/coffee_500"
@@ -60,7 +60,6 @@
             android:layout_width="match_parent"
             android:layout_marginBottom="16dp"
             android:text="@string/confirm_order"
-            android:onClick="@{viewmodel.checkOrder()}"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
