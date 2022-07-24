@@ -7,6 +7,9 @@
         <variable
             name="viewmodel"
             type="com.example.coffeeapp.presentation.main.screens.order.OrderViewModel" />
+        <variable
+            name="total"
+            type="Double" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +46,7 @@
             android:id="@+id/total_price_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/coffee_price}"
+            android:text="@{@string/coffee_price(total)}"
             android:textAlignment="textEnd"
             android:textSize="18sp"
             android:textColor="@color/coffee_500"

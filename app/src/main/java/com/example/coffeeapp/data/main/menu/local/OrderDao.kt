@@ -1,9 +1,9 @@
 package com.example.coffeeapp.data.main.menu.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.coffeeapp.data.main.menu.model.MenuItem
 import kotlinx.coroutines.flow.Flow
-import retrofit2.http.DELETE
 
 @Dao
 interface OrderDao {
@@ -11,7 +11,7 @@ interface OrderDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMenuList(menuList: List<MenuItem>)
 
-    @Query("UPDATE product SET amount = amount+1 WHERE id = :id AND amount < 12")
+    @Query("UPDATE product SET amount = amount+1 WHERE id = :id AND amount < 9")
     suspend fun incrementItemAmount(id: Int)
 
     @Query("UPDATE product SET amount = amount-1 WHERE id = :id AND amount > 0")

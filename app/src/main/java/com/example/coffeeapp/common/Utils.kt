@@ -6,8 +6,11 @@ import android.location.LocationManager
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.coffeeapp.R
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 
 object Utils {
 
@@ -32,5 +35,23 @@ object Utils {
 
     fun showToast(context: Context, message: String?) {
         Toast.makeText(context, message ?:context.getString(R.string.unknown_error), Toast.LENGTH_LONG).show()
+    }
+
+    fun <T> Flow<T>.launchWhenStarted(lifecycleScope: LifecycleCoroutineScope){
+        lifecycleScope.launchWhenStarted {
+            this@launchWhenStarted.collect()
+        }
+    }
+
+    fun <T> Flow<T>.launchWhenCreated(lifecycleScope: LifecycleCoroutineScope){
+        lifecycleScope.launchWhenCreated {
+            this@launchWhenCreated.collect()
+        }
+    }
+
+    fun <T> Flow<T>.launchWhenResumed(lifecycleScope: LifecycleCoroutineScope){
+        lifecycleScope.launchWhenResumed {
+            this@launchWhenResumed.collect()
+        }
     }
 }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.common.Utils
+import com.example.coffeeapp.common.Utils.launchWhenStarted
 import com.example.coffeeapp.databinding.FragmentOrderBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
 import kotlinx.coroutines.flow.collect
@@ -68,20 +69,8 @@ class OrderFragment : Fragment() {
     }
 
     private fun setViewModel() {
-        lifecycleScope.launchWhenStarted {
-//            orderViewModel.state.onEach { state ->
-//                when (state) {
-//                    is State.Success ->{
-//                        OrderFragmentDirections.actionTotalFragmentToShopsFragment().also {
-//                            findNavController().navigate(it)
-//                        }
-//                    }
-//                    else -> Utils.showToast(requireContext(), "ERRRO")
-//                }
-//            }.collect()
-
-            orderViewModel.getOrder().onEach(orderAdapter::submitList).collect()
-        }
+        orderViewModel.getOrder().onEach(orderAdapter::submitList).launchWhenStarted(lifecycleScope)
+        orderViewModel.getTotal().onEach(binding::setTotal).launchWhenStarted(lifecycleScope)
     }
 
     override fun onDestroyView() {
