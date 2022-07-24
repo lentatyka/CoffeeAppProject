@@ -1,13 +1,14 @@
 package com.example.coffeeapp.presentation.main.screens.order
 
-import android.view.View
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.domain.main.order.GetOrderUseCase
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class OrderViewModel @Inject constructor(
@@ -19,4 +20,18 @@ class OrderViewModel @Inject constructor(
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
     val state: SharedFlow<State> = _state.asSharedFlow()
+
+    fun addAmount(id: Int) {
+        viewModelScope.launch {
+            getOrderUseCase.add(id)
+        }
+    }
+
+    fun subAmount(id: Int) {
+        viewModelScope.launch {
+            getOrderUseCase.sub(id)
+        }
+    }
+
+    fun getOrder() = getOrderUseCase.getOrder()
 }

@@ -28,7 +28,8 @@ class MenuAdapter(
                 callback(item.id, false)
             }
         }
-        fun updateAmount(amount :Int){
+
+        fun updateAmount(amount: Int) {
             binding.amount = amount
         }
     }
@@ -53,8 +54,8 @@ class MenuAdapter(
         position: Int,
         payloads: MutableList<Any>
     ) {
-        if(payloads.isEmpty())
-        super.onBindViewHolder(holder, position, payloads)
+        if (payloads.isEmpty())
+            super.onBindViewHolder(holder, position, payloads)
         else
             holder.updateAmount(payloads[0] as Int)
     }
@@ -70,7 +71,7 @@ class MenuAdapter(
             }
 
             override fun getChangePayload(oldItem: MenuItem, newItem: MenuItem): Any? {
-                return if(oldItem.amount != newItem.amount) newItem.amount else null
+                return if (oldItem.amount != newItem.amount) newItem.amount else null
             }
         }
     }

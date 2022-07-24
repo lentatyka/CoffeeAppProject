@@ -1,6 +1,7 @@
 package com.example.coffeeapp.presentation.main.screens.order
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,8 @@ class OrderFragment : Fragment() {
     private var _binding: FragmentOrderBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var orderAdapter: OrderAdapter
+
     private val orderViewModel by viewModels<OrderViewModel> {
         (activity as CoffeeActivity).mainComponent.shopsViewModelFactory()
     }
@@ -43,35 +46,41 @@ class OrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.viewmodel = orderViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        setAdapter()
+        setViewModel()
+    }
+
+    private fun setAdapter() {
         binding.orderRecycler.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = OrderAdapter(
-                arrayListOf()
-            ) { id, isAdd ->
-                if (isAdd)
-                    true
+            orderAdapter = OrderAdapter{ id, isAdd ->
+                if (isAdd){
+                    orderViewModel.addAmount(id)
+                }
                 else
-                    true
+                    orderViewModel.subAmount(id)
             }
+            adapter = orderAdapter
         }
-        binding.viewmodel = orderViewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-        setViewModel()
     }
 
     private fun setViewModel() {
         lifecycleScope.launchWhenStarted {
-            orderViewModel.state.onEach { state ->
-                when (state) {
-                    is State.Success ->{
-                        OrderFragmentDirections.actionTotalFragmentToShopsFragment().also {
-                            findNavController().navigate(it)
-                        }
-                    }
-                    else -> Utils.showToast(requireContext(), "ERRRO")
-                }
-            }.collect()
+//            orderViewModel.state.onEach { state ->
+//                when (state) {
+//                    is State.Success ->{
+//                        OrderFragmentDirections.actionTotalFragmentToShopsFragment().also {
+//                            findNavController().navigate(it)
+//                        }
+//                    }
+//                    else -> Utils.showToast(requireContext(), "ERRRO")
+//                }
+//            }.collect()
+
+            orderViewModel.getOrder().onEach(orderAdapter::submitList).collect()
         }
     }
 
