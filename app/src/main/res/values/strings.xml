@@ -30,4 +30,5 @@
     <string name="ok">OK</string>
     <string name="location_disable">Разрешение на геолокацию не предоставлено</string>
     <string name="unknown_error">Unknown error!</string>
+    <string name="empty_order">КОРЗИНА ПУСТАЯ</string>
 </resources>

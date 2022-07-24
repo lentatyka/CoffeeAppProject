@@ -10,6 +10,7 @@
         <variable
             name="total"
             type="Double" />
+        <import type="android.view.View"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,11 +24,25 @@
             android:id="@+id/order_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="@{total > 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toTopOf="@id/total_price_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/total_price_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/empty_order"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/coffee_500"
+            android:textStyle="bold"
+            android:visibility="@{total > 0 ? View.GONE : View.VISIBLE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/total_tv"
@@ -38,7 +53,6 @@
             android:textColor="@color/coffee_500"
             app:layout_constraintBottom_toTopOf="@+id/confirm_order_btn"
             app:layout_constraintStart_toStartOf="parent"
-
             app:layout_constraintTop_toBottomOf="@id/order_recycler"
             android:layout_marginBottom="8dp"
             tools:text="2000 rub" />
@@ -52,7 +66,6 @@
             android:textColor="@color/coffee_500"
             app:layout_constraintBottom_toTopOf="@+id/confirm_order_btn"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintTop_toBottomOf="@id/order_recycler"
             android:layout_marginBottom="8dp"
             tools:text="2000 rub" />
@@ -62,6 +75,7 @@
             style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_marginBottom="16dp"
+            android:visibility="@{total > 0 ? View.VISIBLE : View.INVISIBLE}"
             android:text="@string/confirm_order"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
