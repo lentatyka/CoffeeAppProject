@@ -20,7 +20,7 @@ class ShopViewModel @Inject constructor(
     private val _status = MutableLiveData<State>()
     val status: LiveData<State> = _status
 
-    private val job: Job? = null
+    private var job: Job? = null
 
     private var locationPermissionGranted = false
 
@@ -30,18 +30,16 @@ class ShopViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            shopsUseCase.loadShopList().collect {
-                _status.postValue(it)
-            }
+            shopsUseCase.loadShopList().collect(_status::postValue)
         }
     }
 
     fun startUpdateLocation() {
         _status.value?.let { state ->
             if (state is State.Success) {
-                    if(locationPermissionGranted)
-                        locationUseCase.startUpdateLocation()
-                    getShopListLocation()
+                if (locationPermissionGranted)
+                    locationUseCase.startUpdateLocation()
+                getShopListLocation()
             }
         }
     }
@@ -58,12 +56,13 @@ class ShopViewModel @Inject constructor(
     }
 
     private fun getShopListLocation() {
-        if(job == null){
-            viewModelScope.launch {
+        if (job == null) {
+            job = viewModelScope.launch {
                 shopsUseCase.getShopListLocation().collect {
                     _shopList.emit(it)
                 }
-            }.start()
+            }
+            job?.start()
         }
     }
 
