@@ -7,7 +7,6 @@ import com.example.coffeeapp.domain.main.shop.location.LocationUseCase
 import com.example.coffeeapp.domain.main.shop.model.Shop
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,8 +16,8 @@ class ShopViewModel @Inject constructor(
     private val locationUseCase: LocationUseCase
 ) : ViewModel() {
 
-    private val _status = MutableLiveData<State>()
-    val status: LiveData<State> = _status
+    private val _state = MutableStateFlow<State<Nothing>>(State.Loading)
+    val state: StateFlow<State<Nothing>> = _state.asStateFlow()
 
     private var job: Job? = null
 
@@ -30,12 +29,12 @@ class ShopViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            shopsUseCase.loadShopList().collect(_status::postValue)
+            shopsUseCase.loadShopList().collect(_state::emit)
         }
     }
 
     fun startUpdateLocation() {
-        _status.value?.let { state ->
+        _state.value.also{ state ->
             if (state is State.Success) {
                 if (locationPermissionGranted)
                     locationUseCase.startUpdateLocation()
@@ -58,9 +57,7 @@ class ShopViewModel @Inject constructor(
     private fun getShopListLocation() {
         if (job == null) {
             job = viewModelScope.launch {
-                shopsUseCase.getShopListLocation().collect {
-                    _shopList.emit(it)
-                }
+                shopsUseCase.getShopListLocation().collect(_shopList::emit)
             }
             job?.start()
         }

@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.State
@@ -21,7 +22,7 @@ fun loadImage(view: ImageView, url: String, errorImage: Drawable, loadingImage: 
 }
 
 @BindingAdapter("errorMessage")
-fun TextView.setError(state: State?) {
+fun TextView.setError(state: State<Any>?) {
     when(state){
         null -> visibility = View.GONE
         else ->{
@@ -36,6 +37,20 @@ fun TextView.setError(state: State?) {
     }
 }
 
+@BindingAdapter("successState")
+fun RecyclerView.setSuccess(state: State<Any>?) {
+    visibility = when(state){
+        null -> View.GONE
+        else ->{
+            when (state) {
+                is State.Success -> {
+                    View.VISIBLE
+                }
+                else -> View.GONE
+            }
+        }
+    }
+}
 @BindingAdapter("distance", "point")
 fun setDistance(textView: TextView, distance: Int?, point: Point){
     textView.text = distance?.let {range->

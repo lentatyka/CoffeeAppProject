@@ -82,14 +82,19 @@ class ShopFragment : Fragment() {
         }
         setAdapter()
         setViewModel()
+        binding.showMapBtn.setOnClickListener {
+            ShopFragmentDirections.actionShopsFragmentToYandexMapFragment().also(
+                findNavController()::navigate
+            )
+        }
     }
 
     private fun setViewModel() {
-        binding.viewmodel = shopViewModel
-        binding.lifecycleOwner = viewLifecycleOwner
         shopViewModel.shopList
             .onEach(shopLocationAdapted::submitList)
             .launchWhenStarted(lifecycleScope)
+
+        shopViewModel.state.onEach(binding::setState).launchWhenStarted(lifecycleScope)
     }
 
     private fun setAdapter() {

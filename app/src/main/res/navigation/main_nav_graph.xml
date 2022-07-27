@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_shopsFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_shopsFragment_to_yandexMapFragment"
+            app:destination="@id/yandexMapFragment" />
     </fragment>
     <fragment
         android:id="@+id/totalFragment"
@@ -33,4 +36,8 @@
             android:name="shopId"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/yandexMapFragment"
+        android:name="com.example.coffeeapp.presentation.main.screens.map.YandexMapFragment"
+        android:label="@string/map" />
 </navigation>

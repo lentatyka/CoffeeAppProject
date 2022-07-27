@@ -1,6 +1,7 @@
 package com.example.coffeeapp.domain.main.menu
 
 import com.example.coffeeapp.common.State
+import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.domain.main.menu.local.StorageMenuRepository
 import com.example.coffeeapp.domain.main.menu.remote.MenuRepository
 import kotlinx.coroutines.flow.Flow
@@ -11,14 +12,12 @@ class MenuUseCase @Inject constructor(
     private val storageRepository: StorageMenuRepository,
     private val menuRepository: MenuRepository
 ) {
-    suspend fun loadMenu(id: Long?): Flow<State> {
+    suspend fun loadMenu(id: Long?): Flow<State<ArrayList<MenuItem>>> {
         return flow {
-            emit(State.Loading)
             runCatching {
                 menuRepository(id)
             }.onSuccess {shopMenu ->
-                storageRepository.setMenu(shopMenu)
-                emit(State.Success)
+                emit(State.Success(shopMenu))
             }.onFailure {error->
                 emit(State.Error(error.localizedMessage))
             }

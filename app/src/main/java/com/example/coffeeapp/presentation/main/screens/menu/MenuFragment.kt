@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.coffeeapp.R
+import com.example.coffeeapp.common.State
 import com.example.coffeeapp.common.Utils.launchWhenStarted
 import com.example.coffeeapp.databinding.FragmentMenuBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
@@ -59,8 +60,6 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
         setViewModel()
-        binding.viewmodel = menuViewModel
-        binding.lifecycleOwner = viewLifecycleOwner
         binding.showCartBtn.setOnClickListener {
             MenuFragmentDirections.actionMenuFragmentToTotalFragment().also {
                 findNavController().navigate(it)
@@ -69,7 +68,11 @@ class MenuFragment : Fragment() {
     }
 
     private fun setViewModel() {
-        menuViewModel.getList().onEach(menuAdapter::submitList).launchWhenStarted(lifecycleScope)
+        menuViewModel.state.onEach { state->
+        binding.state = state
+            if(state is State.Success)
+                menuAdapter.submitList(state.data)
+        }.launchWhenStarted(lifecycleScope)
     }
 
     private fun setAdapter() {

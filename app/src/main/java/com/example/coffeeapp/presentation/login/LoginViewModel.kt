@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.common.Event
 import com.example.coffeeapp.common.State
+import com.example.coffeeapp.data.login.network.UserInfoDto
 import com.example.coffeeapp.di.login.LoginScope
 import com.example.coffeeapp.domain.login.network.LoginUseCase
 import kotlinx.coroutines.launch
@@ -25,8 +26,8 @@ class LoginViewModel @Inject constructor(
     private val _cPasswordError = MutableLiveData<Event<Boolean>>()
     val cPasswordError: LiveData<Event<Boolean>> get() = _cPasswordError
 
-    private val _status = MutableLiveData<Event<State>>()
-    val status: LiveData<Event<State>> get() = _status
+    private val _status = MutableLiveData<Event<State<UserInfoDto>>>()
+    val status: LiveData<Event<State<UserInfoDto>>> get() = _status
 
     fun signIn(email: String, password: String) {
         if (!isEmailValid(email)) {

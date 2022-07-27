@@ -14,7 +14,7 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
+        buildConfigField ("String", "YANDEX_API_KEY", YANDEX_API_KEY)
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

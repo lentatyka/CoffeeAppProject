@@ -3,6 +3,7 @@ package com.example.coffeeapp
 import android.app.Application
 import com.example.coffeeapp.di.AppComponent
 import com.example.coffeeapp.di.DaggerAppComponent
+import com.yandex.mapkit.MapKitFactory
 
 open class CoffeeApp:Application() {
 
@@ -10,6 +11,10 @@ open class CoffeeApp:Application() {
         initializeComponent()
     }
 
+    override fun onCreate() {
+        super.onCreate()
+        MapKitFactory.setApiKey(BuildConfig.YANDEX_API_KEY)
+    }
     open fun initializeComponent(): AppComponent {
         return DaggerAppComponent.factory().create(this)
     }

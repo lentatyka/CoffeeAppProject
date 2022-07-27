@@ -2,6 +2,7 @@ package com.example.coffeeapp.domain.login.network
 
 
 import com.example.coffeeapp.common.State
+import com.example.coffeeapp.data.login.network.UserInfoDto
 import com.example.coffeeapp.domain.login.storage.SaveStorage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -13,14 +14,14 @@ class LoginUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
     private val storage: SaveStorage
 ) {
-    fun signIn(email: String, password: String): Flow<State> {
+    fun signIn(email: String, password: String): Flow<State<UserInfoDto>> {
         return flow {
             emit(State.Loading)
             try {
                 val userInfo = loginRepository.signIn(User(email, password))
                 //Success. Save token to storage
                 storage(userInfo)
-                emit(State.Success)
+                emit(State.Success(userInfo))
             } catch (e: HttpException) {
                 //Обработать коды ошибок!
                 emit(State.Error(e.localizedMessage))
@@ -30,12 +31,12 @@ class LoginUseCase @Inject constructor(
         }
     }
 
-    fun signUp(email: String, password: String): Flow<State> {
+    fun signUp(email: String, password: String): Flow<State<UserInfoDto>> {
         return flow {
             emit(State.Loading)
             try {
                 val userInfo = loginRepository.signUp(User(email, password))
-                emit(State.Success)
+                emit(State.Success(userInfo))
             } catch (e: HttpException) {
                 //Обработать коды ошибок!
                 emit(State.Error(e.localizedMessage))

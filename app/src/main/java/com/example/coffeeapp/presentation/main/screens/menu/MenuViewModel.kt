@@ -1,10 +1,9 @@
 package com.example.coffeeapp.presentation.main.screens.menu
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.common.State
+import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.domain.main.menu.MenuUseCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -17,24 +16,22 @@ class MenuViewModel @AssistedInject constructor(
     @Assisted shopId: Long
 ) : ViewModel() {
 
-    private val _status = MutableLiveData<State>()
-    val status: LiveData<State> = _status
+    private val _state = MutableStateFlow<State<ArrayList<MenuItem>>>(State.Loading)
+    val state: StateFlow<State<ArrayList<MenuItem>>> = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
-            useCase.loadMenu(shopId).onEach { result ->
-                _status.postValue(result)
-            }.collect()
+            useCase.loadMenu(shopId).onEach(_state::emit).collect()
         }
     }
 
-    fun addAmount(id: Int){
+    fun addAmount(id: Int) {
         viewModelScope.launch {
             useCase.add(id)
         }
     }
 
-    fun subAmount(id: Int){
+    fun subAmount(id: Int) {
         viewModelScope.launch {
             useCase.sub(id)
         }

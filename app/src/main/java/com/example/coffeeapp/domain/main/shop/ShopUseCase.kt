@@ -13,13 +13,12 @@ class ShopUseCase @Inject constructor(
     private val locationRepository: LocationRepository
 ) {
 
-    fun loadShopList(): Flow<State> {
+    fun loadShopList(): Flow<State<Nothing>> {
         return flow {
-            emit(State.Loading)
             kotlin.runCatching {
                 shopRepository.loadShopListDto()
             }.onSuccess {
-                emit(State.Success)
+                emit(State.Success(null))
             }.onFailure {
                 emit(State.Error(it.localizedMessage))
             }

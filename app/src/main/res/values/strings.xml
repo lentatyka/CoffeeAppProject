@@ -31,4 +31,6 @@
     <string name="location_disable">Разрешение на геолокацию не предоставлено</string>
     <string name="unknown_error">Unknown error!</string>
     <string name="empty_order">КОРЗИНА ПУСТАЯ</string>
+    <string name="show_on_map">Показать на карте</string>
+    <string name="map">Карта</string>
 </resources>
