@@ -1,10 +1,8 @@
 package com.example.coffeeapp.di.main
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
-import com.example.coffeeapp.data.main.menu.local.OrderDao
-import com.example.coffeeapp.data.main.menu.local.OrderDatabase
+import com.example.coffeeapp.data.main.room.ShopDatabase
 import dagger.Module
 import dagger.Provides
 
@@ -12,12 +10,17 @@ import dagger.Provides
 class RoomModule {
 
     @Provides
-    fun provideRoomDao(applicationContext: Application): OrderDao {
+    fun provideRoomDatabase(applicationContext: Application): ShopDatabase {
         return Room.databaseBuilder(
             applicationContext,
-            OrderDatabase::class.java, "order-db"
-        )
-            .build()
-            .orderDao()
+            ShopDatabase::class.java, "order-db"
+        ).build()
     }
+
+    @Provides
+    fun provideOrderDao(roomDatabase: ShopDatabase) = roomDatabase.orderDao()
+
+    @Provides
+    fun provideMenuDao(roomDatabase: ShopDatabase) = roomDatabase.menuDao()
+
 }

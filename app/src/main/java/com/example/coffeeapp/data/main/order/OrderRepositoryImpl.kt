@@ -1,6 +1,6 @@
 package com.example.coffeeapp.data.main.order
 
-import com.example.coffeeapp.data.main.menu.local.OrderDao
+import com.example.coffeeapp.data.main.order.local.OrderDao
 import com.example.coffeeapp.domain.main.order.OrderRepository
 import javax.inject.Inject
 

@@ -66,7 +66,7 @@ class OrderFragment : Fragment() {
     }
 
     private fun setViewModel() {
-        orderViewModel.getOrder().onEach(orderAdapter::submitList).launchWhenStarted(lifecycleScope)
+//        orderViewModel.getOrder().onEach(orderAdapter::submitList).launchWhenStarted(lifecycleScope)
         orderViewModel.getTotal().onEach(binding::setTotal).launchWhenStarted(lifecycleScope)
     }
 

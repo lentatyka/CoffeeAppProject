@@ -1,8 +1,8 @@
-package com.example.coffeeapp.data.main.menu.local
+package com.example.coffeeapp.data.main.order.local
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.coffeeapp.data.main.menu.model.MenuItem
+import com.example.coffeeapp.data.main.order.model.OrderItem
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,10 +21,10 @@ interface OrderDao {
     fun deleteOrder()
 
     @Query("SELECT * FROM product")
-    fun getMenuList(): Flow<List<MenuItem>>
+    fun getMenuList(): Flow<List<OrderItem>>
 
     @Query("SELECT * FROM product WHERE amount > 0")
-    fun getOrder(): Flow<List<MenuItem>>
+    fun getOrder(): Flow<List<OrderItem>>
 
     @Query("SELECT SUM(price * amount) FROM product")
     fun getTotal(): Flow<Double>

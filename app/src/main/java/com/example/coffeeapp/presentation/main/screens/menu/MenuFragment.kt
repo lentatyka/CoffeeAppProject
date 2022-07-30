@@ -20,6 +20,7 @@ import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MenuFragment : Fragment() {
@@ -68,11 +69,8 @@ class MenuFragment : Fragment() {
     }
 
     private fun setViewModel() {
-        menuViewModel.state.onEach { state->
-        binding.state = state
-            if(state is State.Success)
-                menuAdapter.submitList(state.data)
-        }.launchWhenStarted(lifecycleScope)
+        menuViewModel.state.onEach(binding::setState).launchWhenStarted(lifecycleScope)
+        menuViewModel.getList().onEach(menuAdapter::submitList).launchWhenStarted(lifecycleScope)
     }
 
     private fun setAdapter() {

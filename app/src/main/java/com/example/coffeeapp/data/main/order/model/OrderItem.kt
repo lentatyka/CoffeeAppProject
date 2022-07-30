@@ -1,14 +1,14 @@
-package com.example.coffeeapp.data.main.menu.model
+package com.example.coffeeapp.data.main.order.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "menu")
-data class MenuItem(
+@Entity(tableName = "product")
+data class OrderItem(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
     val name: String,
-    val imageUrl: String,
     val price: Double,
-    var amount: Int = 0
+    val amount: Int,
+    val ownerId: Int
 )
