@@ -16,9 +16,9 @@ class OrderViewModel @Inject constructor(
         }
     }
 
-    fun subAmount(id: Int) {
+    fun subtractAmount(id: Int) {
         viewModelScope.launch {
-            getOrderUseCase.sub(id)
+            getOrderUseCase.subtract(id)
         }
     }
 

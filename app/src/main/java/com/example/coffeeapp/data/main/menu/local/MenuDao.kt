@@ -2,6 +2,7 @@ package com.example.coffeeapp.data.main.menu.local
 
 import androidx.room.*
 import com.example.coffeeapp.data.main.menu.model.MenuItem
+import com.example.coffeeapp.data.main.order.model.OrderItem
 import kotlinx.coroutines.flow.Flow
 
 @Dao

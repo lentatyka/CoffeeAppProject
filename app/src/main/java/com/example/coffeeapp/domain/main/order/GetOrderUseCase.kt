@@ -5,12 +5,8 @@ import javax.inject.Inject
 class GetOrderUseCase @Inject constructor(
     private val orderRepository: OrderRepository
 ) {
-    fun getOrder() = orderRepository.getOrder()
+    fun getOrder(ownerId: Int) = orderRepository.getOrder(ownerId)
 
     fun getTotal() = orderRepository.getTotal()
-
-    suspend fun add(id: Int) = orderRepository.add(id)
-
-    suspend fun sub(id: Int) = orderRepository.sub(id)
 
 }

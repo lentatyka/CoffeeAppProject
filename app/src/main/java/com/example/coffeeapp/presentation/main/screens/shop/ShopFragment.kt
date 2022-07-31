@@ -16,12 +16,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
-import com.example.coffeeapp.common.State
 import com.example.coffeeapp.common.Utils
 import com.example.coffeeapp.common.Utils.launchWhenStarted
 import com.example.coffeeapp.databinding.FragmentShopBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 
 class ShopFragment : Fragment() {

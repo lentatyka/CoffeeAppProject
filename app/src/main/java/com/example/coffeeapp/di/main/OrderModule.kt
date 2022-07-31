@@ -1,7 +1,7 @@
 package com.example.coffeeapp.di.main
 
 import androidx.lifecycle.ViewModel
-import com.example.coffeeapp.data.main.order.OrderRepositoryImpl
+import com.example.coffeeapp.data.main.order.local.OrderRepositoryImpl
 import com.example.coffeeapp.di.ViewModelKey
 import com.example.coffeeapp.domain.main.order.OrderRepository
 import com.example.coffeeapp.presentation.main.screens.order.OrderViewModel

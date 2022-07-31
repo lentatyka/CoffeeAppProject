@@ -1,7 +1,6 @@
 package com.example.coffeeapp.data.main.order.local
 
 import androidx.room.*
-import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.data.main.order.model.OrderItem
 import kotlinx.coroutines.flow.Flow
 
@@ -9,29 +8,20 @@ import kotlinx.coroutines.flow.Flow
 interface OrderDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMenuList(menuList: List<MenuItem>)
+    suspend fun addOrderItem(orderItem: OrderItem)
 
-    @Query("UPDATE product SET amount = amount+1 WHERE id = :id AND amount < 9")
-    suspend fun incrementItemAmount(id: Int)
+    @Delete
+    suspend fun deleteOrderItem(orderItem: OrderItem)
 
-    @Query("UPDATE product SET amount = amount-1 WHERE id = :id AND amount > 0")
-    suspend fun decrementItemAmount(id: Int)
+    @Query("DELETE FROM product WHERE id = :id AND ownerId = :ownerId")
+    fun deleteOrderItem(id: Int, ownerId: Int)
 
-    @Query("DELETE FROM product")
-    fun deleteOrder()
+    @Query("DELETE FROM product WHERE ownerId = :ownerId")
+    suspend fun deleteOrder(ownerId: Int)
 
-    @Query("SELECT * FROM product")
-    fun getMenuList(): Flow<List<OrderItem>>
-
-    @Query("SELECT * FROM product WHERE amount > 0")
-    fun getOrder(): Flow<List<OrderItem>>
+    @Query("SELECT * FROM product WHERE ownerId = :ownerId")
+    fun getOrder(ownerId: Int):Flow<List<OrderItem>>
 
     @Query("SELECT SUM(price * amount) FROM product")
-    fun getTotal(): Flow<Double>
-
-    @Transaction
-    suspend fun updateMenuList(menuList: List<MenuItem>) {
-        deleteOrder()
-        insertMenuList(menuList)
-    }
+    fun getTotal():Flow<Double>
 }

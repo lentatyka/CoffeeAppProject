@@ -5,10 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocalMenuRepository {
 
-    suspend fun add(id: Int)
-
-    suspend fun sub(id: Int)
-
     fun getMenu(): Flow<List<MenuItem>>
 
     suspend fun setMenu(list: ArrayList<MenuItem>)
