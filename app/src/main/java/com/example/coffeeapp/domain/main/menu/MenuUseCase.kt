@@ -12,13 +12,12 @@ class MenuUseCase @Inject constructor(
     private val localUseCase: LocalUseCase,
     private val remoteRepository: RemoteMenuRepository
 ) {
-    suspend fun loadMenu(id: Long?): Flow<State<ArrayList<MenuItem>>> {
+    suspend fun loadMenu(id: Long): Flow<State<ArrayList<MenuItem>>> {
         return flow {
             runCatching {
-                remoteRepository(id)
-            }.onSuccess { shopMenu ->
-                localUseCase.setMenu(shopMenu)
-                emit(State.Success(shopMenu))
+                remoteRepository.loadMenu(id)
+            }.onSuccess { _ ->
+                emit(State.Success(null))
             }.onFailure { error ->
                 emit(State.Error(error.localizedMessage))
             }
@@ -27,9 +26,9 @@ class MenuUseCase @Inject constructor(
 
     fun getMenu() = localUseCase.getMenu()
 
-    suspend fun add(menuItem: MenuItem, ownerId: Int) =
+    suspend fun add(menuItem: MenuItem, ownerId: Long) =
         localUseCase.addOrderItem(menuItem, ownerId)
 
-    suspend fun subtract(menuItem: MenuItem, ownerId: Int) =
+    suspend fun subtract(menuItem: MenuItem, ownerId: Long) =
         localUseCase.subtractOrderItem(menuItem, ownerId)
 }

@@ -31,11 +31,11 @@ class MenuFragment : Fragment() {
     private lateinit var menuAdapter: MenuAdapter
     private val args: MenuFragmentArgs by navArgs()
 
-    @Inject
-    lateinit var vmFactory: MenuViewModelFactory.Factory
+//    @Inject
+//    lateinit var vmFactory: MenuViewModelFactory.Factory
 
     private val menuViewModel by viewModels<MenuViewModel> {
-        vmFactory.create(args.shopId)
+        (activity as CoffeeActivity).mainComponent.shopsViewModelFactory()
     }
 
 

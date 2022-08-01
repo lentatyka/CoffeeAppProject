@@ -9,7 +9,7 @@ interface OrderRepository {
 
     suspend fun deleteOrderItem(orderItem: OrderItem)
 
-    suspend fun deleteOrderItem(id: Int, ownerId: Int)
+    suspend fun deleteOrderItem(id: Int, ownerId: Long)
 
     suspend fun deleteOrder(ownerId: Int)
 

@@ -10,10 +10,10 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MenuViewModel @AssistedInject constructor(
-    private val useCase: MenuUseCase,
-    @Assisted shopId: Long
+class MenuViewModel @Inject constructor(
+    private val useCase: MenuUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<State<ArrayList<MenuItem>>>(State.Loading)
@@ -21,26 +21,26 @@ class MenuViewModel @AssistedInject constructor(
 
     init {
         viewModelScope.launch {
-            useCase.loadMenu(shopId).onEach(_state::emit).collect()
+            useCase.loadMenu(2).onEach(_state::emit).collect()
         }
     }
 
     fun addAmount(id: Int) {
-        viewModelScope.launch {
-            useCase.add(id)
-        }
+//        viewModelScope.launch {
+//            useCase.add(id)
+//        }
     }
 
     fun subAmount(id: Int) {
-        viewModelScope.launch {
-            useCase.sub(id)
-        }
+//        viewModelScope.launch {
+//            useCase.sub(id)
+//        }
     }
 
     fun getList() = useCase.getMenu()
 
-    @AssistedFactory
-    interface Factory {
-        fun create(shopId: Long): MenuViewModel
-    }
+//    @AssistedFactory
+//    interface Factory {
+//        fun create(shopId: Long): MenuViewModel
+//    }
 }

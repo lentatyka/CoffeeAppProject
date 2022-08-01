@@ -11,18 +11,18 @@ class OrderViewModel @Inject constructor(
 ):ViewModel() {
 
     fun addAmount(id: Int) {
-        viewModelScope.launch {
-            getOrderUseCase.add(id)
-        }
+//        viewModelScope.launch {
+//            getOrderUseCase.add(id)
+//        }
     }
 
     fun subtractAmount(id: Int) {
-        viewModelScope.launch {
-            getOrderUseCase.subtract(id)
-        }
+//        viewModelScope.launch {
+//            getOrderUseCase.subtract(id)
+//        }
     }
 
-    fun getOrder() = getOrderUseCase.getOrder()
+    fun getOrder() = getOrderUseCase.getOrder(2)
 
     fun getTotal() = getOrderUseCase.getTotal()
 }

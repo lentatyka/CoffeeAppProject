@@ -10,5 +10,5 @@ data class OrderItem(
     val name: String,
     val price: Double,
     val amount: Int,
-    val ownerId: Int
+    val ownerId: Long
 )

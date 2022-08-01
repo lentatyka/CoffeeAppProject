@@ -16,12 +16,12 @@ class LocalUseCase @Inject constructor(
 
     fun getMenu() = localMenuRepository.getMenu()
 
-    suspend fun addOrderItem(menuItem: MenuItem, ownerId: Int) {
+    suspend fun addOrderItem(menuItem: MenuItem, ownerId: Long) {
         if (++menuItem.amount < Constants.MAX_ITEMS)
             insertOrderItem(menuItem, ownerId)
     }
 
-    suspend fun subtractOrderItem(menuItem: MenuItem, ownerId: Int) {
+    suspend fun subtractOrderItem(menuItem: MenuItem, ownerId: Long) {
         when(--menuItem.amount){
             0 -> deleteOrderItem(menuItem.id, ownerId)
             else -> insertOrderItem(menuItem, ownerId)
@@ -29,7 +29,7 @@ class LocalUseCase @Inject constructor(
 
     }
 
-    private suspend fun insertOrderItem(menuItem: MenuItem, ownerId: Int) {
+    private suspend fun insertOrderItem(menuItem: MenuItem, ownerId: Long) {
         OrderItem(
             id = menuItem.id,
             name = menuItem.name,
@@ -41,6 +41,6 @@ class LocalUseCase @Inject constructor(
         }
     }
 
-    private suspend fun deleteOrderItem(id: Int, ownerId: Int) =
+    private suspend fun deleteOrderItem(id: Int, ownerId: Long) =
         orderRepository.deleteOrderItem(id, ownerId)
 }

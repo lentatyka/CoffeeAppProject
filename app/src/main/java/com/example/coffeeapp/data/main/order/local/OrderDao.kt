@@ -14,7 +14,7 @@ interface OrderDao {
     suspend fun deleteOrderItem(orderItem: OrderItem)
 
     @Query("DELETE FROM product WHERE id = :id AND ownerId = :ownerId")
-    fun deleteOrderItem(id: Int, ownerId: Int)
+    fun deleteOrderItem(id: Int, ownerId: Long)
 
     @Query("DELETE FROM product WHERE ownerId = :ownerId")
     suspend fun deleteOrder(ownerId: Int)

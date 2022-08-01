@@ -12,7 +12,7 @@ class OrderRepositoryImpl @Inject constructor(
 
     override suspend fun deleteOrderItem(orderItem: OrderItem) = orderDao.deleteOrderItem(orderItem)
 
-    override suspend fun deleteOrderItem(id: Int, ownerId: Int) =
+    override suspend fun deleteOrderItem(id: Int, ownerId: Long) =
         orderDao.deleteOrderItem(id, ownerId)
 
     override suspend fun deleteOrder(ownerId: Int) = orderDao.deleteOrder(ownerId)
