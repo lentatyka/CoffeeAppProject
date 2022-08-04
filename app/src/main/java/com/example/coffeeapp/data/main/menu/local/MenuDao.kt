@@ -1,25 +1,19 @@
 package com.example.coffeeapp.data.main.menu.local
 
 import androidx.room.*
-import com.example.coffeeapp.data.main.menu.model.MenuItem
-import com.example.coffeeapp.data.main.order.model.OrderItem
+import com.example.coffeeapp.data.main.order.model.OrderItemDto
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MenuDao {
 
+    @Query("SELECT * FROM orders WHERE ownerId = :ownerId")
+    fun getOrders(ownerId: Long): Flow<List<OrderItemDto>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMenu(menuList: List<MenuItem>)
+    suspend fun insertOrderItem(orderItem: OrderItemDto)
 
-    @Query("DELETE FROM menu")
-    suspend fun deleteMenu()
+    @Delete
+    suspend fun deleteOrderItem(orderItem: OrderItemDto)
 
-    @Query("SELECT * FROM menu")
-    fun getMenu(): Flow<List<MenuItem>>
-
-    @Transaction
-    suspend fun updateMenu(menuList: List<MenuItem>){
-        deleteMenu()
-        insertMenu(menuList)
-    }
 }

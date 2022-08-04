@@ -1,5 +1,6 @@
 package com.example.coffeeapp.presentation.main.screens.shop
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -59,14 +60,17 @@ class ShopLocationAdapter(
     companion object {
         val DiffCallback = object : DiffUtil.ItemCallback<Shop>(){
             override fun areItemsTheSame(oldItem: Shop, newItem: Shop): Boolean {
+                Log.d("TAG", "items")
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(oldItem: Shop, newItem: Shop): Boolean {
+                Log.d("TAG", "COmtn")
                 return oldItem == newItem
             }
 
             override fun getChangePayload(oldItem: Shop, newItem: Shop): Any? {
+                Log.d("TAG", "PAYLO")
                 return if(oldItem.distance != newItem.distance) newItem.distance else null
             }
         }

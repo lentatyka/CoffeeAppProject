@@ -1,6 +1,7 @@
 package com.example.coffeeapp.presentation.main.screens.shop
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
@@ -21,19 +22,28 @@ import com.example.coffeeapp.common.Utils.launchWhenStarted
 import com.example.coffeeapp.databinding.FragmentShopBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
 class ShopFragment : Fragment() {
 
     private var _binding: FragmentShopBinding? = null
     private val binding get() = _binding!!
 
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
     private val shopViewModel by viewModels<ShopViewModel> {
-        (activity as CoffeeActivity).mainComponent.shopsViewModelFactory()
+        viewModelFactory
     }
 
     private lateinit var shopLocationAdapted: ShopLocationAdapter
 
     private lateinit var locationPermission: ActivityResultLauncher<Array<String>>
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as CoffeeActivity).appComponent.shopComponent.create().inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

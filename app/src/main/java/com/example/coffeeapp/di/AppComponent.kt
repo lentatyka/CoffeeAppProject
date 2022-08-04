@@ -2,7 +2,11 @@ package com.example.coffeeapp.di
 
 import android.app.Application
 import com.example.coffeeapp.di.login.LoginComponent
-import com.example.coffeeapp.di.main.MainComponent
+import com.example.coffeeapp.di.main.RoomModule
+import com.example.coffeeapp.di.main.menu.MenuComponent
+import com.example.coffeeapp.di.main.order.OrderComponent
+import com.example.coffeeapp.di.main.shop.ShopComponent
+import com.example.coffeeapp.di.retrifit.RetrofitModule
 import com.example.coffeeapp.di.storage.StorageModule
 import dagger.BindsInstance
 import dagger.Component
@@ -12,7 +16,9 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AppSubComponent::class,
-        StorageModule::class
+        StorageModule::class,
+        RetrofitModule::class,
+        RoomModule::class
     ]
 )
 interface AppComponent {
@@ -24,5 +30,12 @@ interface AppComponent {
 
     fun loginComponent(): LoginComponent.Factory
 
-    fun mainComponent(): MainComponent.Factory
+    val shopComponent: ShopComponent.Factory
+
+    val menuComponent: MenuComponent.Factory
+
+    val orderFactory: OrderComponent.Factory
+
+//    val mainComponent: MainComponent.Factory
+
 }

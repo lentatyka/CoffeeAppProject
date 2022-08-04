@@ -7,27 +7,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeapp.R
-import com.example.coffeeapp.data.main.menu.model.MenuItem
+import com.example.coffeeapp.data.main.order.model.OrderItemDto
 import com.example.coffeeapp.databinding.ItemOrderBinding
 
 class OrderAdapter(
     private val addAmount: (Int) -> Unit,
     private val subAmount: (Int) -> Unit
-) : ListAdapter<MenuItem, OrderAdapter.OrderViewHolder>(DiffCallback) {
+) : ListAdapter<OrderItemDto, OrderAdapter.OrderViewHolder>(DiffCallback) {
 
     inner class OrderViewHolder(
         private val binding: ItemOrderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: MenuItem) {
-            binding.menu = item
-            binding.amount = item.amount
-            binding.orderAddIb.setOnClickListener {
-                addAmount(item.id)
-            }
-            binding.orderRemoveIb.setOnClickListener {
-                subAmount(item.id)
-            }
+        fun bind(itemDto: OrderItemDto) {
+//            binding.menu = item
+//            binding.amount = item.amount
+//            binding.orderAddIb.setOnClickListener {
+//                addAmount(item.id)
+//            }
+//            binding.orderRemoveIb.setOnClickListener {
+//                subAmount(item.id)
+//            }
         }
 
         fun updateAmount(amount: Int) {
@@ -60,17 +60,17 @@ class OrderAdapter(
     }
 
     companion object {
-        val DiffCallback = object : DiffUtil.ItemCallback<MenuItem>() {
-            override fun areItemsTheSame(oldItem: MenuItem, newItem: MenuItem): Boolean {
-                return oldItem.id == newItem.id
+        val DiffCallback = object : DiffUtil.ItemCallback<OrderItemDto>() {
+            override fun areItemsTheSame(oldItemDto: OrderItemDto, newItemDto: OrderItemDto): Boolean {
+                return oldItemDto.id == newItemDto.id
             }
 
-            override fun areContentsTheSame(oldItem: MenuItem, newItem: MenuItem): Boolean {
-                return oldItem == newItem
+            override fun areContentsTheSame(oldItemDto: OrderItemDto, newItemDto: OrderItemDto): Boolean {
+                return oldItemDto == newItemDto
             }
 
-            override fun getChangePayload(oldItem: MenuItem, newItem: MenuItem): Any? {
-                return if (oldItem.amount != newItem.amount) newItem.amount else null
+            override fun getChangePayload(oldItemDto: OrderItemDto, newItemDto: OrderItemDto): Any? {
+                return if (oldItemDto.amount != newItemDto.amount) newItemDto.amount else null
             }
         }
     }

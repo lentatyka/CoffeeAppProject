@@ -11,22 +11,24 @@ import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.databinding.ItemMenuBinding
 
 class MenuAdapter(
-    private val addAmount: (Int) -> Unit,
-    private val subAmount: (Int) -> Unit
+    private val addAmount: (MenuItem) -> Unit,
+    private val subAmount: (MenuItem) -> Unit
 ) : ListAdapter<MenuItem, MenuAdapter.MenuViewHolder>(DiffCallback) {
 
-    inner class MenuViewHolder(
-        private val binding: ItemMenuBinding
+    class MenuViewHolder(
+        private val binding: ItemMenuBinding,
+        private val addAmount: (MenuItem) -> Unit,
+        private val subAmount: (MenuItem) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: MenuItem) {
             binding.menu = item
             binding.amount = item.amount
             binding.menuAddIb.setOnClickListener {
-                addAmount(item.id)
+                addAmount(item)
             }
             binding.menuRemoveIb.setOnClickListener {
-                subAmount(item.id)
+                subAmount(item)
             }
         }
 
@@ -42,7 +44,7 @@ class MenuAdapter(
             parent,
             false
         )
-        return MenuViewHolder(binding)
+        return MenuViewHolder(binding, addAmount, subAmount)
     }
 
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {

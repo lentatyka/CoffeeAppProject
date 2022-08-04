@@ -10,7 +10,6 @@ import com.example.coffeeapp.di.ViewModelKey
 import com.example.coffeeapp.domain.login.network.LoginRepository
 import com.example.coffeeapp.domain.login.storage.SaveStorage
 import com.example.coffeeapp.presentation.login.LoginViewModel
-import com.example.coffeeapp.presentation.login.LoginViewModelFactory
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -37,9 +36,6 @@ interface LoginModule {
 
     @Binds
     fun bindSaveStorage(storage: SaveSharedPreferencesStorage):SaveStorage
-
-    @Binds
-    fun bindViewModelFactory(factory: LoginViewModelFactory):ViewModelProvider.Factory
 
     companion object{
 

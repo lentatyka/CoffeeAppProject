@@ -1,4 +1,4 @@
-package com.example.coffeeapp.di.main
+package com.example.coffeeapp.di.main.order
 
 import androidx.lifecycle.ViewModel
 import com.example.coffeeapp.data.main.order.local.OrderRepositoryImpl

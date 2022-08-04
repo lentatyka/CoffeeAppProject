@@ -1,6 +1,6 @@
 package com.example.coffeeapp.data.main.shop.remote
 
-import com.example.coffeeapp.di.main.FakeShopServiceApi
+import com.example.coffeeapp.di.main.shop.FakeShopServiceApi
 import com.example.coffeeapp.domain.main.shop.remote.ShopRepository
 import retrofit2.HttpException
 import java.io.IOException

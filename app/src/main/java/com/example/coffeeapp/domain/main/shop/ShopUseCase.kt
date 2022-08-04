@@ -7,6 +7,7 @@ import com.example.coffeeapp.domain.main.shop.model.Shop
 import com.example.coffeeapp.domain.main.shop.remote.ShopRepository
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
+import kotlin.random.Random
 
 class ShopUseCase @Inject constructor(
     private val shopRepository: ShopRepository,

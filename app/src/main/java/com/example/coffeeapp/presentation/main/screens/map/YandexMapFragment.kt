@@ -23,9 +23,7 @@ class YandexMapFragment : Fragment() {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
-    private val shopViewModel by viewModels<ShopViewModel> {
-        (activity as CoffeeActivity).mainComponent.shopsViewModelFactory()
-    }
+    lateinit var shopViewModel: ShopViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

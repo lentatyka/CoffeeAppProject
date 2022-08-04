@@ -1,11 +1,13 @@
 package com.example.coffeeapp.domain.main.menu.local
 
-import com.example.coffeeapp.data.main.menu.model.MenuItem
+import com.example.coffeeapp.data.main.order.model.OrderItemDto
 import kotlinx.coroutines.flow.Flow
 
 interface LocalMenuRepository {
 
-    fun getMenu(): Flow<List<MenuItem>>
+    suspend fun insertOrder(orderItemDto: OrderItemDto)
 
-    suspend fun setMenu(list: ArrayList<MenuItem>)
+    suspend fun deleteOrder(orderItemDto: OrderItemDto)
+
+    fun getOrders(ownerId: Long): Flow<List<OrderItemDto>>
 }

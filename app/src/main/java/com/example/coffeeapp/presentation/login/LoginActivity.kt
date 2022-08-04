@@ -10,14 +10,18 @@ import com.example.coffeeapp.CoffeeApp
 import com.example.coffeeapp.R
 import com.example.coffeeapp.di.login.LoginComponent
 import com.example.coffeeapp.di.login.LoginScope
+import javax.inject.Inject
 
 @LoginScope
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginComponent: LoginComponent
 
+    @Inject
+    lateinit var viewModelFactory:LoginViewModelFactory
+
     val loginViewModel by viewModels<LoginViewModel> {
-        loginComponent.viewModelFactory()
+        viewModelFactory
     }
 
     private lateinit var navController: NavController

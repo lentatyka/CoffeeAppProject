@@ -7,19 +7,20 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.coffeeapp.CoffeeApp
 import com.example.coffeeapp.R
-import com.example.coffeeapp.di.main.MainComponent
+import com.example.coffeeapp.di.AppComponent
 import com.example.coffeeapp.di.main.MainScope
 
 @MainScope
 class CoffeeActivity : AppCompatActivity() {
 
-    lateinit var mainComponent: MainComponent
+//    lateinit var mainComponent: MainComponent
+    lateinit var appComponent: AppComponent
 
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        mainComponent = (application as CoffeeApp).appComponent.mainComponent().create()
+        appComponent = (application as CoffeeApp).appComponent
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.coffee_activity)

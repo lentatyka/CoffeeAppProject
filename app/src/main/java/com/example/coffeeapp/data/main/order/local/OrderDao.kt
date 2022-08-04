@@ -1,27 +1,27 @@
 package com.example.coffeeapp.data.main.order.local
 
 import androidx.room.*
-import com.example.coffeeapp.data.main.order.model.OrderItem
+import com.example.coffeeapp.data.main.order.model.OrderItemDto
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface OrderDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addOrderItem(orderItem: OrderItem)
+    suspend fun addOrderItem(orderItemDto: OrderItemDto)
 
     @Delete
-    suspend fun deleteOrderItem(orderItem: OrderItem)
+    suspend fun deleteOrderItem(orderItemDto: OrderItemDto)
 
-    @Query("DELETE FROM product WHERE id = :id AND ownerId = :ownerId")
+    @Query("DELETE FROM orders WHERE id = :id AND ownerId = :ownerId")
     fun deleteOrderItem(id: Int, ownerId: Long)
 
-    @Query("DELETE FROM product WHERE ownerId = :ownerId")
+    @Query("DELETE FROM orders WHERE ownerId = :ownerId")
     suspend fun deleteOrder(ownerId: Int)
 
-    @Query("SELECT * FROM product WHERE ownerId = :ownerId")
-    fun getOrder(ownerId: Int):Flow<List<OrderItem>>
+    @Query("SELECT * FROM orders WHERE ownerId = :ownerId")
+    fun getOrder(ownerId: Int):Flow<List<OrderItemDto>>
 
-    @Query("SELECT SUM(price * amount) FROM product")
-    fun getTotal():Flow<Double>
+    @Query("SELECT SUM(price * amount) FROM orders WHERE ownerId =:ownerId")
+    fun getTotal(ownerId: Long):Flow<Double>
 }

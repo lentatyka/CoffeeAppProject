@@ -1,7 +1,6 @@
 package com.example.coffeeapp.di.login
 
 import com.example.coffeeapp.presentation.login.LoginActivity
-import com.example.coffeeapp.presentation.login.LoginViewModelFactory
 import dagger.Subcomponent
 
 @LoginScope
@@ -14,7 +13,5 @@ interface LoginComponent {
     }
 
     fun inject(activity: LoginActivity)
-
-    fun viewModelFactory():LoginViewModelFactory
 
 }

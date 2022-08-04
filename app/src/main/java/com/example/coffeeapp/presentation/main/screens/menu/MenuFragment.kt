@@ -12,15 +12,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.coffeeapp.R
-import com.example.coffeeapp.common.State
 import com.example.coffeeapp.common.Utils.launchWhenStarted
+import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.databinding.FragmentMenuBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
+import com.example.coffeeapp.presentation.main.screens.shop.ViewModelFactory
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MenuFragment : Fragment() {
@@ -31,17 +31,18 @@ class MenuFragment : Fragment() {
     private lateinit var menuAdapter: MenuAdapter
     private val args: MenuFragmentArgs by navArgs()
 
-//    @Inject
-//    lateinit var vmFactory: MenuViewModelFactory.Factory
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     private val menuViewModel by viewModels<MenuViewModel> {
-        (activity as CoffeeActivity).mainComponent.shopsViewModelFactory()
+        viewModelFactory
     }
+
 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (activity as CoffeeActivity).mainComponent.inject(this)
+        (activity as CoffeeActivity).appComponent.menuComponent.create(args.shopId).inject(this)
     }
 
     override fun onCreateView(
@@ -69,15 +70,15 @@ class MenuFragment : Fragment() {
     }
 
     private fun setViewModel() {
-        menuViewModel.state.onEach(binding::setState).launchWhenStarted(lifecycleScope)
-        menuViewModel.getList().onEach(menuAdapter::submitList).launchWhenStarted(lifecycleScope)
+//        menuViewModel.state.onEach(binding::setState).launchWhenStarted(lifecycleScope)
+        menuViewModel.getMenu().onEach(menuAdapter::submitList).launchWhenStarted(lifecycleScope)
     }
 
     private fun setAdapter() {
 
         binding.menuRecycler.apply {
-            val addAmount: (Int) -> Unit = { id -> menuViewModel.addAmount(id) }
-            val subAmount: (Int) -> Unit = { id -> menuViewModel.subAmount(id) }
+            val addAmount: (MenuItem) -> Unit = { item -> menuViewModel.addAmount(item) }
+            val subAmount: (MenuItem) -> Unit = { item -> menuViewModel.subAmount(item) }
             menuAdapter = MenuAdapter(addAmount, subAmount)
             val flexBox = FlexboxLayoutManager(requireContext()).apply {
                 justifyContent = JustifyContent.SPACE_AROUND

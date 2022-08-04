@@ -1,7 +1,6 @@
-package com.example.coffeeapp.di.main
+package com.example.coffeeapp.di.main.shop
 
 import androidx.lifecycle.ViewModel
-import com.example.coffeeapp.common.Constants
 import com.example.coffeeapp.data.main.shop.local.LocationRepositoryImpl
 import com.example.coffeeapp.data.main.shop.remote.ShopRepositoryImpl
 import com.example.coffeeapp.data.main.shop.remote.ShopServiceApi
@@ -14,7 +13,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Qualifier
 
 @Module
@@ -33,21 +31,15 @@ abstract class ShopModule {
     abstract fun bindShopRepository(repository: ShopRepositoryImpl): ShopRepository
 
     @Binds
-    abstract fun provideLocationDataSource(repository: LocationRepositoryImpl): LocationRepository
+    @ShopScope
+    abstract fun bindLocationDataSource(repository: LocationRepositoryImpl): LocationRepository
 
     companion object {
-
-        @RetrofitShoServiceApi
         @Provides
-        fun provideShopServiceApi(): ShopServiceApi {
-            return Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(ShopServiceApi::class.java)
+        @RetrofitShoServiceApi
+        fun provideShopServiceApi(retrofit: Retrofit): ShopServiceApi {
+            return retrofit.create(ShopServiceApi::class.java)
         }
-
-
     }
 
 }

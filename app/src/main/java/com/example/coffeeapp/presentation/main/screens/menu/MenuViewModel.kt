@@ -1,19 +1,17 @@
 package com.example.coffeeapp.presentation.main.screens.menu
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.domain.main.menu.MenuUseCase
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MenuViewModel @Inject constructor(
-    private val useCase: MenuUseCase
+    private val menuUseCase: MenuUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<State<ArrayList<MenuItem>>>(State.Loading)
@@ -21,26 +19,27 @@ class MenuViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            useCase.loadMenu(2).onEach(_state::emit).collect()
+            menuUseCase.loadMenu().onEach(_state::emit).collect()
         }
     }
 
-    fun addAmount(id: Int) {
-//        viewModelScope.launch {
-//            useCase.add(id)
-//        }
+    fun addAmount(menuItem: MenuItem) {
+        viewModelScope.launch {
+            menuUseCase.add(menuItem)
+        }
     }
 
-    fun subAmount(id: Int) {
-//        viewModelScope.launch {
-//            useCase.sub(id)
-//        }
+    fun subAmount(menuItem: MenuItem) {
+        viewModelScope.launch {
+            menuUseCase.subtract(menuItem)
+        }
     }
 
-    fun getList() = useCase.getMenu()
+    fun getMenu() = menuUseCase.getMenu()
 
-//    @AssistedFactory
-//    interface Factory {
-//        fun create(shopId: Long): MenuViewModel
-//    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("TAG", "MENU ONCLEARED")
+    }
 }

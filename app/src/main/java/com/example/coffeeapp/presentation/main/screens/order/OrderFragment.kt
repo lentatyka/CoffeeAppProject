@@ -25,9 +25,7 @@ class OrderFragment : Fragment() {
 
     private lateinit var orderAdapter: OrderAdapter
 
-    private val orderViewModel by viewModels<OrderViewModel> {
-        (activity as CoffeeActivity).mainComponent.shopsViewModelFactory()
-    }
+    lateinit var orderViewModel : OrderViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -5,11 +5,11 @@ import androidx.room.RoomDatabase
 import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.data.main.menu.local.MenuDao
 import com.example.coffeeapp.data.main.order.local.OrderDao
-import com.example.coffeeapp.data.main.order.model.OrderItem
+import com.example.coffeeapp.data.main.order.model.OrderItemDto
 import com.example.coffeeapp.di.main.MainScope
 
 @MainScope
-@Database(entities = [MenuItem::class, OrderItem::class], version = 1, exportSchema = false)
+@Database(entities = [OrderItemDto::class], version = 1, exportSchema = false)
 abstract class ShopDatabase:RoomDatabase() {
     abstract fun orderDao(): OrderDao
     abstract fun menuDao(): MenuDao
