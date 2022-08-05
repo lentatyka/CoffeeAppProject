@@ -34,7 +34,7 @@ interface AppComponent {
 
     val menuComponent: MenuComponent.Factory
 
-    val orderFactory: OrderComponent.Factory
+    val orderComponent: OrderComponent.Factory
 
 //    val mainComponent: MainComponent.Factory
 

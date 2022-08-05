@@ -7,21 +7,18 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface OrderDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addOrderItem(orderItemDto: OrderItemDto)
-
-    @Delete
-    suspend fun deleteOrderItem(orderItemDto: OrderItemDto)
+    @Query("UPDATE orders SET amount =:amount WHERE id =:id AND ownerId =:ownerId")
+    suspend fun updateOrderAmount(id: Int, amount: Int, ownerId: Long)
 
     @Query("DELETE FROM orders WHERE id = :id AND ownerId = :ownerId")
-    fun deleteOrderItem(id: Int, ownerId: Long)
+    suspend fun deleteOrderItem(id: Int, ownerId: Long)
 
     @Query("DELETE FROM orders WHERE ownerId = :ownerId")
-    suspend fun deleteOrder(ownerId: Int)
+    suspend fun deleteOrder(ownerId: Long)
 
     @Query("SELECT * FROM orders WHERE ownerId = :ownerId")
-    fun getOrder(ownerId: Int):Flow<List<OrderItemDto>>
+    fun getOrder(ownerId: Long): Flow<List<OrderItemDto>>
 
     @Query("SELECT SUM(price * amount) FROM orders WHERE ownerId =:ownerId")
-    fun getTotal(ownerId: Long):Flow<Double>
+    fun getTotal(ownerId: Long): Flow<Double>
 }

@@ -15,20 +15,19 @@ class MenuAdapter(
     private val subAmount: (MenuItem) -> Unit
 ) : ListAdapter<MenuItem, MenuAdapter.MenuViewHolder>(DiffCallback) {
 
-    class MenuViewHolder(
-        private val binding: ItemMenuBinding,
-        private val addAmount: (MenuItem) -> Unit,
-        private val subAmount: (MenuItem) -> Unit
+    inner class MenuViewHolder(
+        private val binding: ItemMenuBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: MenuItem) {
+        fun bind(position: Int) {
+            val item = getItem(position)
             binding.menu = item
             binding.amount = item.amount
             binding.menuAddIb.setOnClickListener {
-                addAmount(item)
+                addAmount(getItem(position))
             }
             binding.menuRemoveIb.setOnClickListener {
-                subAmount(item)
+                subAmount(getItem(position))
             }
         }
 
@@ -44,13 +43,10 @@ class MenuAdapter(
             parent,
             false
         )
-        return MenuViewHolder(binding, addAmount, subAmount)
+        return MenuViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
-    }
+    override fun onBindViewHolder(holder: MenuViewHolder, position: Int) = holder.bind(position)
 
     override fun onBindViewHolder(
         holder: MenuViewHolder,

@@ -5,16 +5,13 @@ import kotlinx.coroutines.flow.Flow
 
 interface OrderRepository {
 
-    suspend fun addOrderItem(orderItemDto: OrderItemDto)
-
-    suspend fun deleteOrderItem(orderItemDto: OrderItemDto)
+    suspend fun updateOrderAmount(id: Int, amount:Int, ownerId: Long)
 
     suspend fun deleteOrderItem(id: Int, ownerId: Long)
 
-    suspend fun deleteOrder(ownerId: Int)
+    suspend fun deleteOrder(ownerId: Long)
 
-    fun getOrder(ownerId: Int): Flow<List<OrderItemDto>>
+    fun getOrder(ownerId: Long):Flow<List<OrderItemDto>>
 
-    fun getTotal(ownerId: Long): Flow<Double>
-
+    fun getTotal(ownerId: Long):Flow<Double>
 }

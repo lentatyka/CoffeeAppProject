@@ -7,7 +7,7 @@ interface LocalMenuRepository {
 
     suspend fun insertOrder(orderItemDto: OrderItemDto)
 
-    suspend fun deleteOrder(orderItemDto: OrderItemDto)
+    suspend fun deleteOrder(id: Int, ownerId: Long)
 
     fun getOrders(ownerId: Long): Flow<List<OrderItemDto>>
 }

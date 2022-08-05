@@ -6,7 +6,7 @@
     <data>
         <variable
             name="menu"
-            type="com.example.coffeeapp.data.main.menu.model.MenuItem" />
+            type="com.example.coffeeapp.data.main.order.model.OrderItemDto" />
         <variable
             name="amount"
             type="Integer"/>

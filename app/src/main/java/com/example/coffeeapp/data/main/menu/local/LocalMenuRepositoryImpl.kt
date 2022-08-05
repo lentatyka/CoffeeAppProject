@@ -10,7 +10,7 @@ class LocalMenuRepositoryImpl @Inject constructor(
 ) : LocalMenuRepository {
     override suspend fun insertOrder(orderItemDto: OrderItemDto) = menuDao.insertOrderItem(orderItemDto)
 
-    override suspend fun deleteOrder(orderItemDto: OrderItemDto) =menuDao.deleteOrderItem(orderItemDto)
+    override suspend fun deleteOrder(id:Int, ownerId: Long) =menuDao.deleteOrderItem(id, ownerId)
 
     override fun getOrders(ownerId: Long): Flow<List<OrderItemDto>> =menuDao.getOrders(ownerId)
 

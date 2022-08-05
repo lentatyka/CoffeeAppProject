@@ -28,9 +28,8 @@ class MenuUseCase @Inject constructor(
 
     fun getMenu(): Flow<List<MenuItem>> {
         return localMenuRepository.getOrders(ownerId).map { orders ->
-            val list = mutableListOf<MenuItem>()
-            remoteRepository.getMenu().onEach { menuItemDto ->
-                list += MenuItem(
+            remoteRepository.getMenu().map { menuItemDto ->
+                MenuItem(
                     id = menuItemDto.id,
                     name = menuItemDto.name,
                     price = menuItemDto.price,
@@ -38,7 +37,6 @@ class MenuUseCase @Inject constructor(
                     amount = orders.find { it.id == menuItemDto.id }?.amount ?: 0
                 )
             }
-            list
         }
     }
 
@@ -50,7 +48,7 @@ class MenuUseCase @Inject constructor(
                     id = menuItem.id,
                     name = menuItem.name,
                     price = menuItem.price,
-                    amount = menuItem.amount+1,
+                    amount = menuItem.amount + 1,
                     ownerId = this.ownerId
                 )
             )
@@ -60,27 +58,17 @@ class MenuUseCase @Inject constructor(
     suspend fun subtract(menuItem: MenuItem) {
         when (menuItem.amount) {
             0 -> {
-                val item = OrderItemDto(
-                    id = menuItem.id,
-                    name = menuItem.name,
-                    price = menuItem.price,
-                    amount = menuItem.amount,
-                    ownerId = this.ownerId
-                )
-                localMenuRepository.deleteOrder(
-                    item
-                )
+                localMenuRepository.deleteOrder(menuItem.id, ownerId)
             }
             else -> {
-                val item = OrderItemDto(
-                    id = menuItem.id,
-                    name = menuItem.name,
-                    price = menuItem.price,
-                    amount = menuItem.amount-1,
-                    ownerId = this.ownerId
-                )
                 localMenuRepository.insertOrder(
-                    item
+                    OrderItemDto(
+                        id = menuItem.id,
+                        name = menuItem.name,
+                        price = menuItem.price,
+                        amount = menuItem.amount - 1,
+                        ownerId = this.ownerId
+                    )
                 )
             }
         }

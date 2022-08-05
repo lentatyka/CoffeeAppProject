@@ -1,5 +1,6 @@
 package com.example.coffeeapp.presentation.main.screens.order
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +10,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.Utils
 import com.example.coffeeapp.common.Utils.launchWhenStarted
 import com.example.coffeeapp.databinding.FragmentOrderBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
+import com.example.coffeeapp.presentation.main.screens.shop.ViewModelFactory
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
 
 class OrderFragment : Fragment() {
@@ -25,7 +29,19 @@ class OrderFragment : Fragment() {
 
     private lateinit var orderAdapter: OrderAdapter
 
-    lateinit var orderViewModel : OrderViewModel
+    private val args: OrderFragmentArgs by navArgs()
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val orderViewModel by viewModels<OrderViewModel> {
+        viewModelFactory
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as CoffeeActivity).appComponent.orderComponent.create(args.shopId).inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +62,7 @@ class OrderFragment : Fragment() {
         setViewModel()
         binding.confirmOrderBtn.setOnClickListener {
             Utils.showToast(requireContext(), getString(R.string.success))
+            orderViewModel.deleteOrder()
             OrderFragmentDirections.actionTotalFragmentToShopsFragment().also {
                 findNavController().navigate(it)
             }
@@ -54,8 +71,10 @@ class OrderFragment : Fragment() {
 
     private fun setAdapter() {
         binding.orderRecycler.apply {
-            val addAmount: (Int) -> Unit = { id -> orderViewModel.addAmount(id) }
-            val subAmount: (Int) -> Unit = { id -> orderViewModel.subtractAmount(id) }
+            val addAmount: (Int, Int) -> Unit =
+                { id, amount -> orderViewModel.addAmount(id, amount) }
+            val subAmount: (Int, Int) -> Unit =
+                { id, amount -> orderViewModel.subtractAmount(id, amount) }
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             orderAdapter = OrderAdapter(addAmount, subAmount)
@@ -64,7 +83,7 @@ class OrderFragment : Fragment() {
     }
 
     private fun setViewModel() {
-//        orderViewModel.getOrder().onEach(orderAdapter::submitList).launchWhenStarted(lifecycleScope)
+        orderViewModel.getOrder().onEach(orderAdapter::submitList).launchWhenStarted(lifecycleScope)
         orderViewModel.getTotal().onEach(binding::setTotal).launchWhenStarted(lifecycleScope)
     }
 

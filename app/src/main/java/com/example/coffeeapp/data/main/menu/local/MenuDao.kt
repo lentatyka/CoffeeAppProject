@@ -13,7 +13,7 @@ interface MenuDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrderItem(orderItem: OrderItemDto)
 
-    @Delete
-    suspend fun deleteOrderItem(orderItem: OrderItemDto)
+    @Query("DELETE FROM orders WHERE id = :id AND ownerId =:ownerId")
+    suspend fun deleteOrderItem(id:Int, ownerId: Long)
 
 }

@@ -8,21 +8,27 @@ import javax.inject.Inject
 
 class OrderViewModel @Inject constructor(
     private val getOrderUseCase: GetOrderUseCase
-):ViewModel() {
+) : ViewModel() {
 
-    fun addAmount(id: Int) {
-//        viewModelScope.launch {
-//            getOrderUseCase.add(id)
-//        }
+    fun addAmount(id: Int, amount: Int) {
+        viewModelScope.launch {
+            getOrderUseCase.add(id, amount)
+        }
     }
 
-    fun subtractAmount(id: Int) {
-//        viewModelScope.launch {
-//            getOrderUseCase.subtract(id)
-//        }
+    fun subtractAmount(id: Int, amount: Int) {
+        viewModelScope.launch {
+            getOrderUseCase.subtract(id, amount)
+        }
     }
 
-    fun getOrder() = getOrderUseCase.getOrder(2)
+    fun getOrder() = getOrderUseCase.getOrder()
 
     fun getTotal() = getOrderUseCase.getTotal()
+
+    fun deleteOrder(){
+        viewModelScope.launch {
+            getOrderUseCase.deleteOrder()
+        }
+    }
 }

@@ -63,7 +63,7 @@ class MenuFragment : Fragment() {
         setAdapter()
         setViewModel()
         binding.showCartBtn.setOnClickListener {
-            MenuFragmentDirections.actionMenuFragmentToTotalFragment().also {
+            MenuFragmentDirections.actionMenuFragmentToTotalFragment(args.shopId).also {
                 findNavController().navigate(it)
             }
         }

@@ -8,10 +8,11 @@ class RemoteMenuRepositoryImpl @Inject constructor(
     @FakeMenuServiceApi private val menuServiceApi: MenuServiceApi
 ) : RemoteMenuRepository {
 
-    private lateinit var menuListDto: List<MenuItemDto>
+    private val menuListDto = mutableListOf<MenuItemDto>()
 
     override suspend fun loadMenu(id: Long) {
-        menuListDto = menuServiceApi(id)
+        menuListDto.clear()
+        menuListDto.addAll(menuServiceApi(id))
     }
 
     override fun getMenu() = menuListDto
