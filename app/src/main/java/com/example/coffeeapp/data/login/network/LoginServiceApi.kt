@@ -25,7 +25,7 @@ interface LoginServiceApi {
         private val users = mutableListOf<User>()
 
         override suspend fun signUp(user: User): UserInfoDto {
-            delay(2000) // Loading from net imitation
+            delay(1000) // Loading from net imitation
             return if (user in users) throw IOException("login already exists")
             else {
                 users += user
@@ -34,7 +34,7 @@ interface LoginServiceApi {
         }
 
         override suspend fun signIn(user: User): UserInfoDto {
-            delay(2000) // Loading from net imitation
+            delay(1000) // Loading from net imitation
             return if (user !in users) throw IOException("login not exists")
             else UserInfoDto(token, setTokenLifeTime())
         }
