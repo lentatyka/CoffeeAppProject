@@ -1,5 +1,6 @@
 package com.example.coffeeapp.data.main.shop.remote
 
+import kotlinx.coroutines.delay
 import retrofit2.http.GET
 import javax.inject.Inject
 
@@ -19,6 +20,7 @@ interface ShopServiceApi {
         )
 
         override suspend fun invoke(): ArrayList<ShopDto> {
+//            delay(2000) // Loading from net imitation
             return shopsList
         }
     }

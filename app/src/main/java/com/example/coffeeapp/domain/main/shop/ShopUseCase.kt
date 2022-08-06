@@ -19,7 +19,7 @@ class ShopUseCase @Inject constructor(
             kotlin.runCatching {
                 shopRepository.loadShopListDto()
             }.onSuccess {
-                emit(State.Success(null))
+                emit(State.Success)
             }.onFailure {
                 emit(State.Error(it.localizedMessage))
             }

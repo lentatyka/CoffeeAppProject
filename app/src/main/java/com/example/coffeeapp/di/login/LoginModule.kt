@@ -1,7 +1,6 @@
 package com.example.coffeeapp.di.login
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.coffeeapp.common.Constants.BASE_URL
 import com.example.coffeeapp.data.login.network.LoginRepositoryImpl
 import com.example.coffeeapp.data.login.network.LoginServiceApi

@@ -12,7 +12,7 @@ class SaveSharedPreferencesStorage @Inject constructor(
     override fun invoke(userInfo: UserInfoDto) {
         sharedPreferences.edit()
             .putString(Constants.TOKEN, userInfo.token)
-            .putLong(Constants.TOKENLIFETIME, userInfo.tokenLifeTime)
+            .putLong(Constants.TOKEN_LIFETIME, userInfo.tokenLifeTime)
             .apply()
     }
 }

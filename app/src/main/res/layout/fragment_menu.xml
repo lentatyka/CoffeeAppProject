@@ -5,13 +5,13 @@
 
     <data>
 
-<!--        <variable-->
-<!--            name="state"-->
-<!--            type="State" />-->
+        <variable
+            name="state"
+            type="State" />
 
-<!--        <import type="com.example.coffeeapp.common.State" />-->
+        <import type="com.example.coffeeapp.common.State" />
 
-<!--        <import type="android.view.View" />-->
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,28 +21,31 @@
         android:layout_marginEnd="8dp"
         tools:context=".presentation.login.LoginFragment">
 
-<!--        <ProgressBar-->
-<!--            style="?android:attr/progressBarStyleHorizontal"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:indeterminate="true"-->
-<!--            android:indeterminateTint="@color/coffee_200"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"/>-->
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:indeterminate="true"
+            android:visibility="@{state == State.Loading.INSTANCE ? View.VISIBLE : View.GONE}"
+            android:indeterminateTint="@color/coffee_200"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:gravity="center"-->
-<!--            android:textColor="@color/coffee_700"-->
-<!--            android:textSize="20sp"-->
-<!--            tools:text="ERROR" />-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textColor="@color/coffee_700"
+            android:textSize="20sp"
+            tools:text="ERROR" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/menu_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constrainedHeight="true"
+            android:visibility="@{state == State.Success.INSTANCE ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toTopOf="@id/show_cart_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

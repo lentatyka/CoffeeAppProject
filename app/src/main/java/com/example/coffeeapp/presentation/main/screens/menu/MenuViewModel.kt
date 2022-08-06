@@ -1,9 +1,7 @@
 package com.example.coffeeapp.presentation.main.screens.menu
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.coffeeapp.common.State
 import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.domain.main.menu.MenuUseCase
 import kotlinx.coroutines.flow.*
@@ -14,14 +12,16 @@ class MenuViewModel @Inject constructor(
     private val menuUseCase: MenuUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<State<ArrayList<MenuItem>>>(State.Loading)
-    val state: StateFlow<State<ArrayList<MenuItem>>> = _state.asStateFlow()
-
-    init {
-        viewModelScope.launch {
-            menuUseCase.loadMenu().onEach(_state::emit).collect()
-        }
-    }
+     val state  = menuUseCase.loadMenu().shareIn(
+        viewModelScope,
+        replay = 1,
+        started = SharingStarted.WhileSubscribed()
+    )
+    val menu = menuUseCase.getMenu().shareIn(
+        viewModelScope,
+        replay = 1,
+        started = SharingStarted.WhileSubscribed()
+    )
 
     fun addAmount(menuItem: MenuItem) {
         viewModelScope.launch {
@@ -33,13 +33,5 @@ class MenuViewModel @Inject constructor(
         viewModelScope.launch {
             menuUseCase.subtract(menuItem)
         }
-    }
-
-    fun getMenu() = menuUseCase.getMenu()
-
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("TAG", "MENU ONCLEARED")
     }
 }

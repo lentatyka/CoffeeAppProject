@@ -1,4 +1,4 @@
-package com.example.coffeeapp.presentation.main.screens.shop
+package com.example.coffeeapp.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -50,7 +50,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            successState="@{state}"
+            android:visibility="@{state == State.Success.INSTANCE ? View.VISIBLE : View.GONE}"
             tools:listitem="@layout/item_shops" />
         <Button
             android:id="@+id/show_map_btn"

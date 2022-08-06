@@ -1,5 +1,6 @@
 package com.example.coffeeapp.data.main.menu.remote
 
+import kotlinx.coroutines.delay
 import retrofit2.http.GET
 import retrofit2.http.Path
 import javax.inject.Inject
@@ -12,6 +13,7 @@ interface MenuServiceApi {
     class FakeMenuService @Inject constructor() : MenuServiceApi {
 
         override suspend fun invoke(id: Long): List<MenuItemDto> {
+            delay(2000) // Loading from net imitation
             return MenuList.list[id] ?: emptyList()
         }
     }

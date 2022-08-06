@@ -6,6 +6,7 @@ import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.data.main.order.model.OrderItemDto
 import com.example.coffeeapp.domain.main.menu.local.LocalMenuRepository
 import com.example.coffeeapp.domain.main.menu.remote.RemoteMenuRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -14,16 +15,17 @@ class MenuUseCase @Inject constructor(
     private val remoteRepository: RemoteMenuRepository,
     private val ownerId: Long
 ) {
-    suspend fun loadMenu(): Flow<State<ArrayList<MenuItem>>> {
+
+    fun loadMenu(): Flow<State<Nothing>> {
         return flow {
             runCatching {
                 remoteRepository.loadMenu(ownerId)
-            }.onSuccess { menu ->
-                emit(State.Success(null))
+            }.onSuccess {
+                emit(State.Success)
             }.onFailure { error ->
                 emit(State.Error(error.localizedMessage))
             }
-        }
+        }.onStart { emit(State.Loading) }
     }
 
     fun getMenu(): Flow<List<MenuItem>> {

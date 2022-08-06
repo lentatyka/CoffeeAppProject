@@ -12,14 +12,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.coffeeapp.R
+import com.example.coffeeapp.common.State
 import com.example.coffeeapp.common.Utils.launchWhenStarted
 import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.databinding.FragmentMenuBinding
 import com.example.coffeeapp.presentation.main.CoffeeActivity
-import com.example.coffeeapp.presentation.main.screens.shop.ViewModelFactory
+import com.example.coffeeapp.presentation.ViewModelFactory
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
@@ -37,7 +39,6 @@ class MenuFragment : Fragment() {
     private val menuViewModel by viewModels<MenuViewModel> {
         viewModelFactory
     }
-
 
 
     override fun onAttach(context: Context) {
@@ -60,7 +61,6 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setAdapter()
         setViewModel()
         binding.showCartBtn.setOnClickListener {
             MenuFragmentDirections.actionMenuFragmentToTotalFragment(args.shopId).also {
@@ -70,12 +70,14 @@ class MenuFragment : Fragment() {
     }
 
     private fun setViewModel() {
-//        menuViewModel.state.onEach(binding::setState).launchWhenStarted(lifecycleScope)
-        menuViewModel.getMenu().onEach(menuAdapter::submitList).launchWhenStarted(lifecycleScope)
+        menuViewModel.state.onEach{state ->
+            binding.state = state
+            if(state is State.Success)
+                setAdapter()
+        }.launchWhenStarted(lifecycleScope)
     }
 
     private fun setAdapter() {
-
         binding.menuRecycler.apply {
             val addAmount: (MenuItem) -> Unit = { item -> menuViewModel.addAmount(item) }
             val subAmount: (MenuItem) -> Unit = { item -> menuViewModel.subAmount(item) }
@@ -88,6 +90,7 @@ class MenuFragment : Fragment() {
             layoutManager = flexBox
             adapter = menuAdapter
         }
+        menuViewModel.menu.onEach(menuAdapter::submitList).launchWhenStarted(lifecycleScope)
     }
 
     override fun onDestroyView() {

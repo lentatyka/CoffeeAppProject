@@ -18,10 +18,11 @@ class LoginUseCase @Inject constructor(
         return flow {
             emit(State.Loading)
             try {
-                val userInfo = loginRepository.signIn(User(email, password))
+                storage(
+                    loginRepository.signIn(User(email, password))
+                )
                 //Success. Save token to storage
-                storage(userInfo)
-                emit(State.Success(userInfo))
+                emit(State.Success)
             } catch (e: HttpException) {
                 //Обработать коды ошибок!
                 emit(State.Error(e.localizedMessage))
@@ -35,8 +36,8 @@ class LoginUseCase @Inject constructor(
         return flow {
             emit(State.Loading)
             try {
-                val userInfo = loginRepository.signUp(User(email, password))
-                emit(State.Success(userInfo))
+                loginRepository.signUp(User(email, password))
+                emit(State.Success)
             } catch (e: HttpException) {
                 //Обработать коды ошибок!
                 emit(State.Error(e.localizedMessage))
