@@ -1,7 +1,6 @@
 package com.example.coffeeapp.presentation.login
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -9,11 +8,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.coffeeapp.CoffeeApp
 import com.example.coffeeapp.R
 import com.example.coffeeapp.di.login.LoginComponent
-import com.example.coffeeapp.di.login.LoginScope
-import com.example.coffeeapp.presentation.ViewModelFactory
-import javax.inject.Inject
 
-@LoginScope
 class LoginActivity : AppCompatActivity() {
 
     lateinit var loginComponent: LoginComponent
@@ -23,7 +18,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         loginComponent = (application as CoffeeApp).appComponent.loginComponent().create()
-//        loginComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)

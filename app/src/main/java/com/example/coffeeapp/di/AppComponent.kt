@@ -9,6 +9,7 @@ import com.example.coffeeapp.di.main.order.OrderComponent
 import com.example.coffeeapp.di.main.shop.ShopComponent
 import com.example.coffeeapp.di.retrifit.RetrofitModule
 import com.example.coffeeapp.di.storage.StorageModule
+import com.example.coffeeapp.presentation.MainActivity
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -38,5 +39,7 @@ interface AppComponent {
     val orderComponent: OrderComponent.Factory
 
     val mapComponent: MapComponent.Factory
+
+    fun inject(activity: MainActivity)
 
 }

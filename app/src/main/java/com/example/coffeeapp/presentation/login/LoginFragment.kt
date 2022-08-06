@@ -1,6 +1,7 @@
 package com.example.coffeeapp.presentation.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.example.coffeeapp.common.State.*
 import com.example.coffeeapp.common.Utils
 import com.example.coffeeapp.databinding.FragmentLoginBinding
 import com.example.coffeeapp.presentation.ViewModelFactory
+import com.example.coffeeapp.presentation.main.CoffeeActivity
 import javax.inject.Inject
 
 class LoginFragment : Fragment() {
@@ -64,7 +66,7 @@ class LoginFragment : Fragment() {
                 }
                 is Success -> {
                     Utils.showToast(requireContext(), getString(R.string.success))
-                    //GOTO COFFEE ACTIVITY
+                    startCoffeActivity()
                 }
             }
         })
@@ -73,6 +75,18 @@ class LoginFragment : Fragment() {
                 findNavController().navigate(it)
             }
         }
+    }
+
+    private fun startCoffeActivity() {
+        Intent(context, CoffeeActivity::class.java).also {
+            it.addFlags(
+                Intent.FLAG_ACTIVITY_NEW_TASK or
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP
+            )
+            startActivity(it)
+        }
+
     }
 
     override fun onDestroyView() {
