@@ -4,11 +4,7 @@ import androidx.lifecycle.*
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.domain.main.shop.ShopUseCase
 import com.example.coffeeapp.domain.main.shop.location.LocationUseCase
-import com.example.coffeeapp.domain.main.shop.model.Shop
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ShopViewModel @Inject constructor(

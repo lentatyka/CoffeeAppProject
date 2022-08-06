@@ -1,5 +1,6 @@
 package com.example.coffeeapp.presentation.login
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,22 +8,32 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.EventObserver
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.common.Utils
 import com.example.coffeeapp.databinding.FragmentRegistrationBinding
+import com.example.coffeeapp.presentation.ViewModelFactory
+import javax.inject.Inject
 
 class RegistrationFragment : Fragment() {
 
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
 
-    val loginViewModel by lazy {
-        (activity as LoginActivity).loginViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    val loginViewModel by activityViewModels<LoginViewModel> {
+        viewModelFactory
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as LoginActivity).loginComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

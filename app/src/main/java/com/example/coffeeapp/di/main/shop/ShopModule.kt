@@ -28,6 +28,7 @@ abstract class ShopModule {
     abstract fun bindFakeShopServiceApi(api: ShopServiceApi.FakeShopService): ShopServiceApi
 
     @Binds
+    @ShopScope
     abstract fun bindShopRepository(repository: ShopRepositoryImpl): ShopRepository
 
     @Binds

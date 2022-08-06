@@ -3,6 +3,7 @@ package com.example.coffeeapp.di
 import android.app.Application
 import com.example.coffeeapp.di.login.LoginComponent
 import com.example.coffeeapp.di.main.RoomModule
+import com.example.coffeeapp.di.main.map.MapComponent
 import com.example.coffeeapp.di.main.menu.MenuComponent
 import com.example.coffeeapp.di.main.order.OrderComponent
 import com.example.coffeeapp.di.main.shop.ShopComponent
@@ -36,6 +37,6 @@ interface AppComponent {
 
     val orderComponent: OrderComponent.Factory
 
-//    val mainComponent: MainComponent.Factory
+    val mapComponent: MapComponent.Factory
 
 }

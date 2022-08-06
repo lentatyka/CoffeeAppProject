@@ -10,26 +10,20 @@ import com.example.coffeeapp.CoffeeApp
 import com.example.coffeeapp.R
 import com.example.coffeeapp.di.login.LoginComponent
 import com.example.coffeeapp.di.login.LoginScope
+import com.example.coffeeapp.presentation.ViewModelFactory
 import javax.inject.Inject
 
 @LoginScope
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var loginComponent: LoginComponent
-
-    @Inject
-    lateinit var viewModelFactory:LoginViewModelFactory
-
-    val loginViewModel by viewModels<LoginViewModel> {
-        viewModelFactory
-    }
+    lateinit var loginComponent: LoginComponent
 
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         loginComponent = (application as CoffeeApp).appComponent.loginComponent().create()
-        loginComponent.inject(this)
+//        loginComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)

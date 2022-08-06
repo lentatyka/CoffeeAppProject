@@ -7,12 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.common.Event
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.data.login.network.UserInfoDto
-import com.example.coffeeapp.di.login.LoginScope
 import com.example.coffeeapp.domain.login.network.LoginUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@LoginScope
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
 ) : ViewModel() {
