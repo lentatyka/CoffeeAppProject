@@ -16,8 +16,8 @@ import com.example.coffeeapp.R
 import com.example.coffeeapp.common.Utils
 import com.example.coffeeapp.common.Utils.launchWhenStarted
 import com.example.coffeeapp.databinding.FragmentOrderBinding
-import com.example.coffeeapp.presentation.main.CoffeeActivity
 import com.example.coffeeapp.presentation.ViewModelFactory
+import com.example.coffeeapp.presentation.main.CoffeeActivity
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 

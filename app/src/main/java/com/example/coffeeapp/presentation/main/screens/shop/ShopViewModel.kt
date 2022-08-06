@@ -1,10 +1,13 @@
 package com.example.coffeeapp.presentation.main.screens.shop
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.coffeeapp.common.State
 import com.example.coffeeapp.domain.main.shop.ShopUseCase
 import com.example.coffeeapp.domain.main.shop.location.LocationUseCase
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 class ShopViewModel @Inject constructor(

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.coffeeapp.CoffeeApp
-import com.example.coffeeapp.R
 import com.example.coffeeapp.data.storage.LoadSharedPreferencesStorage
 import com.example.coffeeapp.presentation.login.LoginActivity
 import javax.inject.Inject

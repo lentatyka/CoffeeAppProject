@@ -2,7 +2,6 @@ package com.example.coffeeapp.data.main.order.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 
 @Entity(tableName = "orders", primaryKeys = ["id", "ownerId"])
 data class OrderItemDto(

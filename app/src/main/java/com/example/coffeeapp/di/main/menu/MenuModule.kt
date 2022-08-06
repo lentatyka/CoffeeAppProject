@@ -3,8 +3,8 @@ package com.example.coffeeapp.di.main.menu
 import androidx.lifecycle.ViewModel
 import com.example.coffeeapp.data.main.menu.local.LocalMenuRepositoryImpl
 import com.example.coffeeapp.data.main.menu.local.MenuDao
-import com.example.coffeeapp.data.main.menu.remote.RemoteMenuRepositoryImpl
 import com.example.coffeeapp.data.main.menu.remote.MenuServiceApi
+import com.example.coffeeapp.data.main.menu.remote.RemoteMenuRepositoryImpl
 import com.example.coffeeapp.data.main.room.ShopDatabase
 import com.example.coffeeapp.di.ViewModelKey
 import com.example.coffeeapp.domain.main.menu.local.LocalMenuRepository

@@ -16,12 +16,11 @@ import com.example.coffeeapp.common.State
 import com.example.coffeeapp.common.Utils.launchWhenStarted
 import com.example.coffeeapp.data.main.menu.model.MenuItem
 import com.example.coffeeapp.databinding.FragmentMenuBinding
-import com.example.coffeeapp.presentation.main.CoffeeActivity
 import com.example.coffeeapp.presentation.ViewModelFactory
+import com.example.coffeeapp.presentation.main.CoffeeActivity
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 

@@ -5,7 +5,10 @@ import com.example.coffeeapp.common.State
 import com.example.coffeeapp.domain.main.shop.location.LocationRepository
 import com.example.coffeeapp.domain.main.shop.model.Shop
 import com.example.coffeeapp.domain.main.shop.remote.ShopRepository
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 class ShopUseCase @Inject constructor(
