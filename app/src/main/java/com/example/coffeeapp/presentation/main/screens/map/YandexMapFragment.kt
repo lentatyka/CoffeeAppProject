@@ -7,15 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.coffeeapp.BuildConfig
 import com.example.coffeeapp.R
 import com.example.coffeeapp.common.Utils.launchWhenStarted
 import com.example.coffeeapp.databinding.FragmentMapBinding
-import com.example.coffeeapp.presentation.main.CoffeeActivity
 import com.example.coffeeapp.presentation.main.screens.shop.ShopViewModel
-import com.yandex.mapkit.MapKitFactory
 import kotlinx.coroutines.flow.onEach
 
 class YandexMapFragment : Fragment() {
@@ -40,7 +36,7 @@ class YandexMapFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        shopViewModel.shopList.onEach {
+        shopViewModel.shops.onEach {
             Log.d("TAG", "COLLECT: $it")
         }.launchWhenStarted(lifecycleScope)
     }

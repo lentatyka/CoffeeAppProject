@@ -7,7 +7,6 @@ import com.example.coffeeapp.domain.main.shop.model.Shop
 import com.example.coffeeapp.domain.main.shop.remote.ShopRepository
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
-import kotlin.random.Random
 
 class ShopUseCase @Inject constructor(
     private val shopRepository: ShopRepository,
@@ -28,23 +27,23 @@ class ShopUseCase @Inject constructor(
 
     fun getShopListLocation(): Flow<List<Shop>> {
         return locationRepository.getLocation().map { location ->
-            shopRepository.getShopListDto().map { shop ->
+            shopRepository.getShopListDto().map { shopDto ->
                 Shop(
-                    id = shop.id.toLong(),
-                    name = shop.name,
-                    point = shop.point,
+                    id = shopDto.id.toLong(),
+                    name = shopDto.name,
+                    point = shopDto.point,
                     distance = location.distanceTo(Location("").apply {
-                        latitude = shop.point.latitude
-                        longitude = shop.point.longitude
+                        latitude = shopDto.point.latitude
+                        longitude = shopDto.point.longitude
                     }).toInt()
                 )
             }
         }.onStart {
-            shopRepository.getShopListDto().map {shop->
+            shopRepository.getShopListDto().map { shopDto ->
                 Shop(
-                    id = shop.id.toLong(),
-                    name = shop.name,
-                    point = shop.point
+                    id = shopDto.id.toLong(),
+                    name = shopDto.name,
+                    point = shopDto.point
                 )
             }.also {
                 emit(it)

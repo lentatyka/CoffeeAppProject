@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeapp.R
+import com.example.coffeeapp.common.State
 import com.example.coffeeapp.common.Utils
 import com.example.coffeeapp.common.Utils.launchWhenStarted
 import com.example.coffeeapp.databinding.FragmentShopBinding
@@ -89,7 +91,6 @@ class ShopFragment : Fragment() {
                 }
             }
         }
-        setAdapter()
         setViewModel()
         binding.showMapBtn.setOnClickListener {
             ShopFragmentDirections.actionShopsFragmentToYandexMapFragment().also(
@@ -99,11 +100,11 @@ class ShopFragment : Fragment() {
     }
 
     private fun setViewModel() {
-        shopViewModel.shopList
-            .onEach(shopLocationAdapted::submitList)
-            .launchWhenStarted(lifecycleScope)
-
-        shopViewModel.state.onEach(binding::setState).launchWhenStarted(lifecycleScope)
+        shopViewModel.state.onEach { state ->
+            binding.state = state
+            if (state is State.Success)
+                setAdapter()
+        }.launchWhenStarted(lifecycleScope)
     }
 
     private fun setAdapter() {
@@ -116,6 +117,8 @@ class ShopFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = shopLocationAdapted
         }
+        shopViewModel.shops.onEach(shopLocationAdapted::submitList)
+            .launchWhenStarted(lifecycleScope)
     }
 
     override fun onStop() {

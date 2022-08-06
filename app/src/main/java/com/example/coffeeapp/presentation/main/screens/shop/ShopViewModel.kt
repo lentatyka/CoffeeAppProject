@@ -12,55 +12,35 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ShopViewModel @Inject constructor(
-    private val shopsUseCase: ShopUseCase,
+    shopsUseCase: ShopUseCase,
     private val locationUseCase: LocationUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<State<Nothing>>(State.Loading)
-    val state: StateFlow<State<Nothing>> = _state.asStateFlow()
+    val state = shopsUseCase.loadShopList().stateIn(
+        scope = viewModelScope,
+        initialValue = State.Loading,
+        started = SharingStarted.WhileSubscribed()
+    )
 
-    private var job: Job? = null
+    val shops = shopsUseCase.getShopListLocation().shareIn(
+        scope = viewModelScope,
+        replay = 1,
+        started = SharingStarted.WhileSubscribed()
+    )
 
     private var locationPermissionGranted = false
 
-    private val _shopList =
-        MutableSharedFlow<List<Shop>>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val shopList: SharedFlow<List<Shop>> = _shopList.asSharedFlow()
-
-    init {
-        viewModelScope.launch {
-            shopsUseCase.loadShopList().collect(_state::emit)
-        }
-    }
-
     fun startUpdateLocation() {
-        _state.value.also{ state ->
-            if (state is State.Success) {
-                if (locationPermissionGranted)
-                    locationUseCase.startUpdateLocation()
-                getShopListLocation()
-            }
-        }
+        if (locationPermissionGranted)
+            locationUseCase.startUpdateLocation()
     }
 
     fun stopUpdateLocation() {
-        job?.let {
-            locationUseCase.stopUpdateLocation()
-            it.cancel()
-        }
+        locationUseCase.stopUpdateLocation()
     }
 
     fun setLocationEnable(isEnabled: Boolean) {
         locationPermissionGranted = isEnabled
-    }
-
-    private fun getShopListLocation() {
-        if (job == null) {
-            job = viewModelScope.launch {
-                shopsUseCase.getShopListLocation().collect(_shopList::emit)
-            }
-            job?.start()
-        }
     }
 
     override fun onCleared() {

@@ -20,7 +20,7 @@ interface ShopServiceApi {
         )
 
         override suspend fun invoke(): ArrayList<ShopDto> {
-//            delay(2000) // Loading from net imitation
+            delay(2000) // Loading from net imitation
             return shopsList
         }
     }
